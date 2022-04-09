@@ -1,0 +1,11 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <ng-container *ngFor="let opt of menuOptions">
+    <button mat-menu-item (click)="onMenuOptClick(opt)">
+      <mat-icon>{{ opt.icon }}</mat-icon>
+      <span> {{ opt.display}} </span>
+    </button>
+  </ng-container>
+</mat-menu>

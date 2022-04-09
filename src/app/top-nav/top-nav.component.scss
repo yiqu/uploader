@@ -1,0 +1,42 @@
+mat-toolbar.app-toolbar {
+  height: 50px;
+}
+
+.app-header {
+  border-bottom: 1px solid rgb(218, 220, 224);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 4px 0px;
+
+  button.mat-icon-button {
+    color: #fff;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: #ffffffd6;
+  }
+}
+
+.logo-img {
+  height: 35px;
+}
+
+.banner-text {
+  font-weight: 500;
+  font-size: 23px;
+}
+
+::ng-deep .mat-badge-medium.mat-badge-above .mat-badge-content {
+  top: -6px !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .section-parent {
+    min-width: 15rem;
+  }
+}
+
+.toggle-parent {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+}

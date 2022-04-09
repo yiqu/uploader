@@ -1,0 +1,9 @@
+.progress {
+  height: 7px;
+  .progress-bar {
+    background-color: #2261a1;
+  }
+  div.progress-bar-animated {
+    animation: 0.2s linear infinite progress-bar-stripes;
+  }
+}

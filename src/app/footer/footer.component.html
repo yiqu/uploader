@@ -1,0 +1,44 @@
+<mat-toolbar class="footer-parent title-bar-bg">
+  <div class="container-fluid">
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="50px">
+      <!-- App logo -->
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <div class="img-parent">
+          <img src="assets/img/bulb.png" class="footer-img" alt="logo">
+        </div>
+        <div class="quicksand logo-txt">{{ appTitle }}</div>
+        <div>
+          {{ this.ms.getAppVersion$ | async }}
+        </div>
+      </div>
+
+      <!-- Links -->
+      <ng-container *ngFor="let section of footerSections">
+        <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <section class="w-100">
+            {{ section.title }}
+          </section>
+          <section class="w-100">
+            <ul>
+              <ng-container *ngFor="let link of section.links">
+                <li>
+                  <a [href]="link.url" target="_blank">
+                    {{ link.text }}
+                  </a>
+                </li>
+              </ng-container>
+            </ul>
+          </section>
+        </div>
+
+      </ng-container>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
+      <div class="">{{ footerTitle }} </div>
+      <a [href]="myUrl" target="_blank">Come visit me</a>
+    </div>
+  </div>
+
+
+</mat-toolbar>

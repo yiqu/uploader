@@ -1,1 +1,328 @@
+
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+/* @import '@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+@import "@fontsource/roboto/300.css";
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
+@import "@fontsource/roboto/100.css";
+@import "@fontsource/poppins/300.css";
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource/poppins/100.css";
+@import "@fontsource/comfortaa/400.css";
+@import "@fontsource/comfortaa/300.css";
+@import "@fontsource/quicksand/300.css";
+@import "@fontsource/quicksand/400.css";
+@import "@fontsource/quicksand/500.css";
+@import "@fontsource/quicksand/700.css";
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+
+body {
+  /* margin: 0;  */
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #24292e;
+}
+
+.wrapper {
+  min-height: calc(100vh - 50px);
+}
+
+.roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.quicksand {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.comfortaa {
+  font-family: 'Comfortaa', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.fs-10 {
+  font-size: 10px;
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-13 {
+  font-size: 13px;
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.fs-18 {
+  font-size: 18px;
+}
+
+.img-h-100 {
+  height: 100%;
+}
+
+.full-w {
+  width: 100%;
+}
+
+.fw-700 {
+  font-weight: 700;
+}
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.fw-400 {
+  font-weight: 400;
+}
+
+.f-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.center-align {
+  display: flex;
+  justify-content: center;
+}
+
+.left-align {
+  display: flex;
+  justify-content: left;
+}
+
+.v-self-align-center {
+  display: flex;
+  align-self: center;
+}
+
+.round-corners {
+  border-radius: 50%;
+}
+
+.v-center {
+  display: flex;
+  align-items: center;
+}
+
+p {
+  line-height: 1.6;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.logo-img {
+  height: 35px;
+}
+
+/**
+Used to sticky button rows, etc
+**/
+.sticky-top {
+  position: sticky;
+  top: 0;
+  background-color: #cfe2f7;
+  z-index: 3;
+  padding: 10px;
+  padding-left: 0px;
+}
+
+.border-grey-light {
+  border-color: #eaecef !important;
+  border: 1px solid;
+}
+
+
+ /* Extra small devices (phones, 600px and down) */
+ @media only screen and (max-width: 600px) {}
+
+ /* Small devices (portrait tablets and large phones, 600px and up) */
+ @media only screen and (min-width: 600px) {}
+
+ /* Medium devices (landscape tablets, 768px and up) */
+ @media only screen and (min-width: 768px) {}
+
+ /* Large devices (laptops/desktops, 992px and up) */
+ @media only screen and (min-width: 992px) {}
+
+ /* Extra large devices (large laptops and desktops, 1200px and up) */
+ @media only screen and (min-width: 1200px) {}
+
+ .app-is-mobile .app-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+mat-sidenav {
+  width: 220px;
+}
+
+.app-snackbar {
+  color: #eee !important;
+}
+
+.loading-bg {
+  background-color: #f3f3f3;
+  background-image: linear-gradient(
+    to right,
+    transparent 33%,
+    rgb(143 167 220 / 30%) 50%,
+    transparent 66%
+  );
+  background-size:300% 100%;
+  animation: shine 1s infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: right;
+  }
+  /*100% {
+    background-position: left; it's the default value, no need to define it
+  }*/
+}
+
+.lg-img {
+  height: 75px;
+}
+
+.lg-img-parent {
+  display: flex;
+  justify-content: center;
+}
+
+.z-100 {
+  z-index: 100;
+}
+
+.title-bar-bg {
+  background-color: #2a2961;
+  color: #fff;
+}
+
+.color-white {
+  color: #fff;
+}
+
+
+
+/**
+H tags
+**/
+h1 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+.drop-logo {
+  height: 7rem;
+  border: 2px dotted rgba(204, 204, 204, 0.308);
+}
+
+.list-group-item {
+  padding: 0.75rem 0.5rem;
+  border-top: 0px;
+}
+
+/**
+Material override **/
+
+button.mat-stroked-button, button.mat-button, button.mat-flat-button {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.container-fluid .mat-tab-header {
+  margin-bottom: 15px;
+}
+
+mat-list-item mat-icon {
+  cursor: default;
+}
+
+mat-card-header .mat-card-header-text {
+  width: 100% !important;
+}
+
+.siling-tab-group .mat-tab-label-active {
+  color: #6873c9;
+  opacity: 1;
+}
+
+app-core-siling-column-entry .list-group-item {
+  padding: 0.2rem 0.5rem;
+}
+
+app-core-siling-column .card-header {
+  padding: 0.35rem .25rem;
+}
+
+button .mat-icon {
+  margin-top: -1px;
+}
+
+
+/**
+Filter dialog
+**/
+mat-dialog-container.mat-dialog-container {
+  padding: 0px;
+}
+section.title {
+  padding: 15px;
+  font-size: 18px;
+}
+
+.cdk-overlay-pane.new-siling1k-entry {
+  overflow-y: auto;
+}
+
+.cdk-overlay-pane.filter-dialog-container {
+  overflow-y: auto;
+}
+
+/**
+Zorro
+**/
+.ant-message-notice {
+  .ant-message-notice-content {
+    background-color: #e6e6e6;
+    color: #2a2961;
+  }
+}
+
+.ant-menu-submenu .ant-menu-submenu-title {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}

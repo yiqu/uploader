@@ -1,0 +1,17 @@
+<div class="">
+  <input type="file" multiple class="upload-input" #uploadInput (change)="onFileInputClick($event)">
+</div>
+<div class="" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="15px">
+  <div class="quicksand upload-action" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
+    (click)="onFileUpload()">
+    <div class="text">
+      Select items to upload
+    </div>
+
+    <div>
+      <button mat-fab color="primary" aria-label="Upload files">
+        <mat-icon>file_upload</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

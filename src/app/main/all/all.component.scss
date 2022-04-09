@@ -1,0 +1,16 @@
+.upload-action {
+  border: 1px solid #ccc;
+  padding: 5px 25px;
+  border-radius: 30px;
+  background-color: #e6f2ff;
+  cursor: pointer;
+
+  .text {
+    font-size: 20px;
+  }
+}
+
+.upload-input {
+  display: none;
+  height: 0px;
+}
