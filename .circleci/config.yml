@@ -1,0 +1,64 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/myapp
+    docker:
+      - image: cimg/node:14.19-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: myapp-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm ci
+      - save_cache:
+          key: myapp-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
+      - run: sudo npm install -g @angular/cli > /dev/null
+      - run: echo "Building for PROD"
+      - run: |
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            ng build --configuration=production --base-href=/uploader/
+          else
+            npm run build
+          fi
+      - persist_to_workspace:
+          root: ~/myapp
+          paths:
+            - dist/*
+  deploy:
+    working_directory: ~/myapp
+    docker:
+      - image: node:8.10.0
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - '76:12:b9:f2:72:63:cf:c5:27:d7:e7:c4:be:67:01:ea'
+      - checkout
+      - attach_workspace:
+          at: ~/myapp
+      - run:
+          name: Install gh-pages
+          command: |
+            npm install -g --silent gh-pages
+      - run:
+          name: Configure git
+          command: |
+            git config user.email "circleci@example.com"
+            git config user.name "CircleCi"
+      - run:
+          name: Deploy to gh-pages branch
+          command: gh-pages --message "[ci skip]" -d dist/uploader
+
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
