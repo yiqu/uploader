@@ -1,0 +1,30 @@
+<mat-nav-list class="pb-5 side-nav">
+  <div class="nav-title-container if" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="nav-title quicksand fw-500" (click)="onTitleClick()" fxLayout="row" fxLayoutAlign="start center"
+      fxLayoutGap="5px">
+      <!-- <div>
+        <img src="assets/banner/money.png" class="logo-img" alt="logo">
+      </div> -->
+      <div class="text">
+        {{navTitle}}
+      </div>
+    </div>
+    <div class="">
+      <button mat-icon-button class="mat-elevation-z0" (click)="onNavClose()">
+        <mat-icon>menu_open</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngFor="let hl of headerList; first as isFirst">
+    <div mat-subheader class="sub-header if" [class]="isFirst?'':'mt-3'">{{hl.header.display}}</div>
+    <ng-container *ngFor="let hlc of hl.links">
+      <a class="fs-13" mat-line [routerLink]="hlc.url" (click)="onNavItemClick()">
+        <mat-list-item [routerLinkActive]="'link-active'">
+          <mat-icon mat-list-icon>{{hlc.iconName}}</mat-icon>
+          <div class="fs-13 selection-text" mat-line>{{hlc.display}}</div>
+        </mat-list-item>
+      </a>
+    </ng-container>
+  </ng-container>
+</mat-nav-list>

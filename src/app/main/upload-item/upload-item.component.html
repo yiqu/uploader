@@ -1,3 +1,26 @@
-<div class="">
+<ng-container *ngIf="file">
+  <div class="file-parent">
+    <div class="card">
+      <ng-container *ngIf="true">
+        <div class="progress-parent">
+          <shared-loading-bar [progress]="file.progress" [mode]="'determinate'"></shared-loading-bar>
+        </div>
+      </ng-container>
+      <div class="image-parent">
+        <img [src]="imgPreview" class="preview-img">
+      </div>
+      <div class="w-100" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <div class="">
+          {{ file.fileName }}
+        </div>
+        <div class="">
+          {{ file.fileSize }}
+        </div>
+        <div class="">
+          {{ file.dateModified | dateDisplay:'MDY' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
 
-</div>

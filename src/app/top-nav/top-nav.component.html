@@ -1,5 +1,9 @@
 <mat-toolbar class="app-toolbar app-header title-bar-bg" fxLayout="row" fxLayoutAlign="space-between center">
   <div class="" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+    <button mat-icon-button color="primary" (click)="onMenuClick()"
+      class="mat-elevation-z0">
+        <mat-icon>menu</mat-icon>
+    </button>
     <div class="">
       <a [routerLink]="'/'" class="color-white" (click)="onLogoClick()"
         fxLayout="row" fxLayoutAlign="start center">
@@ -10,8 +14,6 @@
       </a>
     </div>
   </div>
-
-
 
   <div class="">
     <button mat-icon-button [matMenuTriggerFor]="menu" class="user-dropdown">

@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { UploadFile } from '../store/upload.state';
 import { FileUploadService } from '../upload.service';
 
 @Component({
@@ -32,5 +33,9 @@ export class HomeComponent implements OnInit {
         this.fs.attachFile(files[index], new Date().getTime() + index + '');
       });
     }
+  }
+
+  trackById(index: number, uploadFile: UploadFile) {
+    return uploadFile.id;
   }
 }

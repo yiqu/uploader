@@ -23,6 +23,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { ROUTER_STATE } from './store/router/router.state';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, RippleGlobalOptions } from '@angular/material/core';
+import { SideNavModule } from './side-nav/side-nav.module';
 
 
 const icons: IconDefinition[] = [ AppstoreOutline, ProjectFill, ContainerFill,
@@ -47,6 +48,7 @@ const globalRippleConfig: RippleGlobalOptions = {
     NoopAnimationsModule,
     SharedBudleModule,
     TopNavModule,
+    SideNavModule,
     FooterModule,
     NotFoundComponentModule,
     NzIconModule.forRoot(icons),

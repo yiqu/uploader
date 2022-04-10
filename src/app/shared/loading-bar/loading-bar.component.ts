@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ProgressBarMode } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'shared-loading-bar',
@@ -6,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loading-bar.component.scss']
 })
 export class LoadingBarComponent implements OnInit {
+
+  @Input()
+  progress: number = 0;
+
+  @Input()
+  mode: ProgressBarMode = 'indeterminate';
 
   constructor() {
   }

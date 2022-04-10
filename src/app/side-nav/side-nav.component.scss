@@ -1,0 +1,84 @@
+.nav-title-container {
+  padding-left: 24px;
+  padding-bottom: 10px;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  padding-top: 10px;
+
+  .text {
+    color: #333;
+  }
+}
+
+.nav-title {
+  cursor: pointer;
+}
+
+.mat-nav-list mat-list-item {
+  height: 30px;
+  font-size: 13px;
+}
+
+mat-list-item:hover {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+mat-nav-list.side-nav {
+  min-height: 100%
+}
+
+.side-nav {
+  background-color: #f0f0f0;
+}
+
+mat-list-item.link-active {
+  background-color: #d3d1f3;
+  color: #2a2961;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+mat-list-item.link-active {
+  .mat-line {
+    font-weight: 500;
+  }
+}
+
+mat-list-item.link-active:hover {
+  background-color: #d3d1f3;
+  color: #2a2961;
+}
+
+mat-list-item.link-active {
+  .mat-list-text {
+    .mat-line {
+      font-weight: 500;
+    }
+  }
+}
+
+.sub-header {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+}
+
+ul {
+  background-color: #f0f0f0;
+}
+
+.ant-menu-inline .ant-menu-item {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+div.ant-menu-submenu-title {
+  height: 24px;
+}
+
+li.ant-menu-item {
+  height: 24px;
+}

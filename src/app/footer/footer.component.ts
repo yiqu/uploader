@@ -26,8 +26,8 @@ export class AppFooterComponent implements OnInit {
     this.footerSections.push(
       new FooterSection('About',
         [
-          new FooterLink('What is PokemonDB', ''),
-          new FooterLink('What is Pokemon', ''),
+          new FooterLink('What is Uploader', ''),
+          new FooterLink('What are Files', ''),
         ]
       ),
       new FooterSection('Developers',
