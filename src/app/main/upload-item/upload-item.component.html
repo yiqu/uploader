@@ -1,26 +1,66 @@
 <ng-container *ngIf="file">
   <div class="file-parent">
     <div class="card">
-      <ng-container *ngIf="true">
-        <div class="progress-parent">
+      <div class="progress-parent">
+        <ng-container *ngIf="file.progress">
           <shared-loading-bar [progress]="file.progress" [mode]="'determinate'"></shared-loading-bar>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" class="loading-status poppins">
+        <ng-container *ngIf="file.progress < 100; else finished">
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <!-- <div fxLayout="column" fxLayoutAlign="center center" >
+              <mat-icon class="progress">check_circle</mat-icon>
+            </div> -->
+            <div>
+              Uploading...
+            </div>
+          </div>
+        </ng-container>
+      </div>
       <div class="image-parent">
         <img [src]="imgPreview" class="preview-img">
       </div>
-      <div class="w-100" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-        <div class="">
-          {{ file.fileName }}
+      <div class="w-100">
+        <hr>
+      </div>
+      <div class="w-100 poppins info-parent" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+        <div class="info-line" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+          <div class="label">
+            File Name:
+          </div>
+          <div class="value">
+            {{ file.fileName }}
+          </div>
         </div>
-        <div class="">
-          {{ file.fileSize }}
+        <div class="info-line" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+          <div class="label">
+            File Size:
+          </div>
+          <div class="value">
+            {{ file.fileSize }}
+          </div>
         </div>
-        <div class="">
-          {{ file.dateModified | dateDisplay:'MDY' }}
+        <div class="info-line" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+          <div class="label">
+            Date modified:
+          </div>
+          <div>
+            {{ file.dateModified | dateDisplay:'MDY' }}
+          </div>
         </div>
       </div>
     </div>
   </div>
 </ng-container>
 
+<ng-template #finished>
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <div fxLayout="column" fxLayoutAlign="center center" >
+      <mat-icon class="done">check_circle</mat-icon>
+    </div>
+    <div>
+      Completed
+    </div>
+  </div>
+</ng-template>

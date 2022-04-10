@@ -9,7 +9,7 @@ import { ProgressBarMode } from '@angular/material/progress-bar';
 export class LoadingBarComponent implements OnInit {
 
   @Input()
-  progress: number = 0;
+  progress?: number;
 
   @Input()
   mode: ProgressBarMode = 'indeterminate';

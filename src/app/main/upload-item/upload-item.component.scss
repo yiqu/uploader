@@ -1,11 +1,20 @@
 .file-parent {
   margin-top: 30px;
 
+  .card {
+    background-color: #ededf7;
+  }
+
+  .loading-status {
+    font-size: 13px;
+    height: 25px;
+  }
+
   .image-parent {
     height: 15rem;
-    width: 15rem;
+    width: 100%;
     overflow: hidden;
-    background-color: #eee;
+    text-align: center;
 
     .preview-img {
       height: 100%;
@@ -18,6 +27,40 @@
 
   .progress-parent {
     height: 10px;
+  }
+
+  .info-parent {
+    padding: 0px 10px 0px 10px;
+    height: 7rem;
+    overflow: hidden;
+    font-size: 13px;
+  }
+
+  .info-parent:hover {
+    overflow: auto;
+  }
+
+  .info-line {
+    .label {
+      font-weight: 500;
+    }
+    .value {
+
+    }
+  }
+
+  mat-icon.done {
+    font-size: 18px;
+    color: #009933;
+    text-align: center;
+    height: 100%;
+  }
+
+  mat-icon.progress {
+    font-size: 18px;
+    color: #b38600;
+    text-align: center;
+    height: 100%;
   }
 }
 
