@@ -13,19 +13,22 @@
               <mat-icon class="progress">check_circle</mat-icon>
             </div> -->
             <div>
-              Uploading...
+              Uploading ( {{ file.progress }}% )
             </div>
           </div>
         </ng-container>
       </div>
-      <div class="image-parent">
-        <img [src]="imgPreview" class="preview-img">
-      </div>
+      <ng-container *ngIf="isImgType; else notImg">
+        <div class="image-parent">
+          <img [src]="imgPreview" class="preview-img">
+        </div>
+      </ng-container>
+
       <div class="w-100">
         <hr>
       </div>
       <div class="w-100 poppins info-parent" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
-        <div class="info-line" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <div class="info-line" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
           <div class="label">
             File Name:
           </div>
@@ -33,15 +36,15 @@
             {{ file.fileName }}
           </div>
         </div>
-        <div class="info-line" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <div class="info-line" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
           <div class="label">
             File Size:
           </div>
           <div class="value">
-            {{ file.fileSize }}
+            {{ file.fileSize | fileSizeDisplay }}
           </div>
         </div>
-        <div class="info-line" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <div class="info-line" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
           <div class="label">
             Date modified:
           </div>
@@ -62,5 +65,13 @@
     <div>
       Completed
     </div>
+  </div>
+</ng-template>
+
+<ng-template #notImg>
+  <div class="image-parent">
+    <mat-icon class="file-icon" fxLayout="row" fxLayoutAlign="center center">
+      description
+    </mat-icon>
   </div>
 </ng-template>

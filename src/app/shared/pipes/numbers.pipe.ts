@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import memo from 'memo-decorator';
+import { humanFileSize } from "../general.utils";
 
 @Pipe({
   name: 'roundNumberDisplay',
@@ -143,3 +144,14 @@ export class ProfileGainBgColorPipe implements PipeTransform {
   }
 }
 
+@Pipe({
+  name: 'fileSizeDisplay',
+  pure: true
+})
+export class FileSizeDisplayPipe implements PipeTransform {
+
+  @memo()
+  transform(value: number): string {
+    return humanFileSize(value);
+  }
+}

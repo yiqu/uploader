@@ -6,7 +6,7 @@ import { UserDisplayPipe } from './user.pipe';
 import { CapitalizeFirstLetterPipe } from './letters.pipe';
 import { TableColumnDisplayPipe, TableDataDisplayPipe } from './table.pipe';
 import { SilingCompanyDisplay, SilingEntryTooltipDisplay } from './tooltip.pipe';
-import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, ProfitGainClassPipe, ProfileGainBgColorPipe, ProfitPercentIconClassPipe } from './numbers.pipe';
+import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, ProfitGainClassPipe, ProfileGainBgColorPipe, ProfitPercentIconClassPipe, FileSizeDisplayPipe } from './numbers.pipe';
 import { FormErrorDisplayPipe } from './form-utils.pipe';
 import { MenuOpenStatusPipe, UrlFromArray } from './general.pipe';
 
@@ -33,7 +33,8 @@ import { MenuOpenStatusPipe, UrlFromArray } from './general.pipe';
     ProfitPercentIconClassPipe,
     FormErrorDisplayPipe,
     UrlFromArray,
-    MenuOpenStatusPipe
+    MenuOpenStatusPipe,
+    FileSizeDisplayPipe
   ],
 
   declarations: [
@@ -56,7 +57,8 @@ import { MenuOpenStatusPipe, UrlFromArray } from './general.pipe';
     ProfitPercentIconClassPipe,
     FormErrorDisplayPipe,
     UrlFromArray,
-    MenuOpenStatusPipe
+    MenuOpenStatusPipe,
+    FileSizeDisplayPipe
   ],
 
   providers: [

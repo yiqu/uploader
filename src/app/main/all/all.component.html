@@ -17,7 +17,7 @@
   <ng-container *ngIf="(this.fs.filesUploadingAll$ | async) as files">
     <section class="w-100" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
       <ng-container *ngFor="let file of files; trackBy:trackById">
-        <div fxFlex="25">
+        <div fxFlex.gt-sm="25" fxFlex="100">
           <app-upload-item [file]="file"></app-upload-item>
         </div>
       </ng-container>
