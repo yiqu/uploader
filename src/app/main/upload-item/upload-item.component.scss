@@ -2,6 +2,8 @@
   margin-top: 30px;
 
   .card {
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
     background-color: #ededf7;
   }
 
@@ -27,6 +29,7 @@
 
   .progress-parent {
     height: 10px;
+    width: 90%;
   }
 
   .info-parent {
