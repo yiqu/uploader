@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "udemy-angular-665a2"
+  },
+  "targets": {
+    "udemy-angular-665a2": {
+      "hosting": {
+        "uploader": [
+          "mydropbox"
+        ]
+      }
+    }
+  }
+}
