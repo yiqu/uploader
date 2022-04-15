@@ -1,11 +1,6 @@
 <ng-container *ngIf="file">
   <div class="file-parent">
     <div class="card">
-      <div class="progress-parent">
-        <ng-container *ngIf="file.progress">
-          <shared-loading-bar [progress]="file.progress" [mode]="'determinate'"></shared-loading-bar>
-        </ng-container>
-      </div>
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" class="loading-status poppins">
         <ng-container *ngIf="file.progress < 100; else finished">
           <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
@@ -17,6 +12,13 @@
             </div>
           </div>
         </ng-container>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div class="progress-parent">
+          <ng-container *ngIf="file.progress">
+            <shared-loading-bar [progress]="file.progress" [mode]="'determinate'"></shared-loading-bar>
+          </ng-container>
+        </div>
       </div>
       <ng-container *ngIf="isImgType; else notImg">
         <div class="image-parent">
