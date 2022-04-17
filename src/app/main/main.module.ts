@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { LoadingModule } from '../shared/loading/loading.module';
@@ -19,6 +20,7 @@ import { UploadItemComponent } from './upload-item/upload-item.component';
     PipeBundleModule,
     StoreModule.forFeature(UPLOAD_FILE_STORE_KEY, fileUploadEntityReducerFunc),
     EffectsModule.forFeature(fileUploadEntityEffect),
+    AngularFireStorageModule,
     MainRoutingModule
   ],
 

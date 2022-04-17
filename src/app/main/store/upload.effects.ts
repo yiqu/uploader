@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { OnInitEffects } from "@ngrx/effects";
-import { tap, concatMap, switchMap, map, mergeMap, catchError, exhaustMap, take, filter } from 'rxjs/operators';
+import { tap, concatMap, switchMap, map, mergeMap, catchError, exhaustMap, take, filter, finalize } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
-import { throwError, timer } from 'rxjs';
+import { of, throwError, timer } from 'rxjs';
 import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
 import { Action } from '@ngrx/store';
 import * as fromUploadActions from './upload.actions';
+import { FileUploadService } from '../upload.service';
 
 
 
 @Injectable()
 export class FileUploadEffects {
 
-  constructor(public actions$: Actions) {
+  constructor(public actions$: Actions, private us: FileUploadService) {
   }
 
   attachFileForUpload$ = createEffect(() => {
@@ -22,11 +23,10 @@ export class FileUploadEffects {
       map((fileAttached) => {
         const file: File = fileAttached.file;
         const fileId: string = fileAttached.fileId;
-        console.log(fileId)
         return fromUploadActions.uploadFileStart({ fileId: fileId, file: file });
       })
     );
-  }, {dispatch: true});
+  }, { dispatch: true });
 
   uploadFileStart$ = createEffect(() => {
     return this.actions$.pipe(
@@ -34,11 +34,17 @@ export class FileUploadEffects {
       mergeMap((fileData) => {
         const fileId = fileData.fileId;
         const file = fileData.file;
-        return timer(0, 500).pipe(
-          take(10),
-          map((res) => {
-            const prog = (res+1) * 10;
-            return fromUploadActions.uploadFileUpdateProgress({ fileId, progress: prog });
+        const fileName = file.name ?? ('File-name-' + new Date().getTime());
+        return this.us.uploadFile(file, fileName).pipe(
+          map((progress) => {
+            return fromUploadActions.uploadFileUpdateProgress({ fileId, progress: progress });
+          }),
+          catchError((err) => {
+            console.error("Upload Error!" + err);
+            return of(fromUploadActions.uploadFileFailure({ errMsg: err }));
+          }),
+          finalize(() => {
+            console.log('done')
           })
         )
       })

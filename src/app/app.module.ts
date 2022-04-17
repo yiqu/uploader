@@ -19,12 +19,16 @@ import { appReducers } from './store/global/app.reducer';
 import { metaReducers } from './store/global/meta-reducer';
 import { appEffects } from './store/global/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { ROUTER_STATE } from './store/router/router.state';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, RippleGlobalOptions } from '@angular/material/core';
 import { SideNavModule } from './side-nav/side-nav.module';
-
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
+import { AngularFireModule } from '@angular/fire/compat';
 
 const icons: IconDefinition[] = [ AppstoreOutline, ProjectFill, ContainerFill,
   ProjectOutline, ContainerOutline ];
@@ -69,12 +73,18 @@ const globalRippleConfig: RippleGlobalOptions = {
       stateKey: ROUTER_STATE,
       routerState: RouterState.Minimal
     }),
+    AngularFireModule.initializeApp(environment.firebase),
+    //provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    //provideStorage(() => getStorage()),
+    AngularFireStorageModule
   ],
   providers: [
     {
       provide: MAT_RIPPLE_GLOBAL_OPTIONS,
       useValue: globalRippleConfig
-    }
+    },
+    //{ provide: BUCKET, useValue: 'photo-upload' }
   ],
   bootstrap: [AppComponent]
 })

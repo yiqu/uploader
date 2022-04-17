@@ -30,5 +30,5 @@ export const uploadFileFailure = createAction(
 
 export const uploadFileUpdateProgress = createAction(
   UPLOAD_FILE_UPDATE_PROGRESS,
-  props<{fileId: string, progress: number}>()
+  props<{fileId: string, progress: number | undefined}>()
 )
