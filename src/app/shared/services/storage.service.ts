@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
+import { AngularFireStorage, AngularFireStorageReference,
+  AngularFireUploadTask } from '@angular/fire/compat/storage';
 import * as moment from 'moment';
 
 const UPLOADER_BASE_URL: string = 'uploader-app';
@@ -12,15 +13,23 @@ export class StorageService {
   constructor(private storage: AngularFireStorage) {
   }
 
-  uploadBlob(blobFile: any, fileName: string): AngularFireUploadTask {
+  uploadBlob(blobFile: any, fileName: string): UploadTask {
     const filePath = UPLOADER_BASE_URL + '/' + this.getCurrentTime() + '/' + fileName;
-    const ref = this.storage.ref(filePath);
+    const ref: AngularFireStorageReference = this.storage.ref(filePath);
     const task: AngularFireUploadTask = ref.put(blobFile);
-    return task;
+    return {
+      ref,
+      task
+    };
   }
 
   private getCurrentTime(): string {
     return moment().format("MM-DD-YYYY");
   }
 
+}
+
+export interface UploadTask {
+  ref: AngularFireStorageReference;
+  task: AngularFireUploadTask;
 }

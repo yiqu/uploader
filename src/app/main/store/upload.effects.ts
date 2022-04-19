@@ -3,11 +3,14 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { OnInitEffects } from "@ngrx/effects";
 import { tap, concatMap, switchMap, map, mergeMap, catchError, exhaustMap, take, filter, finalize } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
-import { of, throwError, timer } from 'rxjs';
+import { concat, merge, Observable, of, throwError, timer } from 'rxjs';
 import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
 import { Action } from '@ngrx/store';
 import * as fromUploadActions from './upload.actions';
 import { FileUploadService } from '../upload.service';
+import { AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
+import { UploadTask } from 'src/app/shared/services/storage.service';
+import { UploadTaskResult } from './upload.state';
 
 
 
@@ -35,18 +38,51 @@ export class FileUploadEffects {
         const fileId = fileData.fileId;
         const file = fileData.file;
         const fileName = file.name ?? ('File-name-' + new Date().getTime());
-        return this.us.uploadFile(file, fileName).pipe(
-          map((progress) => {
-            return fromUploadActions.uploadFileUpdateProgress({ fileId, progress: progress });
+
+        const taskRef: UploadTask = this.us.uploadFile(file, fileName);
+        let arr = [
+          taskRef.task.percentageChanges().pipe(
+            map((percent) => {
+              return {
+                fileId,
+                percent
+              };
+            }),
+            finalize(() => {
+              console.log('Upload done')
+            })
+          ),
+          taskRef.ref.getDownloadURL().pipe(
+            map((url) => {
+              return {
+                fileId,
+                url
+              };
+            }),
+            finalize(() => {
+              console.log('Fetch URL done')
+            })
+          )
+        ];
+        const percentAndUrl: Observable<UploadTaskResult> = concat(...arr);
+        return percentAndUrl.pipe(
+          map((res) => {
+            if (res.url) {
+              return fromUploadActions.uploadFileUpdateProgress({ fileId, downloadUrl: res.url });
+            } else if (res.percent !== null || res.percent !== undefined) {
+              return fromUploadActions.uploadFileUpdateProgress({ fileId, progress: res.percent });
+            } else {
+              return fromUploadActions.uploadFileUpdateProgress({ fileId });
+            }
           }),
           catchError((err) => {
             console.error("Upload Error!" + err);
             return of(fromUploadActions.uploadFileFailure({ errMsg: err }));
           }),
           finalize(() => {
-            console.log('done')
+            console.log("url and upload done")
           })
-        )
+        );
       })
     );
   });
@@ -63,6 +99,29 @@ export class FileUploadEffects {
       })
     );
   });
+
+  // startGetDownloadUrl$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(fromUploadActions.uploadFileSuccess),
+  //     map((res) => {
+  //       return fromUploadActions.getDownloadUrlStart({ ref: res.taskRef, fileId: res.fileId });
+  //     })
+  //   );
+  // });
+
+  // getDownloadUrlSuccess$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(fromUploadActions.getDownloadUrlStart),
+  //     mergeMap((res) => {
+  //       return res.ref.ref.getDownloadURL().pipe(
+  //         map((url) => {
+  //           console.log(url, res.fileId)
+  //           return fromUploadActions.getDownloadUrlSuccess({ urlString: url, fileId: res.fileId });
+  //         })
+  //       )
+  //     })
+  //   );
+  // });
 
 
 }

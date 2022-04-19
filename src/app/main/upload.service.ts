@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { StorageService } from '../shared/services/storage.service';
+import { StorageService, UploadTask } from '../shared/services/storage.service';
 import { AppState } from '../store/global/app.reducer';
 import * as fromUploadActions from './store/upload.actions';
 import * as fromUploadSelectors from './store/upload.selectors';
@@ -24,8 +24,8 @@ export class FileUploadService {
     this.store.dispatch(fromUploadActions.attachFile({ file, fileId }));
   }
 
-  uploadFile(file: any, fileName: string): Observable<number | undefined> {
-    return this.ss.uploadBlob(file, fileName).percentageChanges();
+  uploadFile(file: any, fileName: string): UploadTask {
+    return this.ss.uploadBlob(file, fileName);
   }
 
 }

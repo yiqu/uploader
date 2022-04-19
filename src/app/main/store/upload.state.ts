@@ -1,3 +1,5 @@
+import { AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/compat/storage";
+
 export const UPLOAD_FILE_STORE_KEY: string = 'uploadFiles';
 
 export interface UploadFile {
@@ -11,4 +13,11 @@ export interface UploadFile {
   completedDate?: number;
   file: File;
   preview?: any;
+  downloadUrl?: string;
+}
+
+export interface UploadTaskResult {
+  fileId: string;
+  url?: string;
+  percent?: number;
 }
