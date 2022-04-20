@@ -1,4 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { RestService } from 'src/app/shared/services/rest.service';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import { UploadFile } from '../store/upload.state';
 import { FileUploadService } from '../upload.service';
 
@@ -12,7 +14,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('uploadInput')
   uploadInput?: ElementRef;
 
-  constructor(public fs: FileUploadService) {
+  constructor(public fs: FileUploadService, private rs: StorageService) {
   }
 
   ngOnInit() {

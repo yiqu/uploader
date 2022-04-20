@@ -40,6 +40,7 @@ export const fileUploadEntityReducer = createReducer(
       id: fileId,
       completed: false,
       progress: 0,
+      downloadUrl: undefined
     };
     return adapter.addOne(fileToAdd, {
       ...state,
@@ -47,11 +48,12 @@ export const fileUploadEntityReducer = createReducer(
     });
   }),
 
-  on(fromUploadActions.uploadFileUpdateProgress, (state, { fileId, progress }) => {
+  on(fromUploadActions.uploadFileUpdateProgress, (state, { fileId, progress, downloadUrl }) => {
     const updatedProgress: Update<UploadFile> = {
       id: fileId,
       changes: {
-        progress
+        progress: progress ?? state.entities[fileId]?.progress,
+        downloadUrl: downloadUrl ?? state.entities[fileId]?.downloadUrl,
       }
     };
     return adapter.updateOne(updatedProgress, {
@@ -73,6 +75,8 @@ export const fileUploadEntityReducer = createReducer(
       uploading: false
     });
   }),
+
+
 
 )
 

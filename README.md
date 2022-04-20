@@ -5,4 +5,6 @@
 Upload files or images. Built with Angular.
 
 ### Demo
-[DEMO](yiqu.github.io/uploader)
+[Dev](yiqu.github.io/uploader)
+
+[Prod](https://mydropbox.web.app/)

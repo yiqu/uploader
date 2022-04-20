@@ -5,3 +5,7 @@ export enum EntryMode {
   GET = 'get'
 }
 
+export interface FirebaseDocObsAndId {
+  operationObs: Promise<void>;
+  id: string;
+}

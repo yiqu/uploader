@@ -114,6 +114,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "uploader:build:production",
+            "firebaseProject": "udemy-angular-665a2",
+            "firebaseHostingSite": "mydropbox"
+          }
         }
       }
     }

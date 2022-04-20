@@ -54,6 +54,19 @@
             {{ file.dateModified | dateDisplay:'MDY' }}
           </div>
         </div>
+        <div class="info-line" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="label">
+            Download URL:
+          </div>
+          <div>
+            <ng-container *ngIf="file.downloadUrl; else noUrl">
+              <a [href]="file.downloadUrl" download="hi">Click here</a>
+            </ng-container>
+            <ng-template #noUrl>
+              Creating URL...
+            </ng-template>
+          </div>
+        </div>
       </div>
     </div>
   </div>
