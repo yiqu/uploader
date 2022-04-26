@@ -34,6 +34,7 @@
     "@ngrx/router-store": "^13.1.0",
     "@ngrx/store": "^13.1.0",
     "bootstrap": "~4.5.3",
+    "firebase": "^9.6.11",
     "lodash": "~4.17.20",
     "memo-decorator": "^2.0.1",
     "moment": "~2.29.1",

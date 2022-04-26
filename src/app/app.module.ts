@@ -29,6 +29,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
+import { AuthModule } from './authentication/auth.module';
 
 const icons: IconDefinition[] = [ AppstoreOutline, ProjectFill, ContainerFill,
   ProjectOutline, ContainerOutline ];
@@ -47,7 +48,6 @@ const globalRippleConfig: RippleGlobalOptions = {
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     NoopAnimationsModule,
     SharedBudleModule,
@@ -77,7 +77,9 @@ const globalRippleConfig: RippleGlobalOptions = {
     //provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     //provideStorage(() => getStorage()),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AuthModule,
+    AppRoutingModule
   ],
   providers: [
     {
