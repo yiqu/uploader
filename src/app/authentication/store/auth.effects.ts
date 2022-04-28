@@ -3,7 +3,7 @@ import firebase from 'firebase/compat/app';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import 'firebase/auth';
-import { switchMap, catchError, map, tap } from 'rxjs/operators';
+import { switchMap, catchError, map, tap, exhaustMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AuthInfoFromUser, VerifiedUser, InAppAlias, User } from '../../shared/models/user.model';
 import { LoginSuccessActionProp, LoginFailureActionProp, AuthVerifiedUserProp } from './auth.models';
@@ -48,6 +48,37 @@ export class AuthEffects {
     )
   });
 
+  userRegistration$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAuthActions.authUserRegistrationFromEmailStart),
+      exhaustMap((registerInfo) => {
+        const sessionType: string = registerInfo.saveSession ?
+        firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
+
+        return firebase.auth().setPersistence(sessionType)
+          .then(() => {
+            return firebase.auth().createUserWithEmailAndPassword(registerInfo.userEmail, registerInfo.password);
+          })
+          .then(
+            (u: firebase.auth.UserCredential) => {
+              //this.ts.getSuccess("Your account has been successfully registered.");
+              //const user: VerifiedUser = <VerifiedUser>u.user.toJSON();
+              console.log("REG!")
+              console.log(u)
+              const p = new AuthVerifiedUserProp(undefined);
+              return fromAuthActions.authUserRegistrationFromEmailSuccess();
+            },
+            (rej) => {
+              console.log(rej)
+              const authErrMsg = AuthUtils.getFirebaseErrorMsg(rej);
+              const prop = new LoginFailureActionProp(authErrMsg);
+              return fromAuthActions.authUserRegistrationFromEmailFailure(prop);
+            }
+          );
+
+      }));
+  });
+
   userLogout$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(fromAuthActions.authLogoutStart),
@@ -58,36 +89,6 @@ export class AuthEffects {
         });
       }));
   });
-
-  userRegistration$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(fromAuthActions.authUserRegistrationFromEmailStart),
-      switchMap((registerInfo) => {
-        const sessionType: string = registerInfo.saveSession ?
-        firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
-
-        return  firebase.auth().setPersistence(sessionType)
-          .then(() => {
-            return firebase.auth().createUserWithEmailAndPassword(registerInfo.userEmail, registerInfo.password);
-          })
-          .then(
-            (u: firebase.auth.UserCredential) => {
-              //this.ts.getSuccess("Your account has been successfully registered.");
-              //const user: VerifiedUser = <VerifiedUser>u.user.toJSON();
-              console.log(u)
-              const p = new AuthVerifiedUserProp(undefined);
-              return fromAuthActions.authAddNewRegisteredUserToDatabase(p);
-            },
-            (rej) => {
-              const authErrMsg = AuthUtils.getFirebaseErrorMsg(rej);
-              const prop = new LoginFailureActionProp(authErrMsg);
-              return fromAuthActions.authUserRegistrationFromEmailFailure(prop);
-            }
-          );
-
-      }));
-  });
-
 
   userLoggedout$ = createEffect(() => {
     return this.actions$.pipe(

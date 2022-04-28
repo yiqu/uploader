@@ -4,6 +4,8 @@ import { AuthInfoFromUser, VerifiedUser } from '../../shared/models/user.model';
 export interface AuthState {
   verifiedUser: VerifiedUser | null | undefined;
   loading: boolean;
+  signUpCreds?: UserRegistrationFromEmailActionProp;
+  signInCreds?: UserRegistrationFromEmailActionProp;
   error?: boolean;
   errorMsg?: string;
 }
@@ -19,7 +21,7 @@ export class LoginSuccessActionProp {
 }
 
 export class LoginFailureActionProp {
-  constructor(public errorMsg: any) {
+  constructor(public errorMsg: string) {
   }
 }
 

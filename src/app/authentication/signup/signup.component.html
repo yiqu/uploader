@@ -1,44 +1,49 @@
-<div class="row mb-3 roboto text-center mt-3">
-  <div class="col-sm-12">
-    <div class="mb-2">
-      {{signInTitle}}
-    </div>
-    <div class="subtitle mb-2">
-      <a [routerLink]="['../', 'signin']">Go sign in instead</a>
-    </div>
-    <div class="signin-card-parent">
-      <mat-card class="signin-card" [formGroup]="signFg">
-        <mat-card-content>
+<div class="mb-3 roboto mt-3" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
 
-          <div class="signinAvatarParent mb-3">
-            <img [src]="avartarImgSrc" class="img-h-100 border-circ" alt="logo">
-            <span class="secfont">Milestone Account</span>
-          </div>
+  <div class="">
+    {{signInTitle}}
+  </div>
 
-          <div class="left-align mb-3">
-            <mat-form-field appearance="outline" class="mb-2 full-w">
-              <mat-label>Email</mat-label>
-              <input matInput placeholder="Email" [formControlName]="'email'" [errorStateMatcher]="matcher">
-              <mat-icon matSuffix>email</mat-icon>
-              <mat-hint>This will be your login email.</mat-hint>
-              <mat-error *ngIf="this.emailFc.hasError('email')">Invalid email format.</mat-error>
-              <mat-error *ngIf="this.emailFc.hasError('required')">Email is required.</mat-error>
-              <mat-error *ngIf="this.emailFc.hasError('emailExists')">
-                This email is already taken. If you have already signed up, try logging in instead.
-              </mat-error>
-            </mat-form-field>
-          </div>
+  <div class="subtitle">
+    <a [routerLink]="['../', 'signin']">Go sign in instead</a>
+  </div>
 
-          <div>
-            <mat-form-field appearance="outline" class="password-input">
+  <div ngClass.gt-xs="w-35" ngClass.xs="w-100">
+    <mat-card class="" [formGroup]="signFg">
+      <mat-card-content>
+        <div class="signinAvatarParent mb-3" fxLayout="row" fxLayoutAlign="center center">
+          <img [src]="avartarImgSrc" class="img-h-100 border-circ" alt="logo">
+        </div>
+
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="mb-2 w-100">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" [formControlName]="'email'" [errorStateMatcher]="matcher">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-hint>This will be your login email.</mat-hint>
+            <mat-error *ngIf="this.emailFc.hasError('email')">Invalid email format.</mat-error>
+            <mat-error *ngIf="this.emailFc.hasError('required')">Email is required.</mat-error>
+            <mat-error *ngIf="this.emailFc.hasError('emailExists')">
+              This email is already taken. If you have already signed up, try logging in instead.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="5px" fxLayoutAlign="start center"
+          fxLayoutAlign.gt-xs="center center">
+          <div class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Password</mat-label>
               <input matInput placeholder="Password" [formControlName]="'password'" type="password"
                 [errorStateMatcher]="matcher">
               <mat-icon matSuffix>https</mat-icon>
               <mat-error *ngIf="this.passwordFc.hasError('required')">Please enter a password.</mat-error>
-              <mat-error *ngIf="this.passwordFc.hasError('weak')">Needs to be at least 6 characters.</mat-error>
+              <mat-error *ngIf="this.passwordFc.hasError('minCharCount')">Needs to be at least 6 characters.</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline" class="repassword-input">
+          </div>
+
+          <div class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Confirm</mat-label>
               <input matInput placeholder="Confirm password" [formControlName]="'repassword'" type="password"
                 [errorStateMatcher]="matcher" (keyup.enter)="onSignupClick()">
@@ -50,25 +55,31 @@
             </mat-form-field>
           </div>
 
-          <div *ngIf="errorOccured" class="err-msg-parent">
-            <div class="alert alert-warning">
-              {{errorMsg}}
+        </div>
+
+        <div *ngIf="((this.as.errorOccured$ | async) === true)" class="">
+          <ng-container *ngIf="(this.as.errorMsg$ | async) as msg">
+            <div class="alert alert-danger" role="alert">
+              {{ msg }}
             </div>
-          </div>
-        </mat-card-content>
+          </ng-container>
+        </div>
+      </mat-card-content>
 
-        <mat-card-actions>
-          <div class="center-align">
-            <ng-container *ngIf="loading">
-              Loading...
-            </ng-container>
-            <button *ngIf="!loading" mat-button class="signin-btn" (click)="onSignupClick()">
-              Create account
-            </button>
-          </div>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-
+      <mat-card-actions>
+        <div class="">
+          <button *ngIf="true" mat-button class="signin-btn" (click)="onSignupClick()"
+            [disabled]="this.signFg.invalid || (this.as.apiLoading$ | async)">
+              <ng-container *ngIf="((this.as.apiLoading$ | async) === true); else text">
+                Loading...
+              </ng-container>
+              <ng-template #text>
+                Create account
+              </ng-template>
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
   </div>
+
 </div>

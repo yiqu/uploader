@@ -11,6 +11,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AuthService } from '../auth.service';
 import { AppState } from 'src/app/store/global/app.reducer';
+import { trimmedStringMinCountValidator } from 'src/app/shared/form-validators/general-form.validator';
 
 
 @Component({
@@ -25,10 +26,6 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
   avartarImgSrc: string = "assets/img/uploader.png";
   signFg: FormGroup;
   compDest$: Subject<void> = new Subject<void>();
-  errorMsg?: string;
-  errorOccured?: boolean;
-  loading: boolean = false;
-
 
   get emailFc(): FormControl {
     return <FormControl>this.signFg.get("email");
@@ -55,7 +52,7 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
 
       this.signFg = this.fb.group({
         email: fu.createFormControl(id, false, [Validators.required, Validators.email]),
-        password: fu.createFormControl(pw, false, [Validators.required]),
+        password: fu.createFormControl(pw, false, [Validators.required, trimmedStringMinCountValidator(5)]),
         repassword: fu.createFormControl(pw, false, [Validators.required])
       });
   }
@@ -65,9 +62,7 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
 
     this.signFg.valueChanges.pipe(
       takeUntil(this.compDest$)
-    )
-    .subscribe((val) => {
-      this.as.clearErrors();
+    ).subscribe((val) => {
       if (this.passwordFc.value !== this.repasswordFc.value) {
         this.repasswordFc.setErrors({"passwordDoesNotMatch": true});
       } else {
@@ -78,23 +73,12 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
 
   onSignupClick() {
     const res = this.signFg.value;
-    if (res.password !== res.repassword) {
-      this.as.throwErrorMessage("Password does not match.")
-    } else {
-      const auth: AuthInfoFromUser = new AuthInfoFromUser(res.email, res.password, true);
-      this.signup(auth);
-    }
+    const auth: AuthInfoFromUser = new AuthInfoFromUser(res.email, res.password, true);
+    this.signup(auth);
   }
 
   signup(a: AuthInfoFromUser) {
     this.as.registerUser(a);
-  }
-
-  disableFieldsOnLoading(loading: boolean) {
-    if (this.signFg) {
-      loading ? this.signFg.disable({onlySelf: true, emitEvent: false}) :
-        this.signFg.enable({onlySelf: true, emitEvent: false});
-    }
   }
 
   ngOnDestroy() {

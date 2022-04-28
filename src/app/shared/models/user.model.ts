@@ -18,6 +18,11 @@ export class AuthInfoFromUser implements IAuthInfo{
   }
 }
 
+export interface IVerifiedUser {
+  displayName: string;
+  email: string;
+}
+
 export class VerifiedUser {
   constructor(
     public createdAt: number,

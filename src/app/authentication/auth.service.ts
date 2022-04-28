@@ -4,16 +4,22 @@ import 'firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument,
   AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { VerifiedUser, AuthInfoFromUser } from '../shared/models/user.model';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as AuthActions from './store/auth.actions';
 import { UserRegistrationFromEmailActionProp } from './store/auth.models';
 import { AppState } from '../store/global/app.reducer';
+import * as fromAuthSelectors from './store/auth.selectors';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  apiLoading$: Observable<boolean | undefined> = this.store.select(fromAuthSelectors.apiLoading);
+  errorMsg$: Observable<string | undefined> = this.store.select(fromAuthSelectors.apiErrorMessage);
+  errorOccured$: Observable<boolean | undefined> = this.store.select(fromAuthSelectors.apiError);
 
   constructor(private afs: AngularFirestore, public store: Store<AppState>) {
     // this determines if firebase auth has emitted the first result,

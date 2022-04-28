@@ -4,9 +4,11 @@ import * as AuthActions from './auth.actions';
 
 /**
  * Auth Initial State
+ *
+ * User state inital: UNDEFINED. after fetch if not logged in: null
  */
 const inititalState: AuthState = {
-  verifiedUser: null,
+  verifiedUser: undefined,
   loading: false,
   error: false,
   errorMsg: undefined
@@ -64,12 +66,17 @@ export const authReducer = createReducer(
     }
   }),
 
-  on(AuthActions.authUserRegistrationFromEmailStart, (state) => {
+  on(AuthActions.authUserRegistrationFromEmailStart, (state, { userEmail, password, saveSession }) => {
     return {
       ...state,
       loading: true,
       verifiedUser: null,
       error: false,
+      signUpCreds: {
+        password,
+        saveSession,
+        userEmail
+      }
     }
   }),
 
