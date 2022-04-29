@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Action } from '@ngrx/store';
+import { IVerifiedUser } from 'src/app/shared/models/user.model';
 import { LoginSuccessActionProp, LoginFailureActionProp, LoginStartActionProp,
   UserRegistrationFromEmailActionProp,
   AuthVerifiedUserProp,
@@ -8,8 +9,6 @@ import { LoginSuccessActionProp, LoginFailureActionProp, LoginStartActionProp,
 const LOGIN_START: string = "[Auth/Login] Auth Login Start";
 const LOGIN_SUCCESS: string = "[Auth/Login] Auth Login Success";
 const LOGIN_FAILURE: string = "[Auth/Login] Auth Login Failure";
-
-const LOGIN_FIREBASE_REQUEST_SENT: string = "[Auth/Login] Auth Login Firebase Request Sent Success";
 
 const LOGOUT_START: string = "[Auth/Logout] Auth Logout Start";
 const LOGOUT_SUCCESS: string = "[Auth/Logout] Auth Logout Success";
@@ -33,7 +32,7 @@ export const authLoginStart = createAction(
 
 export const authLoginSuccess = createAction(
   LOGIN_SUCCESS,
-  props<LoginSuccessActionProp>()
+  props<{user: IVerifiedUser, redirect: string[]}>()
 );
 
 export const authLoginFailure = createAction(
@@ -41,17 +40,13 @@ export const authLoginFailure = createAction(
   props<LoginFailureActionProp>()
 );
 
-export const authLoginFirebaseRequestSuccess = createAction(
-  LOGIN_FIREBASE_REQUEST_SENT
+export const authLogoutStart = createAction(
+  LOGOUT_START
 );
 
 export const authLogoutSuccess = createAction(
   LOGOUT_SUCCESS,
-  props<LogoutIfRedirectActionProp>()
-);
-
-export const authLogoutStart = createAction(
-  LOGOUT_START
+  props<{ redirect: string[] }>()
 );
 
 export const authUserRegistrationFromEmailStart = createAction(
@@ -60,7 +55,8 @@ export const authUserRegistrationFromEmailStart = createAction(
 );
 
 export const authUserRegistrationFromEmailSuccess = createAction(
-  NEW_USER_REGISTRATION_SUCCESS
+  NEW_USER_REGISTRATION_SUCCESS,
+  props<{user: IVerifiedUser, redirect: string[]}>()
 );
 
 export const authUserRegistrationFromEmailFailure = createAction(

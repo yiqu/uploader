@@ -22,20 +22,14 @@ export const authReducer = createReducer(
       ...state,
     }
   }),
-  // Firebase auth valueChanges logged in with a user
-  on(AuthActions.authLoginSuccess, (state, { verifiedUser }) => {
-    const u = verifiedUser;
+
+  on(AuthActions.authLoginSuccess, (state, { user }) => {
     return {
       ...state,
       loading: false,
-      verifiedUser: u,
       error: false,
-    }
-  }),
-  // Login done
-  on(AuthActions.authLoginFirebaseRequestSuccess, (state) => {
-    return {
-      ...state,
+      errorMsg: undefined,
+      verifiedUser: user
     }
   }),
 
@@ -52,8 +46,9 @@ export const authReducer = createReducer(
   on(AuthActions.authLogoutStart, (state) => {
     return {
       ...state,
-      verifiedUser: null,
       loading: true,
+      error: false,
+      errorMsg: undefined
     }
   }),
 
@@ -63,6 +58,7 @@ export const authReducer = createReducer(
       loading: false,
       verifiedUser: null,
       error: false,
+      errorMsg: undefined
     }
   }),
 
@@ -70,7 +66,6 @@ export const authReducer = createReducer(
     return {
       ...state,
       loading: true,
-      verifiedUser: null,
       error: false,
       signUpCreds: {
         password,
@@ -80,11 +75,11 @@ export const authReducer = createReducer(
     }
   }),
 
-  on(AuthActions.authUserRegistrationFromEmailSuccess, (state) => {
+  on(AuthActions.authUserRegistrationFromEmailSuccess, (state, { user }) => {
     return {
       ...state,
       loading: false,
-      verifiedUser: null,
+      verifiedUser: user,
       error: false,
     }
   }),
@@ -99,32 +94,32 @@ export const authReducer = createReducer(
     }
   }),
 
-  on(AuthActions.authAddNewRegisteredUserToDatabase, (state, { user }) => {
-    return {
-      ...state,
-      loading: true,
-      verifiedUser: user,
-      error: false,
-    }
-  }),
+  // on(AuthActions.authAddNewRegisteredUserToDatabase, (state, { user }) => {
+  //   return {
+  //     ...state,
+  //     loading: true,
+  //     verifiedUser: user,
+  //     error: false,
+  //   }
+  // }),
 
-  on(AuthActions.authAddNewRegisteredUserToDbFail, (state) => {
-    return {
-      ...state,
-      loading: false,
-      verifiedUser: null,
-      error: true,
-      errorMsg: "Error occured trying to add new user to Firebase"
-    }
-  }),
+  // on(AuthActions.authAddNewRegisteredUserToDbFail, (state) => {
+  //   return {
+  //     ...state,
+  //     loading: false,
+  //     verifiedUser: null,
+  //     error: true,
+  //     errorMsg: "Error occured trying to add new user to Firebase"
+  //   }
+  // }),
 
-  on(AuthActions.authAddNewRegisteredUserToDbSuccess, (state) => {
-    return {
-      ...state,
-      loading: false,
-      error: false,
-    }
-  }),
+  // on(AuthActions.authAddNewRegisteredUserToDbSuccess, (state) => {
+  //   return {
+  //     ...state,
+  //     loading: false,
+  //     error: false,
+  //   }
+  // }),
 
   on(AuthActions.authClearErrorsByUser, (state) => {
     return {

@@ -1,8 +1,8 @@
-import { AuthInfoFromUser, VerifiedUser } from '../../shared/models/user.model';
+import { AuthInfoFromUser, IVerifiedUser, VerifiedUser } from '../../shared/models/user.model';
 
 
 export interface AuthState {
-  verifiedUser: VerifiedUser | null | undefined;
+  verifiedUser: IVerifiedUser | null | undefined;
   loading: boolean;
   signUpCreds?: UserRegistrationFromEmailActionProp;
   signInCreds?: UserRegistrationFromEmailActionProp;

@@ -5,21 +5,20 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 import 'firebase/auth';
 import { switchMap, catchError, map, tap, exhaustMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { AuthInfoFromUser, VerifiedUser, InAppAlias, User } from '../../shared/models/user.model';
+import { AuthInfoFromUser, VerifiedUser, InAppAlias, User, IVerifiedUser } from '../../shared/models/user.model';
 import { LoginSuccessActionProp, LoginFailureActionProp, AuthVerifiedUserProp } from './auth.models';
 import * as AuthUtils from '../../shared/services/firebase.utils';
 import * as fromAuthActions from './auth.actions';
 import * as fromRouterActions from '../../store/router-related/router-related.actions';
 import { AuthService } from '../auth.service';
+import { ZorroToasterService } from 'src/app/shared/services/toaster-zorro.service';
 
 @Injectable()
 export class AuthEffects {
 
-  private usersBaseUrl: string = "users/";
-
   constructor(public as: AuthService, public actions$: Actions,
     public router: Router, public route: ActivatedRoute,
-    private afs: AngularFirestore) {
+    private afs: AngularFirestore, private ts: ZorroToasterService) {
   }
 
   userLogin$ = createEffect(() => {
@@ -36,7 +35,11 @@ export class AuthEffects {
           })
           .then(
             (u: firebase.auth.UserCredential) => {
-              return fromAuthActions.authLoginFirebaseRequestSuccess();
+              const currentUser: IVerifiedUser = {
+                displayName: u.user?.displayName ?? '<display>',
+                email: u.user?.email ?? '<email>'
+              };
+              return fromAuthActions.authLoginSuccess({ user: currentUser, redirect: ['/'] });
             },
             (rej) => {
               const authErrMsg = AuthUtils.getFirebaseErrorMsg(rej);
@@ -61,15 +64,13 @@ export class AuthEffects {
           })
           .then(
             (u: firebase.auth.UserCredential) => {
-              //this.ts.getSuccess("Your account has been successfully registered.");
-              //const user: VerifiedUser = <VerifiedUser>u.user.toJSON();
-              console.log("REG!")
-              console.log(u)
-              const p = new AuthVerifiedUserProp(undefined);
-              return fromAuthActions.authUserRegistrationFromEmailSuccess();
+              const currentUser: IVerifiedUser = {
+                displayName: u.user?.displayName ?? '<display>',
+                email: u.user?.email ?? '<email>'
+              };
+              return fromAuthActions.authUserRegistrationFromEmailSuccess({ user: currentUser, redirect: ['/'] });
             },
             (rej) => {
-              console.log(rej)
               const authErrMsg = AuthUtils.getFirebaseErrorMsg(rej);
               const prop = new LoginFailureActionProp(authErrMsg);
               return fromAuthActions.authUserRegistrationFromEmailFailure(prop);
@@ -83,11 +84,13 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(fromAuthActions.authLogoutStart),
       switchMap(() => {
-        return firebase.auth().signOut()
-        .then(() => {
-          return fromAuthActions.authLogoutSuccess({redirect: true});
-        });
-      }));
+        return this.as.onUserLogout().pipe(
+          map(() => {
+            return fromAuthActions.authLogoutSuccess({ redirect: ['/'] });
+          })
+        );
+      })
+    );
   });
 
   userLoggedout$ = createEffect(() => {
@@ -108,16 +111,18 @@ export class AuthEffects {
 
   userLoggedInSuccess$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(fromAuthActions.authLoginSuccess),
+      ofType(...[fromAuthActions.authUserRegistrationFromEmailSuccess, fromAuthActions.authLoginSuccess]),
+      tap((data) => {
+        const email: string = data.user.email;
+        this.ts.openToast('success', 'Welcome to Uploader, ' + email + '!');
+      }),
       switchMap((opts) => {
         let urlToRedirect: string[] = [];
-        if (opts.redirect) {
-          urlToRedirect = [];
-          urlToRedirect.push("/");
+        if (opts.redirect && opts.redirect.length > 0) {
+          urlToRedirect = [...opts.redirect];
         }
-        //this.ts.getSuccess("You are logged in.");
         return [
-          fromRouterActions.redirectWithUrl({url: urlToRedirect}),
+          fromRouterActions.redirectWithUrl({ url: urlToRedirect }),
         ];
       })
     );

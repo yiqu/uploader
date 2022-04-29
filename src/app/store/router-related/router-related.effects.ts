@@ -22,7 +22,7 @@ export class RouterEffects {
           this.router.navigate(urlToRedirect);
         }
       }));
-  }, {dispatch: false});
+  }, { dispatch: false });
 
 
 }

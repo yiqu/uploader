@@ -3,8 +3,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument,
   AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { VerifiedUser, AuthInfoFromUser } from '../shared/models/user.model';
-import { Observable, Subject } from 'rxjs';
+import { VerifiedUser, AuthInfoFromUser, IVerifiedUser } from '../shared/models/user.model';
+import { defer, Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as AuthActions from './store/auth.actions';
 import { UserRegistrationFromEmailActionProp } from './store/auth.models';
@@ -28,15 +28,14 @@ export class AuthService {
 
     firebase.auth().onAuthStateChanged(
       (user: firebase.User | null) => {
-        console.log("AUTH:", user ? user.toJSON():user);
-        // if (user) {
-        //   const u = (<VerifiedUser>user.toJSON());
-        //   this.setVerifiedUser(u, firstAuthUserFetchCallCompleted);
-        //   firstAuthUserFetchCallCompleted = true;
-        // } else {
-        //   this.unsetVerifiedUser();
-        //   firstAuthUserFetchCallCompleted = true;
-        // }
+        console.log("AUTH:", user ? user.toJSON() : user);
+        if (user) {
+          const currentUser: IVerifiedUser = {
+            displayName: user.displayName ?? '<display>',
+            email: user.email ?? '<email>'
+          };
+          this.setAuthLoginUser(currentUser, ['/']);
+        }
       },
       (err) => {
         console.error("Error occured in firebase auth state change trigger.")
@@ -47,13 +46,19 @@ export class AuthService {
     );
   }
 
-  registerUser(authInfo: AuthInfoFromUser) {
+  onUserLogout(): Observable<void> {
+    return defer(() => {
+      return firebase.auth().signOut();
+    });
+  }
+
+  registerUser(authInfo: AuthInfoFromUser): void {
     const p = new UserRegistrationFromEmailActionProp(authInfo.id, authInfo.password, authInfo.saveSession);
     this.store.dispatch(AuthActions.authUserRegistrationFromEmailStart(p));
   }
 
-  userLogin(authInfo: AuthInfoFromUser) {
-    this.store.dispatch(AuthActions.authLoginStart({authInfo: authInfo}));
+  userLogin(authInfo: AuthInfoFromUser): void {
+    this.store.dispatch(AuthActions.authLoginStart({ authInfo: authInfo }));
   }
 
   signoutUser() {
@@ -65,15 +70,15 @@ export class AuthService {
   }
 
   throwErrorMessage(msg: string) {
-    this.store.dispatch(AuthActions.authThrowErrorMessageByUser({errorMsg: msg}));
+    this.store.dispatch(AuthActions.authThrowErrorMessageByUser({ errorMsg: msg }));
   }
 
-  setVerifiedUser(u: VerifiedUser, redirect: boolean) {
-    this.store.dispatch(AuthActions.authLoginSuccess({verifiedUser: u, redirect: redirect}));
+  setAuthLoginUser(user: IVerifiedUser, redirect: string[]) {
+    this.store.dispatch(AuthActions.authLoginSuccess({ user: user, redirect: redirect }));
   }
 
   unsetVerifiedUser() {
-    this.store.dispatch(AuthActions.authLogoutSuccess({redirect: false}));
+    this.store.dispatch(AuthActions.authLogoutSuccess({ redirect: ['/'] }));
   }
 
 }

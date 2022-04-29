@@ -36,4 +36,15 @@ export class ZorroToasterService {
     }
   }
 
+  openToast(type: ZorroToastType, message: string): void {
+    this.zs.create(type, message, {
+      nzDuration: 4000
+    });
+  }
+
+  closeAllToast() {
+  }
+
 }
+
+export type ZorroToastType = 'success' | 'error' | 'warning';
