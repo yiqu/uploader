@@ -48,6 +48,10 @@ body {
   font-family: 'Comfortaa', sans-serif;
 }
 
+.main-color {
+  color: #2a2961;
+}
+
 a {
   text-decoration: none;
 }
@@ -319,6 +323,7 @@ Zorro
   .ant-message-notice-content {
     background-color: #e6e6e6;
     color: #2a2961;
+    padding: 15px 16px;
   }
 }
 
@@ -329,4 +334,8 @@ Zorro
 
 .mat-progress-bar-fill::after {
   background-color: #009933;
+}
+
+div.ant-message-custom-content {
+  display: flex;
 }

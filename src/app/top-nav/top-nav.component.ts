@@ -8,6 +8,8 @@ import { FormControl } from '@angular/forms';
 import { createFormControl2 } from '../shared/general.utils';
 import { IsMobileService } from '../shared/services/is-mobile.service';
 import { trigger, transition, useAnimation } from '@angular/animations';
+import { AuthService } from '../authentication/auth.service';
+import { TopNavService } from './top-nav.service';
 
 const defaultProfileImg: string = "assets/user/default-user5.png";
 
@@ -27,7 +29,6 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   swingState: boolean = false;
   userMenuItems: MenuItem[] = [];
   avartarImgSrc: string = defaultProfileImg;
-  actionTrackerCtrl: FormControl;
 
 
   @Output()
@@ -36,13 +37,11 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   @Output()
   logoClick: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(public router: Router, public route: ActivatedRoute,
-    public ims: IsMobileService) {
-    this.actionTrackerCtrl = createFormControl2(false, false);
-
+  constructor(public router: Router, public route: ActivatedRoute, public ts: TopNavService,
+    public as: AuthService) {
     this.userMenuItems.push(
       new MenuItem("record_voice_over", "Sign in", "signin")
-    )
+    );
   }
 
   ngOnInit() {

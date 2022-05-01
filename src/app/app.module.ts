@@ -30,6 +30,8 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AuthModule } from './authentication/auth.module';
+import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
+
 
 const icons: IconDefinition[] = [ AppstoreOutline, ProjectFill, ContainerFill,
   ProjectOutline, ContainerOutline ];
@@ -40,6 +42,12 @@ const globalRippleConfig: RippleGlobalOptions = {
     enterDuration: 0,
     exitDuration: 0
   }
+};
+
+const ngZorroConfig: NzConfig = {
+  message: {
+    nzTop: 1
+  },
 };
 
 @NgModule({
@@ -86,7 +94,9 @@ const globalRippleConfig: RippleGlobalOptions = {
       provide: MAT_RIPPLE_GLOBAL_OPTIONS,
       useValue: globalRippleConfig
     },
-    //{ provide: BUCKET, useValue: 'photo-upload' }
+    { provide: NZ_CONFIG,
+      useValue: ngZorroConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

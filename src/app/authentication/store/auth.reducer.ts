@@ -20,6 +20,7 @@ export const authReducer = createReducer(
   on(AuthActions.authLoginStart, (state, { authInfo }) => {
     return {
       ...state,
+      loading: true
     }
   }),
 
@@ -94,6 +95,13 @@ export const authReducer = createReducer(
     }
   }),
 
+  on(AuthActions.setFirebaseAuthWorking, (state) => {
+    return {
+      ...state,
+      loading: true
+    }
+  }),
+
   // on(AuthActions.authAddNewRegisteredUserToDatabase, (state, { user }) => {
   //   return {
   //     ...state,
@@ -125,6 +133,7 @@ export const authReducer = createReducer(
     return {
       ...state,
       error: false,
+      errorMsg: undefined
     }
   }),
 

@@ -4,7 +4,7 @@ import 'firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument,
   AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { VerifiedUser, AuthInfoFromUser, IVerifiedUser } from '../shared/models/user.model';
-import { defer, Observable, Subject } from 'rxjs';
+import { defer, filter, Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as AuthActions from './store/auth.actions';
 import { UserRegistrationFromEmailActionProp } from './store/auth.models';
@@ -20,12 +20,17 @@ export class AuthService {
   apiLoading$: Observable<boolean | undefined> = this.store.select(fromAuthSelectors.apiLoading);
   errorMsg$: Observable<string | undefined> = this.store.select(fromAuthSelectors.apiErrorMessage);
   errorOccured$: Observable<boolean | undefined> = this.store.select(fromAuthSelectors.apiError);
+  currentUser$: Observable<IVerifiedUser | null | undefined> = this.store.select(fromAuthSelectors.getUser).pipe(
+    filter((user: IVerifiedUser | null | undefined) => {
+      if (user === undefined) {
+        return false;
+      }
+      return true;
+    })
+  );
 
   constructor(private afs: AngularFirestore, public store: Store<AppState>) {
-    // this determines if firebase auth has emitted the first result,
-    // if it has not, don't redirect, or resume redirect operations
-    let firstAuthUserFetchCallCompleted: boolean = false;
-
+    this.setFirebaseAuthWorking();
     firebase.auth().onAuthStateChanged(
       (user: firebase.User | null) => {
         console.log("AUTH:", user ? user.toJSON() : user);
@@ -34,7 +39,9 @@ export class AuthService {
             displayName: user.displayName ?? '<display>',
             email: user.email ?? '<email>'
           };
-          this.setAuthLoginUser(currentUser, ['/']);
+          this.setUserLoginSuccess(currentUser, ['/']);
+        } else {
+
         }
       },
       (err) => {
@@ -73,12 +80,16 @@ export class AuthService {
     this.store.dispatch(AuthActions.authThrowErrorMessageByUser({ errorMsg: msg }));
   }
 
-  setAuthLoginUser(user: IVerifiedUser, redirect: string[]) {
+  setUserLoginSuccess(user: IVerifiedUser, redirect: string[]) {
     this.store.dispatch(AuthActions.authLoginSuccess({ user: user, redirect: redirect }));
   }
 
   unsetVerifiedUser() {
     this.store.dispatch(AuthActions.authLogoutSuccess({ redirect: ['/'] }));
+  }
+
+  setFirebaseAuthWorking() {
+    this.store.dispatch(AuthActions.setFirebaseAuthWorking({}));
   }
 
 }

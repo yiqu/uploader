@@ -25,6 +25,8 @@ const USER_ACTION_CLEAR_ERRORS: string = "[Auth/User] User Action Clear Errors";
 const USER_ACTION_THROW_ERROR: string = "[Auth/User] User Action Throw Error";
 const AUTO_LOGIN: string = "[Auth/Auto] Auto Log In";
 
+const FIREBASE_AUTH_WORKING: string = "[Auth/Firebase] Firebase auth set working";
+
 export const authLoginStart = createAction(
   LOGIN_START,
   props<LoginStartActionProp>()
@@ -84,4 +86,9 @@ export const authClearErrorsByUser = createAction(
 export const authThrowErrorMessageByUser = createAction(
   USER_ACTION_THROW_ERROR,
   props<LoginFailureActionProp>()
+)
+
+export const setFirebaseAuthWorking = createAction(
+  FIREBASE_AUTH_WORKING,
+  props<{opts?: any}>()
 )
