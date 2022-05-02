@@ -6,6 +6,7 @@ import { TopNavEffects } from "src/app/top-nav/store/top-nav.effects";
 import { environment } from "src/environments/environment";
 import { appMetaDataEffect } from "../meta/meta.effects";
 import { pageTitleEffect } from "../page-title/page-title.effects";
+import { RouterRelatedEffects } from "../router-related/router-related.effects";
 import { AppGlobalRouterEffects } from "../router/router.effects";
 
 @Injectable()
@@ -22,6 +23,7 @@ export const appEffects = [
   AppGlobalRouterEffects,
   AuthEffects,
   TopNavEffects,
+  RouterRelatedEffects,
   ...appMetaDataEffect,
   ...pageTitleEffect
 ]

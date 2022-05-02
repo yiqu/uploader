@@ -10,7 +10,7 @@ import * as fromTopNavSelectors from './store/top-nav.selectors';
 })
 export class TopNavService {
 
-  userMenuOptions$: Observable<MenuItem[]> = this.store.select(fromTopNavSelectors.getUserMenuOptions);
+  userMenuOptions$: Observable<MenuItem[]> = this.store.select(fromTopNavSelectors.getUserMenuOptionsDisplay);
 
   constructor(public store: Store<AppState>) {
   }

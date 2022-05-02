@@ -6,7 +6,7 @@ import { tap } from 'rxjs/operators';
 
 
 @Injectable()
-export class RouterEffects {
+export class RouterRelatedEffects {
 
   constructor(public router: Router, public route: ActivatedRoute,
     public actions$: Actions) {

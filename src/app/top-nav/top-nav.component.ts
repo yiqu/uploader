@@ -27,7 +27,6 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   logoShakeState?: any = null;
   leftNavMenuState: boolean = false;
   swingState: boolean = false;
-  userMenuItems: MenuItem[] = [];
   avartarImgSrc: string = defaultProfileImg;
 
 
@@ -39,9 +38,6 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(public router: Router, public route: ActivatedRoute, public ts: TopNavService,
     public as: AuthService) {
-    this.userMenuItems.push(
-      new MenuItem("record_voice_over", "Sign in", "signin")
-    );
   }
 
   ngOnInit() {
@@ -76,6 +72,7 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSignoutClick() {
+    this.as.signoutUser();
   }
 
 

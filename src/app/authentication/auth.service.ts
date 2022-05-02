@@ -29,6 +29,8 @@ export class AuthService {
     })
   );
 
+  shouldRedirect: boolean = false;
+
   constructor(private afs: AngularFirestore, public store: Store<AppState>) {
     this.setFirebaseAuthWorking();
     firebase.auth().onAuthStateChanged(
@@ -39,10 +41,11 @@ export class AuthService {
             displayName: user.displayName ?? '<display>',
             email: user.email ?? '<email>'
           };
-          this.setUserLoginSuccess(currentUser, ['/']);
+          this.setUserLoginSuccess(currentUser, this.shouldRedirect ? ['/'] : null);
         } else {
-
+          this.unsetVerifiedUser(this.shouldRedirect ? ['/'] : null);
         }
+        this.shouldRedirect = true;
       },
       (err) => {
         console.error("Error occured in firebase auth state change trigger.")
@@ -72,6 +75,10 @@ export class AuthService {
     this.store.dispatch(AuthActions.authLogoutStart());
   }
 
+  signoutUserSuccess() {
+    this.store.dispatch(AuthActions.authLogoutSuccess({ redirect: ['/', 'auth'] }));
+  }
+
   clearErrors() {
     this.store.dispatch(AuthActions.authClearErrorsByUser());
   }
@@ -80,12 +87,12 @@ export class AuthService {
     this.store.dispatch(AuthActions.authThrowErrorMessageByUser({ errorMsg: msg }));
   }
 
-  setUserLoginSuccess(user: IVerifiedUser, redirect: string[]) {
+  setUserLoginSuccess(user: IVerifiedUser, redirect: string[] | null) {
     this.store.dispatch(AuthActions.authLoginSuccess({ user: user, redirect: redirect }));
   }
 
-  unsetVerifiedUser() {
-    this.store.dispatch(AuthActions.authLogoutSuccess({ redirect: ['/'] }));
+  unsetVerifiedUser(redirect: string[] | null) {
+    this.store.dispatch(AuthActions.authLogoutSuccess({ redirect }));
   }
 
   setFirebaseAuthWorking() {

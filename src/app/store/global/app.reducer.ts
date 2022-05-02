@@ -9,11 +9,15 @@ import { appMetaDataReducer } from '../meta/meta.reducer';
 import { AppMetaDataState, APP_META_DATA_STATE } from '../meta/meta.state';
 import { pageTitleReducer } from '../page-title/page-title.reducer';
 import { PAGE_TITLE_STATE_ID, PageTitleState } from '../page-title/page-title.state';
+import { RouterRedirectState } from '../router-related/router-related.models';
+import { routerRelatedReducer } from '../router-related/router-related.reducer';
+import { ROUTER_RELATED_STATE } from '../router-related/router-related.state';
 import { ROUTER_STATE } from '../router/router.state';
 
 
 export interface AppState {
   [ROUTER_STATE]?: RouterReducerState<any>;
+  [ROUTER_RELATED_STATE]: RouterRedirectState;
   [APP_META_DATA_STATE]: AppMetaDataState;
   [PAGE_TITLE_STATE_ID]: PageTitleState;
   [USER_AUTH_STATE]: AuthState;
@@ -23,6 +27,7 @@ export interface AppState {
 
 export const appReducers: ActionReducerMap<AppState> = {
   [ROUTER_STATE]: routerReducer,
+  [ROUTER_RELATED_STATE]: routerRelatedReducer,
   [APP_META_DATA_STATE]: appMetaDataReducer,
   [PAGE_TITLE_STATE_ID]: pageTitleReducer,
   [USER_AUTH_STATE]: authReducer,

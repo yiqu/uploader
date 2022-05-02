@@ -34,7 +34,7 @@ export const authLoginStart = createAction(
 
 export const authLoginSuccess = createAction(
   LOGIN_SUCCESS,
-  props<{user: IVerifiedUser, redirect: string[]}>()
+  props<{user: IVerifiedUser, redirect: string[] | null}>()
 );
 
 export const authLoginFailure = createAction(
@@ -48,7 +48,7 @@ export const authLogoutStart = createAction(
 
 export const authLogoutSuccess = createAction(
   LOGOUT_SUCCESS,
-  props<{ redirect: string[] }>()
+  props<{ redirect: string[] | null }>()
 );
 
 export const authUserRegistrationFromEmailStart = createAction(
@@ -58,7 +58,7 @@ export const authUserRegistrationFromEmailStart = createAction(
 
 export const authUserRegistrationFromEmailSuccess = createAction(
   NEW_USER_REGISTRATION_SUCCESS,
-  props<{user: IVerifiedUser, redirect: string[]}>()
+  props<{user: IVerifiedUser}>()
 );
 
 export const authUserRegistrationFromEmailFailure = createAction(

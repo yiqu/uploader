@@ -68,7 +68,7 @@ export class AuthEffects {
                 displayName: u.user?.displayName ?? '<display>',
                 email: u.user?.email ?? '<email>'
               };
-              return fromAuthActions.authUserRegistrationFromEmailSuccess({ user: currentUser, redirect: ['/'] });
+              return fromAuthActions.authUserRegistrationFromEmailSuccess({ user: currentUser });
             },
             (rej) => {
               const authErrMsg = AuthUtils.getFirebaseErrorMsg(rej);
@@ -98,11 +98,11 @@ export class AuthEffects {
       ofType(fromAuthActions.authLogoutSuccess),
       switchMap((options) => {
         const redirect = options.redirect;
-        const urlSegs: string[] = [];
+        let urlSegs: string[] = [];
+        console.log(redirect)
         if (redirect) {
-          urlSegs.push("/", "auth");
+          urlSegs = redirect;
         }
-        //this.ts.getSuccess("You are logged out.");
         return [
           fromRouterActions.redirectWithUrl({url: urlSegs}),
         ];
@@ -111,7 +111,7 @@ export class AuthEffects {
 
   userLoggedInSuccess$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(...[fromAuthActions.authUserRegistrationFromEmailSuccess, fromAuthActions.authLoginSuccess]),
+      ofType(...[fromAuthActions.authLoginSuccess]),
       tap((data) => {
         const email: string = data.user.email;
         this.ts.openToast('success', 'Welcome to Uploader, ' + email + '!');

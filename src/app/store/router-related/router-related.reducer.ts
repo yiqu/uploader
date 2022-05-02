@@ -11,7 +11,7 @@ const inititalState: RouterRedirectState = {
 }
 
 
-export const routerReducer = createReducer(
+export const routerRelatedReducer = createReducer(
   inititalState,
   on(RouterActions.redirectWithUrl, (state, {url}) => {
     return {
