@@ -93,13 +93,12 @@ export class AuthEffects {
     );
   });
 
-  userLoggedout$ = createEffect(() => {
+  userLoggedoutRedirect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(fromAuthActions.authLogoutSuccess),
       switchMap((options) => {
         const redirect = options.redirect;
         let urlSegs: string[] = [];
-        console.log(redirect)
         if (redirect) {
           urlSegs = redirect;
         }

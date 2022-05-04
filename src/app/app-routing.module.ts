@@ -7,7 +7,13 @@ const routes: Routes = [
   { path: 'home',
     loadChildren: () => import('./main/main.module').then(m => m.MainModule),
     data: {
-      pageTitle: 'Main'
+      pageTitle: 'Home'
+    }
+  },
+  { path: 'my-account',
+    loadChildren: () => import('./my-account/account.module').then(m => m.MyAccountModule),
+    data: {
+      pageTitle: 'My Account'
     }
   },
   { path: '**', component: NotFoundComponent,

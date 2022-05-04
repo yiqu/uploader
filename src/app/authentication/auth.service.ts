@@ -28,8 +28,7 @@ export class AuthService {
       return true;
     })
   );
-
-  shouldRedirect: boolean = false;
+  shouldRedirectBeforeAttemptLogin: boolean = false;
 
   constructor(private afs: AngularFirestore, public store: Store<AppState>) {
     this.setFirebaseAuthWorking();
@@ -41,11 +40,11 @@ export class AuthService {
             displayName: user.displayName ?? '<display>',
             email: user.email ?? '<email>'
           };
-          this.setUserLoginSuccess(currentUser, this.shouldRedirect ? ['/'] : null);
+          this.setUserLoginSuccess(currentUser, this.shouldRedirectBeforeAttemptLogin ? ['/'] : null);
         } else {
-          this.unsetVerifiedUser(this.shouldRedirect ? ['/'] : null);
+          this.unsetVerifiedUser(this.shouldRedirectBeforeAttemptLogin ? ['/'] : null);
         }
-        this.shouldRedirect = true;
+        this.shouldRedirectBeforeAttemptLogin = true;
       },
       (err) => {
         console.error("Error occured in firebase auth state change trigger.")

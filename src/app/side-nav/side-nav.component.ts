@@ -33,6 +33,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       ]),
       new NavHeaderList(new NavHeader("Help & Settings"), [
         new NavHeaderLink("My Account", "account_circle", ["/", "my-account"]),
+        new NavHeaderLink("Auth", "account_circle", ["/", "auth"]),
+        new NavHeaderLink("Signin", "account_circle", ["/", "auth", 'signin']),
+        new NavHeaderLink("Signup", "account_circle", ["/", "auth", 'signup']),
       ])
     );
   }
