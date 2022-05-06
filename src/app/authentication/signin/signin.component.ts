@@ -3,12 +3,10 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { AuthInfoFromUser, IAuthInfo } from '../../shared/models/user.model';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { Store, select } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import * as fu from '../../shared/form.utils';
 import { AuthService } from '../auth.service';
-import { AppState } from 'src/app/store/global/app.reducer';
 
 
 @Component({
@@ -22,9 +20,7 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
   avartarImgSrc: string = "assets/img/uploader.png";
   signFg: FormGroup;
   compDest$: Subject<void> = new Subject<void>();
-  errorMsg?: string;
-  errorOccured?: boolean;
-  loading?: boolean;
+  passwordVisible: boolean = false;
 
   get idFc(): FormControl {
     return <FormControl>this.signFg.get("id");
@@ -34,13 +30,9 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
     return <FormControl>this.signFg.get("password");
   }
 
-  constructor(public fb: FormBuilder, public as: AuthService, public router: Router,
-    private store: Store<AppState>) {
-
+  constructor(public fb: FormBuilder, public as: AuthService) {
     let id: string | null = null;
     let pw: string | null = null;
-
-
     if (!environment.production) {
       id = "t1@test.com";
       pw = "123456";
@@ -54,10 +46,10 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.as.clearErrors();
+
     this.signFg.valueChanges.pipe(
       takeUntil(this.compDest$)
-    )
-    .subscribe((val) => {
+    ).subscribe((val) => {
       this.as.clearErrors();
     });
   }
@@ -76,17 +68,12 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
     this.as.userLogin(a);
   }
 
-  disableFieldsOnLoading(loading: boolean) {
-    if (this.signFg) {
-      loading ? this.signFg.disable({onlySelf: true, emitEvent: false}) :
-        this.signFg.enable({onlySelf: true, emitEvent: false});
-    }
+  onPasswordVisToggle() {
+    this.passwordVisible = !this.passwordVisible;
   }
 
   ngOnDestroy() {
     this.compDest$.next();
     this.compDest$.complete();
   }
-
-
 }

@@ -72,7 +72,7 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSignoutClick() {
-    this.as.signoutUser();
+    this.as.userLogout();
   }
 
 

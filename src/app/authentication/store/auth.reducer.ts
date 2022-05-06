@@ -20,7 +20,9 @@ export const authReducer = createReducer(
   on(AuthActions.authLoginStart, (state, { authInfo }) => {
     return {
       ...state,
-      loading: true
+      loading: true,
+      error: false,
+      errorMsg: undefined
     }
   }),
 
@@ -67,12 +69,13 @@ export const authReducer = createReducer(
     return {
       ...state,
       loading: true,
-      error: false,
       signUpCreds: {
         password,
         saveSession,
         userEmail
-      }
+      },
+      error: false,
+      errorMsg: undefined
     }
   }),
 
@@ -144,7 +147,6 @@ export const authReducer = createReducer(
     }
     return {
       ...state,
-      loading: false,
       error: true,
       errorMsg: msg
     }

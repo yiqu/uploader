@@ -26,6 +26,7 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
   avartarImgSrc: string = "assets/img/uploader.png";
   signFg: FormGroup;
   compDest$: Subject<void> = new Subject<void>();
+  passwordVisible: boolean = false;
 
   get emailFc(): FormControl {
     return <FormControl>this.signFg.get("email");
@@ -39,12 +40,9 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
     return <FormControl>this.signFg.get("repassword");
   }
 
-  constructor(public fb: FormBuilder, public as: AuthService, public router: Router,
-    private store: Store<AppState>) {
-
+  constructor(public fb: FormBuilder, public as: AuthService) {
       let id: string | null = null;
       let pw: string | null = null;
-
       if (!environment.production) {
         id = "t@test.com";
         pw = "123456";
@@ -79,6 +77,10 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
 
   signup(a: AuthInfoFromUser) {
     this.as.registerUser(a);
+  }
+
+  onPasswordVisToggle() {
+    this.passwordVisible = !this.passwordVisible;
   }
 
   ngOnDestroy() {

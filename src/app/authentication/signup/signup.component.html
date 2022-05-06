@@ -34,9 +34,16 @@
           <div class="w-100">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Password</mat-label>
-              <input matInput placeholder="Password" [formControlName]="'password'" type="password"
+              <input matInput placeholder="Password" [formControlName]="'password'" [type]="passwordVisible ? 'text' : 'password'"
                 [errorStateMatcher]="matcher">
-              <mat-icon matSuffix>https</mat-icon>
+                <button matSuffix mat-icon-button aria-label="" (click)="onPasswordVisToggle()">
+                  <ng-container *ngIf="passwordVisible; else hidePassword">
+                    <mat-icon>visibility_off</mat-icon>
+                  </ng-container>
+                  <ng-template #hidePassword>
+                    <mat-icon>visibility</mat-icon>
+                  </ng-template>
+                </button>
               <mat-error *ngIf="this.passwordFc.hasError('required')">Please enter a password.</mat-error>
               <mat-error *ngIf="this.passwordFc.hasError('minCharCount')">Needs to be at least 6 characters.</mat-error>
             </mat-form-field>
@@ -45,16 +52,22 @@
           <div class="w-100">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Confirm</mat-label>
-              <input matInput placeholder="Confirm password" [formControlName]="'repassword'" type="password"
+              <input matInput placeholder="Confirm password" [formControlName]="'repassword'" [type]="passwordVisible ? 'text' : 'password'"
                 [errorStateMatcher]="matcher" (keyup.enter)="onSignupClick()">
-              <mat-icon matSuffix>https</mat-icon>
+                <button matSuffix mat-icon-button aria-label="" (click)="onPasswordVisToggle()">
+                  <ng-container *ngIf="passwordVisible; else hidePassword">
+                    <mat-icon>visibility_off</mat-icon>
+                  </ng-container>
+                  <ng-template #hidePassword>
+                    <mat-icon>visibility</mat-icon>
+                  </ng-template>
+                </button>
               <mat-error
                 *ngIf="this.repasswordFc && this.repasswordFc.hasError('passwordDoesNotMatch')">
                 Password does not match.
               </mat-error>
             </mat-form-field>
           </div>
-
         </div>
 
         <div *ngIf="((this.as.errorOccured$ | async) === true)" class="">
@@ -68,7 +81,7 @@
 
       <mat-card-actions>
         <div class="">
-          <button *ngIf="true" mat-button class="signin-btn" (click)="onSignupClick()"
+          <button mat-button class="signin-btn" (click)="onSignupClick()"
             [disabled]="this.signFg.invalid || (this.as.apiLoading$ | async)">
               <ng-container *ngIf="((this.as.apiLoading$ | async) === true); else text">
                 Loading...

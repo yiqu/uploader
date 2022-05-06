@@ -4,7 +4,7 @@ import 'firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument,
   AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { VerifiedUser, AuthInfoFromUser, IVerifiedUser } from '../shared/models/user.model';
-import { defer, filter, Observable, Subject } from 'rxjs';
+import { defer, delay, filter, Observable, Subject, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as AuthActions from './store/auth.actions';
 import { UserRegistrationFromEmailActionProp } from './store/auth.models';
@@ -70,7 +70,7 @@ export class AuthService {
     this.store.dispatch(AuthActions.authLoginStart({ authInfo: authInfo }));
   }
 
-  signoutUser() {
+  userLogout() {
     this.store.dispatch(AuthActions.authLogoutStart());
   }
 

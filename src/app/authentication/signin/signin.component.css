@@ -1,18 +1,5 @@
-@media only screen and (min-width: 630px) {
-  .signin-card {
-    width: 30rem;
-  }
-}
-
-@media only screen and (max-width: 630px) {
-  .signin-card {
-    min-width: 100%
-  }
-}
-
-.signin-card-parent {
-  display: flex;
-  justify-content: center;
+.w-35 {
+  width: 35rem;
 }
 
 .signinAvatarParent {
