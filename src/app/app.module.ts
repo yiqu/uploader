@@ -82,7 +82,7 @@ const ngZorroConfig: NzConfig = {
       routerState: RouterState.Minimal
     }),
     AngularFireModule.initializeApp(environment.firebase),
-    //provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     //provideStorage(() => getStorage()),
     AngularFireStorageModule,

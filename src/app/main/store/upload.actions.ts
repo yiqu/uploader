@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { UploadTask } from "src/app/shared/services/storage.service";
+import { PhotoData } from "./upload.state";
 
 const ATTACH_FILE: string = '[Upload/UI] attach a file';
 
@@ -8,9 +9,9 @@ const UPLOAD_FILE_UPDATE_PROGRESS: string = '[Upload/API] Upload file progress u
 const UPLOAD_FILE_SUCCESS: string = '[Upload/API] Upload file successful';
 const UPLOAD_FILE_FAILED: string = '[Upload/API] Upload file failed';
 
-const GET_DOWNLOAD_URL_START: string = '[Upload/API] Get download url for file start';
-const GET_DOWNLOAD_URL_SUCCESS: string = '[Upload/API] Get download url for file successful';
-const GET_DOWNLOAD_URL_FAILED: string = '[Upload/API] Get download url for file failed';
+const UPDATE_PHOTO_DB_FOR_USER_START: string = '[Upload/API] Update new photo in user DB start';
+const UPDATE_PHOTO_DB_FOR_USER_SUCCESS: string = '[Upload/API] Update new photo in user DB successful';
+const UPDATE_PHOTO_DB_FOR_USER_FAILED: string = '[Upload/API] Update new photo in user DB failed';
 
 
 export const attachFile = createAction(
@@ -25,7 +26,7 @@ export const uploadFileStart = createAction(
 
 export const uploadFileSuccess = createAction(
   UPLOAD_FILE_SUCCESS,
-  props<{fileId: string}>()
+  props<{fileId: string, fileSize: number, uploadDate: number, downloadUrl: string}>()
 )
 
 export const uploadFileFailure = createAction(
@@ -35,20 +36,21 @@ export const uploadFileFailure = createAction(
 
 export const uploadFileUpdateProgress = createAction(
   UPLOAD_FILE_UPDATE_PROGRESS,
-  props<{fileId: string, progress?: number | undefined, downloadUrl?: string}>()
+  props<{ fileId: string, fileSize: number, uploadDate: number, progress?: number | undefined,
+    downloadUrl?: string }>()
 )
 
-export const getDownloadUrlStart = createAction(
-  GET_DOWNLOAD_URL_START,
-  props<{ref: UploadTask, fileId: string}>()
+export const updateUserDBWithPhotoStart = createAction(
+  UPDATE_PHOTO_DB_FOR_USER_START,
+  props<{photoData: PhotoData}>()
 )
 
-export const getDownloadUrlSuccess = createAction(
-  GET_DOWNLOAD_URL_SUCCESS,
-  props<{urlString: string, fileId: string}>()
+export const updateUserDBWithPhotoSuccess = createAction(
+  UPDATE_PHOTO_DB_FOR_USER_SUCCESS,
+  props<{photoData: PhotoData}>()
 )
 
-export const getDownloadUrlFailure = createAction(
-  GET_DOWNLOAD_URL_FAILED,
+export const updateUserDBWithPhotoFailure = createAction(
+  UPDATE_PHOTO_DB_FOR_USER_FAILED,
   props<{errMsg: string}>()
 )

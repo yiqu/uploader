@@ -21,3 +21,11 @@ export interface UploadTaskResult {
   url?: string;
   percent?: number;
 }
+
+export interface PhotoData {
+  photoUrl: string;
+  dateUploaded: number;
+  fileSize: number;
+  fileName: string;
+  id?: string;
+}

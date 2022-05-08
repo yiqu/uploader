@@ -20,13 +20,13 @@ export class RestService {
   }
 
   createDocument<T>(data: T, url: string): Promise<void> {
-    const dataDoc = doc(this.firestore, 'siling/' + url);
+    const dataDoc = doc(this.firestore, 'uploader/' + url);
     return setDoc(dataDoc, data);
   }
 
   updateDocument(data: any): Promise<void> {
     if (data) {
-      const dataDocRef: DocumentReference<DocumentData> = doc(this.firestore, 'url/');
+      const dataDocRef: DocumentReference<DocumentData> = doc(this.firestore, 'uploader/');
       const dataDoc = updateDoc(dataDocRef, {
         amount: data
       });
@@ -36,7 +36,7 @@ export class RestService {
   }
 
   addDocumentToCollection<T>(data: T, url: string): FirebaseDocObsAndId {
-    const dataDoc = doc(collection(this.firestore, 'url/' + url));
+    const dataDoc = doc(collection(this.firestore, 'uploader/' + url));
     const id: string = dataDoc.id;
     const datawithId = {
       ...data,
@@ -49,7 +49,7 @@ export class RestService {
   }
 
   getDocument<T>(url: string): Observable<T> {
-    const dataDoc = doc(this.firestore, 'url/' + url);
+    const dataDoc = doc(this.firestore, 'uploader/' + url);
     return docSnapshots(dataDoc).pipe(
       take(1),
       map((res: DocumentSnapshot<DocumentData>) => {
@@ -67,7 +67,7 @@ export class RestService {
   }
 
   addEntryToCollection(data: any): FirebaseDocObsAndId {
-    const collectionDoc = doc(collection(this.firestore, 'siling/'));
+    const collectionDoc = doc(collection(this.firestore, 'uploader/'));
     const id: string = collectionDoc.id;
     const dataToSave = {
     }
@@ -78,7 +78,7 @@ export class RestService {
   }
 
   getDataByCollectionName(name: string): Observable<any> {
-    const collectionByName: CollectionReference<DocumentData> = collection(this.firestore, 'url/');
+    const collectionByName: CollectionReference<DocumentData> = collection(this.firestore, 'uploader/');
     return collectionSnapshots(collectionByName).pipe(
       take(1),
       catchError((err) => {
@@ -103,7 +103,7 @@ export class RestService {
   }
 
   getCollection<T>(url: string): Observable<T[]> {
-    const collectionByName: CollectionReference<DocumentData> = collection(this.firestore, 'url/' + url);
+    const collectionByName: CollectionReference<DocumentData> = collection(this.firestore, 'uploader/' + url);
     return collectionSnapshots(collectionByName).pipe(
       take(1),
       catchError((err) => {

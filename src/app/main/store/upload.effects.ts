@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, ofType, createEffect } from '@ngrx/effects';
+import { Actions, ofType, createEffect, concatLatestFrom } from '@ngrx/effects';
 import { OnInitEffects } from "@ngrx/effects";
 import { tap, concatMap, switchMap, map, mergeMap, catchError, exhaustMap, take, filter, finalize } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
@@ -10,14 +10,15 @@ import * as fromUploadActions from './upload.actions';
 import { FileUploadService } from '../upload.service';
 import { AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { UploadTask } from 'src/app/shared/services/storage.service';
-import { UploadTaskResult } from './upload.state';
-
+import { PhotoData, UploadTaskResult } from './upload.state';
+import { FirebaseDocObsAndId } from 'src/app/shared/models/general.model';
+import { AuthService } from '../../authentication/auth.service';
 
 
 @Injectable()
 export class FileUploadEffects {
 
-  constructor(public actions$: Actions, private us: FileUploadService) {
+  constructor(public actions$: Actions, private us: FileUploadService, private as: AuthService) {
   }
 
   attachFileForUpload$ = createEffect(() => {
@@ -29,7 +30,7 @@ export class FileUploadEffects {
         return fromUploadActions.uploadFileStart({ fileId: fileId, file: file });
       })
     );
-  }, { dispatch: true });
+  });
 
   uploadFileStart$ = createEffect(() => {
     return this.actions$.pipe(
@@ -38,6 +39,7 @@ export class FileUploadEffects {
         const fileId = fileData.fileId;
         const file = fileData.file;
         const fileName = file.name ?? ('File-name-' + new Date().getTime());
+        const uploadDate: number = new Date().getTime();
 
         const taskRef: UploadTask = this.us.uploadFile(file, fileName);
         let arr = [
@@ -49,7 +51,7 @@ export class FileUploadEffects {
               };
             }),
             finalize(() => {
-              console.log('Upload done')
+              console.log('Upload done');
             })
           ),
           taskRef.ref.getDownloadURL().pipe(
@@ -60,27 +62,22 @@ export class FileUploadEffects {
               };
             }),
             finalize(() => {
-              console.log('Fetch URL done')
+              console.log('Fetch URL done');
             })
           )
         ];
         const percentAndUrl: Observable<UploadTaskResult> = concat(...arr);
         return percentAndUrl.pipe(
           map((res) => {
-            if (res.url) {
-              return fromUploadActions.uploadFileUpdateProgress({ fileId, downloadUrl: res.url });
-            } else if (res.percent !== null || res.percent !== undefined) {
-              return fromUploadActions.uploadFileUpdateProgress({ fileId, progress: res.percent });
-            } else {
-              return fromUploadActions.uploadFileUpdateProgress({ fileId });
-            }
+            return fromUploadActions.uploadFileUpdateProgress({ fileId, fileSize: fileData.file.size,
+              uploadDate: uploadDate, downloadUrl: res.url, progress: res.percent });
           }),
           catchError((err) => {
             console.error("Upload Error!" + err);
             return of(fromUploadActions.uploadFileFailure({ errMsg: err }));
           }),
           finalize(() => {
-            console.log("url and upload done")
+            console.log("Upload and URL done");
           })
         );
       })
@@ -91,37 +88,70 @@ export class FileUploadEffects {
     return this.actions$.pipe(
       ofType(fromUploadActions.uploadFileUpdateProgress),
       filter((progress) => {
-        return progress.progress === 100;
+        if (progress.downloadUrl) {
+          return true;
+        }
+        return false;
       }),
       map((res) => {
-        const fileId = res.fileId;
-        return fromUploadActions.uploadFileSuccess({ fileId });
+        const fileId: string = res.fileId;
+        const downloadUrl: string = res.downloadUrl!;
+        const fileSize: number = res.fileSize;
+        const uploadDate: number = res.uploadDate;
+        return fromUploadActions.uploadFileSuccess({ fileId, fileSize, uploadDate, downloadUrl });
       })
     );
   });
 
-  // startGetDownloadUrl$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(fromUploadActions.uploadFileSuccess),
-  //     map((res) => {
-  //       return fromUploadActions.getDownloadUrlStart({ ref: res.taskRef, fileId: res.fileId });
-  //     })
-  //   );
-  // });
+  updateUserPhotoDatabaseAfterUploadSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromUploadActions.uploadFileSuccess),
+      map((data) => {
+        console.log(data, 'updating now')
+        const photoData: PhotoData = {
+          id: data.fileId,
+          dateUploaded: data.uploadDate,
+          fileName: data.fileId,
+          fileSize: data.fileSize,
+          photoUrl: data.downloadUrl
+        };
+        return fromUploadActions.updateUserDBWithPhotoStart({ photoData });
+      })
+    );
+  });
 
-  // getDownloadUrlSuccess$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(fromUploadActions.getDownloadUrlStart),
-  //     mergeMap((res) => {
-  //       return res.ref.ref.getDownloadURL().pipe(
-  //         map((url) => {
-  //           console.log(url, res.fileId)
-  //           return fromUploadActions.getDownloadUrlSuccess({ urlString: url, fileId: res.fileId });
-  //         })
-  //       )
-  //     })
-  //   );
-  // });
+  updateUserPhotoDatabase$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromUploadActions.updateUserDBWithPhotoStart),
+      concatLatestFrom(() => this.as.currentUser$),
+      filter((user) => {
+        const userName = user[1]?.email;
+        if (userName) {
+          return true;
+        }
+        return false;
+      }),
+      mergeMap((data) => {
+        const userEmail: string = data[1]?.email ?? 'DEFAULT-USER';
+        const restOperation: FirebaseDocObsAndId = this.us.addPhotoUrl(data[0].photoData, userEmail);
+        const obs$: Promise<void> = restOperation.operationObs;
+        const id: string = restOperation.id;
+        return obs$.then(
+          (res) => {
+            const photoDataWithId = {
+              ...data[0].photoData,
+              id: id
+            }
+            return fromUploadActions.updateUserDBWithPhotoSuccess({
+              photoData: photoDataWithId
+            });
+          }
+        ).catch((err) => {
+          return fromUploadActions.updateUserDBWithPhotoFailure({ errMsg: err });
+        })
+      })
+    );
+  });
 
 
 }
