@@ -29,6 +29,6 @@ export const selectTotalCount = createSelector(
 export const isUploadFileLoading = createSelector(
   uploadFileFeatureState,
   (state): boolean => {
-    return state.uploading;
+    return state.apiWorking;
   }
 );

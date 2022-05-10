@@ -1,11 +1,14 @@
 import { EntityState, createEntityAdapter, Update } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
-import { UploadFile } from './upload.state';
+import { PhotoData, UploadFile } from './upload.state';
 import * as fromUploadActions from './upload.actions';
 
 
 export interface FileUploadEntityState extends EntityState<UploadFile> {
-  uploading: boolean;
+  apiWorking: boolean;
+  filesUploadedAndUrlAddedToDb: PhotoData[];
+  error: boolean;
+  errMsg: string;
 }
 
 export function selectId(file: UploadFile) {
@@ -23,12 +26,26 @@ export const adapter = createEntityAdapter<UploadFile>({
 })
 
 export const inititalState = adapter.getInitialState<Partial<FileUploadEntityState>>({
-  uploading: false
+  apiWorking: false,
+  filesUploadedAndUrlAddedToDb: [],
+  errMsg: undefined,
+  error: false
 });
 
 
 export const fileUploadEntityReducer = createReducer(
   inititalState,
+
+
+  on(fromUploadActions.cleanUpAttachedFiles, (state) => {
+    return adapter.removeAll({
+      ...state,
+      apiWorking: false,
+      error: false,
+      errMsg: undefined,
+      filesUploadedAndUrlAddedToDb: []
+    });
+  }),
 
   on(fromUploadActions.uploadFileStart, (state, { file, fileId }) => {
     const fileToAdd: UploadFile = {
@@ -44,7 +61,7 @@ export const fileUploadEntityReducer = createReducer(
     };
     return adapter.addOne(fileToAdd, {
       ...state,
-      uploading: true
+      apiWorking: true
     });
   }),
 
@@ -58,7 +75,7 @@ export const fileUploadEntityReducer = createReducer(
     };
     return adapter.updateOne(updatedProgress, {
       ...state,
-      uploading: true
+      apiWorking: true
     });
   }),
 
@@ -72,10 +89,56 @@ export const fileUploadEntityReducer = createReducer(
     };
     return adapter.updateOne(updatedProgress, {
       ...state,
-      uploading: false
+      apiWorking: false
     });
   }),
 
+  on(fromUploadActions.uploadFileFailure, (state, { errMsg }) => {
+    return {
+      ...state,
+      apiWorking: false,
+      error: true,
+      errMsg
+    };
+  }),
+
+  on(fromUploadActions.updateUserDBWithPhotoStart, (state, { photoData }) => {
+    const update: Update<UploadFile> = {
+      id: photoData.id,
+      changes: {
+        urlUploaded: false
+      }
+    };
+    return adapter.updateOne(update, {
+      ...state,
+      apiWorking: true
+    });
+  }),
+
+  on(fromUploadActions.updateUserDBWithPhotoSuccess, (state, { photoData }) => {
+    const update: Update<UploadFile> = {
+      id: photoData.id,
+      changes: {
+        urlUploaded: true
+      }
+    };
+    const uploadCompletedList: PhotoData[] = [...state.filesUploadedAndUrlAddedToDb ?? []];
+    uploadCompletedList.push(photoData);
+    return adapter.updateOne(update, {
+      ...state,
+      apiWorking: false,
+      filesUploadedAndUrlAddedToDb: uploadCompletedList
+    });
+  }),
+
+  on(fromUploadActions.updateUserDBWithPhotoFailure, (state, { errMsg }) => {
+    return {
+      ...state,
+      apiWorking: false,
+      error: true,
+      errMsg
+    };
+  }),
 
 
 )

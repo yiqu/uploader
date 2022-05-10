@@ -29,7 +29,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
     this.headerList.push(
       new NavHeaderList(new NavHeader("Upload"), [
         new NavHeaderLink("Upload", "upload", ["/", "home"]),
-        new NavHeaderLink("History", "history", ["/", "history"]),
+        new NavHeaderLink("My Files", "history", ["/", "history"]),
       ]),
       new NavHeaderList(new NavHeader("Help & Settings"), [
         new NavHeaderLink("My Account", "account_circle", ["/", "my-account"]),

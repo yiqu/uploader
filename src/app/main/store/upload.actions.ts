@@ -3,6 +3,7 @@ import { UploadTask } from "src/app/shared/services/storage.service";
 import { PhotoData } from "./upload.state";
 
 const ATTACH_FILE: string = '[Upload/UI] attach a file';
+const CLEAN_UP_ATTACHED: string = '[Upload/UI] Remove all attached files';
 
 const UPLOAD_FILE_START: string = '[Upload/API] Upload file start';
 const UPLOAD_FILE_UPDATE_PROGRESS: string = '[Upload/API] Upload file progress update';
@@ -17,6 +18,10 @@ const UPDATE_PHOTO_DB_FOR_USER_FAILED: string = '[Upload/API] Update new photo i
 export const attachFile = createAction(
   ATTACH_FILE,
   props<{fileId: string, file: File}>()
+)
+
+export const cleanUpAttachedFiles = createAction(
+  CLEAN_UP_ATTACHED
 )
 
 export const uploadFileStart = createAction(

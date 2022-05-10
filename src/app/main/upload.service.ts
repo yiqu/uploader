@@ -26,6 +26,10 @@ export class FileUploadService {
     this.store.dispatch(fromUploadActions.attachFile({ file, fileId }));
   }
 
+  cleanUpAttachedFiles(): void {
+    this.store.dispatch(fromUploadActions.cleanUpAttachedFiles());
+  }
+
   uploadFile(file: any, fileName: string): UploadTask {
     return this.ss.uploadBlob(file, fileName);
   }

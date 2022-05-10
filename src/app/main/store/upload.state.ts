@@ -14,6 +14,7 @@ export interface UploadFile {
   file: File;
   preview?: any;
   downloadUrl?: string;
+  urlUploaded?: boolean;
 }
 
 export interface UploadTaskResult {
@@ -27,5 +28,5 @@ export interface PhotoData {
   dateUploaded: number;
   fileSize: number;
   fileName: string;
-  id?: string;
+  id: string;
 }

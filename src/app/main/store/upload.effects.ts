@@ -69,8 +69,9 @@ export class FileUploadEffects {
         const percentAndUrl: Observable<UploadTaskResult> = concat(...arr);
         return percentAndUrl.pipe(
           map((res) => {
+            const percent = res.percent ?? (res.url ? 100 : res.percent);
             return fromUploadActions.uploadFileUpdateProgress({ fileId, fileSize: fileData.file.size,
-              uploadDate: uploadDate, downloadUrl: res.url, progress: res.percent });
+              uploadDate: uploadDate, downloadUrl: res.url, progress: percent });
           }),
           catchError((err) => {
             console.error("Upload Error!" + err);
@@ -88,7 +89,7 @@ export class FileUploadEffects {
     return this.actions$.pipe(
       ofType(fromUploadActions.uploadFileUpdateProgress),
       filter((progress) => {
-        if (progress.downloadUrl) {
+        if (progress.downloadUrl && progress.progress === 100) {
           return true;
         }
         return false;
@@ -107,7 +108,6 @@ export class FileUploadEffects {
     return this.actions$.pipe(
       ofType(fromUploadActions.uploadFileSuccess),
       map((data) => {
-        console.log(data, 'updating now')
         const photoData: PhotoData = {
           id: data.fileId,
           dateUploaded: data.uploadDate,
@@ -132,10 +132,10 @@ export class FileUploadEffects {
         return false;
       }),
       mergeMap((data) => {
-        const userEmail: string = data[1]?.email ?? 'DEFAULT-USER';
+        const userEmail: string = data[1]?.email!;
         const restOperation: FirebaseDocObsAndId = this.us.addPhotoUrl(data[0].photoData, userEmail);
         const obs$: Promise<void> = restOperation.operationObs;
-        const id: string = restOperation.id;
+        const id: string = data[0].photoData.id;
         return obs$.then(
           (res) => {
             const photoDataWithId = {
