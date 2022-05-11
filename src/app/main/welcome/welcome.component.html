@@ -1,0 +1,24 @@
+<ng-container *ngIf="currentUser; else noUser">
+  <div class="poppins user gray-text">
+    Welcome back {{ currentUser.email }}, what are you uploading today?
+  </div>
+</ng-container>
+
+<ng-template #noUser>
+  <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px" class="no-user">
+    <div class="poppins main">
+      Hello!
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <div>
+        <img src="assets/img/uploader.png" class="logo-img" alt="logo">
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-icon class="welcome-icon">face</mat-icon>
+      </div>
+    </div>
+    <div class="poppins">
+      <a [routerLink]="['/', 'auth', 'signin']">Create a Uploader account to get started.</a>
+    </div>
+  </div>
+</ng-template>

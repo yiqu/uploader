@@ -1,8 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { take } from 'rxjs';
+import { AuthService } from 'src/app/authentication/auth.service';
 import { RestService } from 'src/app/shared/services/rest.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { UploadFile } from '../store/upload.state';
 import { FileUploadService } from '../upload.service';
+import { ZorroToasterService } from '../../shared/services/toaster-zorro.service';
 
 @Component({
   selector: 'app-main-all',
@@ -14,7 +17,8 @@ export class HomeComponent implements OnInit {
   @ViewChild('uploadInput')
   uploadInput?: ElementRef;
 
-  constructor(public fs: FileUploadService, private rs: StorageService) {
+  constructor(public fs: FileUploadService, private rs: StorageService, public as: AuthService,
+    private ts: ZorroToasterService) {
   }
 
   ngOnInit() {
@@ -23,7 +27,16 @@ export class HomeComponent implements OnInit {
   onFileUpload() {
     const uploadEle = this.uploadInput?.nativeElement as HTMLInputElement;
     if (uploadEle) {
-      uploadEle.click();
+      this.as.currentUser$.pipe(
+        take(1)
+      ).subscribe((user) => {
+        if (user) {
+          uploadEle.click();
+        } else {
+          this.ts.openSingletonToast("warning", 'You are not logged in.')
+        }
+      });
+
     }
   }
 

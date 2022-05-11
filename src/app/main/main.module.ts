@@ -12,6 +12,7 @@ import { fileUploadEntityEffect } from './store/upload.effects';
 import { fileUploadEntityReducerFunc } from './store/upload.reducer';
 import { UPLOAD_FILE_STORE_KEY } from './store/upload.state';
 import { UploadItemComponent } from './upload-item/upload-item.component';
+import { HomeWelcomeBoxComponent } from './welcome/welcome.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { UploadItemComponent } from './upload-item/upload-item.component';
   declarations: [
     MainComponent,
     HomeComponent,
+    HomeWelcomeBoxComponent,
     UploadItemComponent
   ],
 

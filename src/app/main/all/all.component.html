@@ -1,33 +1,46 @@
-<div class="">
-  <input type="file" multiple class="upload-input" #uploadInput (change)="onFileInputClick($event)">
-</div>
-<div class="w-100" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="45px">
-  <div class="quicksand upload-action" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
-    (click)="onFileUpload()">
-    <div class="text">
-      Select items to upload
-    </div>
-
-    <div>
-      <button mat-fab color="primary" aria-label="Upload files">
-        <mat-icon>file_upload</mat-icon>
-      </button>
-    </div>
+<ng-container *ngIf="((this.as.apiLoading$| async) === false); else loading">
+  <div class="">
+    <input type="file" multiple class="upload-input" #uploadInput (change)="onFileInputClick($event)">
   </div>
-
-  <ng-container *ngIf="(this.fs.filesUploadingAll$ | async) as files">
-    <div class="w-100">
-      <div class="poppins uploading-title" fxLayout="row" fxLayoutAlign="center center">
-        File Uploading ..
+  <div class="w-100" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="45px">
+    <div class="quicksand upload-action" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
+      (click)="onFileUpload()">
+      <div class="text">
+        Select items to upload
       </div>
-      <section class="w-100" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
-        <ng-container *ngFor="let file of files; trackBy:trackById">
-          <div fxFlex.gt-sm="23" fxFlex="100">
-            <app-upload-item [file]="file"></app-upload-item>
-          </div>
-        </ng-container>
-      </section>
-    </div>
-  </ng-container>
 
-</div>
+      <div>
+        <button mat-fab color="primary" aria-label="Upload files"
+          [disabled]="!(this.as.currentUser$ | async)">
+          <mat-icon>file_upload</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <ng-container *ngIf="(this.fs.filesUploadingAll$ | async) as files">
+      <ng-container *ngIf="files.length > 0">
+        <div class="w-100">
+          <div class="poppins uploading-title" fxLayout="row" fxLayoutAlign="center center">
+            File Uploading ..
+          </div>
+          <section class="w-100" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
+            <ng-container *ngFor="let file of files; trackBy:trackById">
+              <div fxFlex.gt-sm="23" fxFlex="100">
+                <app-upload-item [file]="file"></app-upload-item>
+              </div>
+            </ng-container>
+          </section>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <app-main-welcome [currentUser]="(this.as.currentUser$ | async)"></app-main-welcome>
+
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="w-100">
+    <app-shared-loading></app-shared-loading>
+  </div>
+</ng-template>

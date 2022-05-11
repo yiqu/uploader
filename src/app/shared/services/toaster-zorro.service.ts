@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzMessageRef, NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class ZorroToasterService {
 
   zorroMsgList: string[] = [];
+  currentRef?: NzMessageRef;
 
   constructor(private zs: NzMessageService) {
   }
@@ -36,8 +37,9 @@ export class ZorroToasterService {
     }
   }
 
-  openToast(type: ZorroToastType, message: string): void {
-    this.zs.create(type, message, {
+  openSingletonToast(type: ZorroToastType, message: string): void {
+    this.zs.remove(this.currentRef?.messageId);
+    this.currentRef = this.zs.create(type, message, {
       nzDuration: 4000
     });
   }

@@ -113,7 +113,7 @@ export class AuthEffects {
       ofType(...[fromAuthActions.authLoginSuccess]),
       tap((data) => {
         const email: string = data.user.email;
-        this.ts.openToast('success', 'Welcome to Uploader, ' + email + '!');
+        this.ts.openSingletonToast('success', 'Welcome to Uploader, ' + email + '!');
       }),
       switchMap((opts) => {
         let urlToRedirect: string[] = [];

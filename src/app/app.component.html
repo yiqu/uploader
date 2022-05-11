@@ -1,5 +1,4 @@
-<div class="app-container"
-  [ngClass.lt-md]="'app-is-mobile'">
+<div class="app-container" [ngClass.lt-md]="'app-is-mobile'">
   <app-top-nav (navToggle)="onTopNavMenuClick()" (logoClick)="onTopNavLogoClick()"></app-top-nav>
 
   <mat-sidenav-container class="app-sidenav-container"
