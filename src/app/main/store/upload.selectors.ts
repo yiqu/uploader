@@ -1,6 +1,6 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import { FileUploadEntityState } from './upload.reducer';
-import { UPLOAD_FILE_STORE_KEY } from './upload.state';
+import { FilesUploadingStatus, PhotoData, UploadFile, UPLOAD_FILE_STORE_KEY } from './upload.state';
 import * as fromUploadReducer from './upload.reducer';
 
 
@@ -30,5 +30,31 @@ export const isUploadFileLoading = createSelector(
   uploadFileFeatureState,
   (state): boolean => {
     return state.apiWorking;
+  }
+);
+
+export const filesUploaded = createSelector(
+  uploadFileFeatureState,
+  (state): PhotoData[] => {
+    return state.filesUploadedAndUrlAddedToDb;
+  }
+);
+
+export const isFilesUploadFinished = createSelector(
+  selectTotalCount,
+  filesUploaded,
+  (count: number, filesUploaded: PhotoData[]): boolean => {
+    return count === filesUploaded.length;
+  }
+);
+
+export const filesUploadingAndUploaded = createSelector(
+  selectAll,
+  filesUploaded,
+  (total: UploadFile[], filesUploaded: PhotoData[]): FilesUploadingStatus => {
+    return {
+      total: total,
+      uploadings: filesUploaded
+    };
   }
 );

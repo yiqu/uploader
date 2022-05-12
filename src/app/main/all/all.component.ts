@@ -3,7 +3,7 @@ import { take } from 'rxjs';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { RestService } from 'src/app/shared/services/rest.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
-import { UploadFile } from '../store/upload.state';
+import { PhotoData, UploadFile } from '../store/upload.state';
 import { FileUploadService } from '../upload.service';
 import { ZorroToasterService } from '../../shared/services/toaster-zorro.service';
 
@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fs.getUserPhotos<PhotoData[]>('t1@test.com').subscribe((res) => console.log(res))
   }
 
   onFileUpload() {

@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Firestore, doc, onSnapshot, DocumentReference, docSnapshots, collectionSnapshots,
   CollectionReference, DocumentData, FieldPath, collectionData, QueryDocumentSnapshot,
-  DocumentSnapshot, collection,  } from '@angular/fire/firestore';
-import { setDoc, addDoc, documentId , getDoc, updateDoc} from '@angular/fire/firestore';
+  DocumentSnapshot, collection, setDoc, addDoc, documentId , getDoc, updateDoc
+} from '@angular/fire/firestore';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
 import { FirebaseDocObsAndId } from '../models/general.model';
@@ -64,17 +64,6 @@ export class RestService {
         });
       })
     );
-  }
-
-  addEntryToCollection(data: any): FirebaseDocObsAndId {
-    const collectionDoc = doc(collection(this.firestore, 'uploader/'));
-    const id: string = collectionDoc.id;
-    const dataToSave = {
-    }
-    return {
-      operationObs: setDoc(collectionDoc, dataToSave),
-      id: id
-    };
   }
 
   getDataByCollectionName(name: string): Observable<any> {

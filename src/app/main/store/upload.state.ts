@@ -30,3 +30,8 @@ export interface PhotoData {
   fileName: string;
   id: string;
 }
+
+export interface FilesUploadingStatus {
+  total: UploadFile[];
+  uploadings: PhotoData[];
+}

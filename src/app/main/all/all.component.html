@@ -18,10 +18,17 @@
     </div>
 
     <ng-container *ngIf="(this.fs.filesUploadingAll$ | async) as files">
-      <ng-container *ngIf="files.length > 0">
+      <ng-container *ngIf="(files.length > 0); else welcome">
         <div class="w-100">
-          <div class="poppins uploading-title" fxLayout="row" fxLayoutAlign="center center">
-            File Uploading ..
+          <div class="roboto uploading-title" fxLayout="row" fxLayoutAlign="center center">
+            <ng-container *ngIf="(this.fs.uploadingsAndTotalFiles$ | async) as fileUploadingStatus">
+              <ng-container *ngIf="((this.fs.isFilesUploadFinished$ | async)); else uploading">
+                Done: {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }} files uploaded.
+              </ng-container>
+              <ng-template #uploading>
+                File uploading: {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }} ...
+              </ng-template>
+            </ng-container>
           </div>
           <section class="w-100" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
             <ng-container *ngFor="let file of files; trackBy:trackById">
@@ -33,9 +40,6 @@
         </div>
       </ng-container>
     </ng-container>
-
-    <app-main-welcome [currentUser]="(this.as.currentUser$ | async)"></app-main-welcome>
-
   </div>
 </ng-container>
 
@@ -43,4 +47,8 @@
   <div class="w-100">
     <app-shared-loading></app-shared-loading>
   </div>
+</ng-template>
+
+<ng-template #welcome>
+  <app-main-welcome [currentUser]="(this.as.currentUser$ | async)"></app-main-welcome>
 </ng-template>

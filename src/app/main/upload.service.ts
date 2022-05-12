@@ -8,7 +8,7 @@ import { StorageService, UploadTask } from '../shared/services/storage.service';
 import { AppState } from '../store/global/app.reducer';
 import * as fromUploadActions from './store/upload.actions';
 import * as fromUploadSelectors from './store/upload.selectors';
-import { PhotoData, UploadFile } from './store/upload.state';
+import { FilesUploadingStatus, PhotoData, UploadFile } from './store/upload.state';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,9 @@ export class FileUploadService {
 
   filesUploadingAll$: Observable<UploadFile[]> = this.store.select(fromUploadSelectors.selectAll);
   anyFilesUploading$: Observable<boolean> = this.store.select(fromUploadSelectors.isUploadFileLoading);
+  filesUploaded$: Observable<PhotoData[]> = this.store.select(fromUploadSelectors.filesUploaded);
+  isFilesUploadFinished$: Observable<boolean> = this.store.select(fromUploadSelectors.isFilesUploadFinished);
+  uploadingsAndTotalFiles$: Observable<FilesUploadingStatus> = this.store.select(fromUploadSelectors.filesUploadingAndUploaded);
 
   constructor(private store: Store<AppState>, private ss: StorageService, private rs: RestService) {
   }
@@ -36,6 +39,11 @@ export class FileUploadService {
 
   addPhotoUrl(photo: PhotoData, user: string): FirebaseDocObsAndId {
     return this.rs.addDocumentToCollection(photo, user + '/photos');
+  }
+
+  getUserPhotos<T>(userEmail: string): Observable<T[]> {
+    const url = userEmail + '/' + 'photos';
+    return this.rs.getCollection(url);
   }
 
 }
