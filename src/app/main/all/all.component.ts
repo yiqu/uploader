@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fs.getUserPhotos<PhotoData[]>('t1@test.com').subscribe((res) => console.log(res))
   }
 
   onFileUpload() {

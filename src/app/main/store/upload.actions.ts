@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { IVerifiedUser } from "src/app/shared/models/user.model";
 import { UploadTask } from "src/app/shared/services/storage.service";
 import { PhotoData } from "./upload.state";
 
