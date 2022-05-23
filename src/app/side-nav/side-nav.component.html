@@ -20,7 +20,8 @@
     <div mat-subheader class="sub-header if" [class]="isFirst?'':'mt-3'">{{hl.header.display}}</div>
     <ng-container *ngFor="let hlc of hl.links">
       <a class="fs-13" mat-line [routerLink]="hlc.url" (click)="onNavItemClick()">
-        <mat-list-item [routerLinkActive]="'link-active'">
+        <mat-list-item [routerLinkActive]="'link-active'"
+          [routerLinkActiveOptions]="{matrixParams:'subset', queryParams:'subset', paths:'exact', fragment:'ignored'}">
           <mat-icon mat-list-icon>{{hlc.iconName}}</mat-icon>
           <div class="fs-13 selection-text" mat-line>{{hlc.display}}</div>
         </mat-list-item>

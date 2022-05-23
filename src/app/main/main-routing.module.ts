@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MainComponent } from './main.component';
 import { HomeComponent } from './all/all.component';
+import { HomeHistoryComponent } from './history/history.component';
 
 export const routes: Routes = [
   { path: "", component: MainComponent,
@@ -10,6 +11,11 @@ export const routes: Routes = [
       { path: 'upload', component:  HomeComponent,
         data: {
           pageTitle: 'Upload Files'
+        }
+      },
+      { path: 'history', component:  HomeHistoryComponent,
+        data: {
+          pageTitle: 'My Files'
         }
       },
     ],

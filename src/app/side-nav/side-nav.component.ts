@@ -28,8 +28,8 @@ export class SideNavComponent implements OnInit, OnDestroy {
   createAllOptions() {
     this.headerList.push(
       new NavHeaderList(new NavHeader("Upload"), [
-        new NavHeaderLink("Upload", "upload", ["/", "home"]),
-        new NavHeaderLink("My Files", "history", ["/", "history"]),
+        new NavHeaderLink("Upload", "upload", ["/", "home", "upload"]),
+        new NavHeaderLink("My Files", "history", ["/", "home", "history"]),
       ]),
       new NavHeaderList(new NavHeader("Help & Settings"), [
         new NavHeaderLink("My Account", "account_circle", ["/", "my-account"]),

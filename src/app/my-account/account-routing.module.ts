@@ -8,7 +8,11 @@ export const routes: Routes = [
   { path: "", component: MyAccountComponent, canActivateChild: [NoVerifiedUserChildrenGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: MyAccountCoreComponent }
+      { path: 'home', component: MyAccountCoreComponent,
+        data: {
+          pageTitle: 'My Account'
+        }
+      }
     ],
   }
 ]

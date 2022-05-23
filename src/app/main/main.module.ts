@@ -6,6 +6,7 @@ import { LoadingModule } from '../shared/loading/loading.module';
 import { PipeBundleModule } from '../shared/pipes/pipe-bundle.module';
 import { SharedBudleModule } from '../shared/shared.module';
 import { HomeComponent } from './all/all.component';
+import { HomeHistoryComponent } from './history/history.component';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { FilesEffects } from './store/files.effects';
@@ -36,7 +37,8 @@ import { HomeWelcomeBoxComponent } from './welcome/welcome.component';
     MainComponent,
     HomeComponent,
     HomeWelcomeBoxComponent,
-    UploadItemComponent
+    UploadItemComponent,
+    HomeHistoryComponent
   ],
 
   providers: [],

@@ -9,7 +9,6 @@ import * as fromFilesActions from './files.actions';
 import { Action } from '@ngrx/store';
 import { IVerifiedUser } from 'src/app/shared/models/user.model';
 
-
 @Injectable()
 export class FilesEffects {
 
@@ -19,8 +18,10 @@ export class FilesEffects {
   getUserFiles$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(fromFilesActions.getUserFilesStart),
+      concatLatestFrom(() => this.as.currentUser$),
       map((u) => {
-        return u.user;
+        const currentUser: IVerifiedUser | null | undefined = u[1];
+        return currentUser;
       }),
       switchMap((user) => {
         return iif(

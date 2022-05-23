@@ -20,15 +20,24 @@
     <ng-container *ngIf="(this.fs.filesUploadingAll$ | async) as files">
       <ng-container *ngIf="(files.length > 0); else welcome">
         <div class="w-100">
-          <div class="roboto uploading-title" fxLayout="row" fxLayoutAlign="center center">
-            <ng-container *ngIf="(this.fs.uploadingsAndTotalFiles$ | async) as fileUploadingStatus">
-              <ng-container *ngIf="((this.fs.isFilesUploadFinished$ | async)); else uploading">
-                Done: {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }} files uploaded.
+          <div class="uploading-title quicksand fw-500 w-100">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+              <ng-container *ngIf="(this.fs.uploadingsAndTotalFiles$ | async) as fileUploadingStatus">
+                <ng-container *ngIf="((this.fs.isFilesUploadFinished$ | async)); else uploading">
+                  <div>
+                    Done: {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }} files uploaded
+                  </div>
+                  <div fxLayout="column" fxLayoutAlign="center center" class="">
+                    <mat-icon class="text-success">task_alt</mat-icon>
+                  </div>
+                </ng-container>
+                <ng-template #uploading>
+                  File uploading: {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }}
+                  <mat-icon class="text-primary">hourglass_bottom</mat-icon>
+                </ng-template>
               </ng-container>
-              <ng-template #uploading>
-                File uploading: {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }} ...
-              </ng-template>
-            </ng-container>
+            </div>
+            <hr class="w-100">
           </div>
           <section class="w-100" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
             <ng-container *ngFor="let file of files; trackBy:trackById">
