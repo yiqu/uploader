@@ -1,3 +1,7 @@
+:host {
+  width: 100%;
+}
+
 .no-user {
   .logo-img {
     height: 4rem;
@@ -22,4 +26,8 @@
 
 .user {
   font-size: 20px;
+
+  .user-name {
+    color: #2a2961;
+  }
 }

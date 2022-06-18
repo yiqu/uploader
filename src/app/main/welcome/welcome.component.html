@@ -1,7 +1,6 @@
 <ng-container *ngIf="currentUser; else noUser">
-  <div class="poppins user gray-text">
-    Welcome back {{ currentUser.email }}, what are you uploading today?
-  </div>
+  <app-main-welcome-recent-uploads [recentUploads]="(this.us.userRecentUploads$ | async)"
+    [apiWorking]="(this.us.userFileApiWorking$ | async)"></app-main-welcome-recent-uploads>
 </ng-container>
 
 <ng-template #noUser>

@@ -3,7 +3,10 @@ import * as moment from 'moment';
 import * as fromUtils from '../general.utils';
 
 
-@Pipe({name: 'dateDisplay', pure: true})
+@Pipe({
+  name: 'dateDisplay',
+  pure: true
+})
 export class DateDisplayPipe implements PipeTransform {
 
   transform(value: any, displayType: string): any {
@@ -47,27 +50,30 @@ export class DateDisplayPipe implements PipeTransform {
 })
 export class TimeFromNowPipe implements PipeTransform {
 
-  transform(value: number | string): string {
+  transform(value: number | string | undefined | null): string {
 
     let timeFromNow = "";
     let dateInEpoc: number = NaN;
 
-    if (fromUtils.isNumeric(value)) {
-      dateInEpoc = +value;
-      timeFromNow = moment(+value).fromNow();
-    } else {
-      dateInEpoc = new Date(value+'').getTime();
-      timeFromNow = moment(new Date(value+'').getTime()).fromNow();
-    }
-
-    const currentTime = new Date().getTime();
-
-    if (fromUtils.isNumeric(dateInEpoc)) {
-      if ((currentTime - dateInEpoc) < 2000) {
-      return 'Just now';
+    if (value) {
+      if (fromUtils.isNumeric(value)) {
+        dateInEpoc = +value;
+        timeFromNow = moment(+value).fromNow();
+      } else {
+        dateInEpoc = new Date(value+'').getTime();
+        timeFromNow = moment(new Date(value+'').getTime()).fromNow();
       }
-      return timeFromNow;
+
+      const currentTime = new Date().getTime();
+
+      if (fromUtils.isNumeric(dateInEpoc)) {
+        if ((currentTime - dateInEpoc) < 2000) {
+        return 'Just now';
+        }
+        return timeFromNow;
+      }
     }
+
     return 'Invalid date';
   }
 }

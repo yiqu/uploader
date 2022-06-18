@@ -151,7 +151,10 @@ export class ProfileGainBgColorPipe implements PipeTransform {
 export class FileSizeDisplayPipe implements PipeTransform {
 
   @memo()
-  transform(value: number): string {
-    return humanFileSize(value);
+  transform(value: number | null | undefined): string {
+    if (value) {
+      return humanFileSize(value);
+    }
+    return 'N/A';
   }
 }

@@ -9,6 +9,7 @@ import { SilingCompanyDisplay, SilingEntryTooltipDisplay } from './tooltip.pipe'
 import { ProfitPercentPipe, LocaleNumberPipe, RoundNumberPipe, ProfitPipe, ProfitGainClassPipe, ProfileGainBgColorPipe, ProfitPercentIconClassPipe, FileSizeDisplayPipe } from './numbers.pipe';
 import { FormErrorDisplayPipe } from './form-utils.pipe';
 import { MenuOpenStatusPipe, UrlFromArray } from './general.pipe';
+import { StringSliceDisplayPipe } from './strings.pipe';
 
 @NgModule({
   imports: [],
@@ -34,7 +35,8 @@ import { MenuOpenStatusPipe, UrlFromArray } from './general.pipe';
     FormErrorDisplayPipe,
     UrlFromArray,
     MenuOpenStatusPipe,
-    FileSizeDisplayPipe
+    FileSizeDisplayPipe,
+    StringSliceDisplayPipe
   ],
 
   declarations: [
@@ -58,7 +60,8 @@ import { MenuOpenStatusPipe, UrlFromArray } from './general.pipe';
     FormErrorDisplayPipe,
     UrlFromArray,
     MenuOpenStatusPipe,
-    FileSizeDisplayPipe
+    FileSizeDisplayPipe,
+    StringSliceDisplayPipe
   ],
 
   providers: [

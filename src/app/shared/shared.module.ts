@@ -11,6 +11,7 @@ import { NgxKeyeventModule } from 'ngx-keyevent';
 import { ZorroModuleBundle } from './zorro-bundle.module';
 import { SharedDropMenuComponent } from './components/drop-menu/drop-menu.component';
 import { LoadingBarCssComponent } from './components/loading-bar-css/loading-bar-css.component';
+import { PhotoRecordDisplayComponent } from './components/photo-record-display/photo-record-display.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { LoadingBarCssComponent } from './components/loading-bar-css/loading-bar
     EnterEscapeKeyEventDirective,
     SharedDropMenuComponent,
     LoadingBarCssComponent,
+    PhotoRecordDisplayComponent
   ],
 
   imports: [
@@ -45,6 +47,7 @@ import { LoadingBarCssComponent } from './components/loading-bar-css/loading-bar
     NgxKeyeventModule,
     SharedDropMenuComponent,
     LoadingBarCssComponent,
+    PhotoRecordDisplayComponent
   ],
 
   providers: [

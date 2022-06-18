@@ -25,7 +25,9 @@ export class FileUploadService {
   uploadingsAndTotalFiles$: Observable<FilesUploadingStatus> = this.store.select(fromUploadSelectors.filesUploadingAndUploaded);
 
   userFilesApiLoading$: Observable<boolean> = this.store.select(fromUserFilesSelectors.isUserFilesApiLoading);
+  userFileApiWorking$: Observable<boolean> = this.store.select(fromUserFilesSelectors.isUserFilesApiWorking);
   userFilesCount$: Observable<number> = this.store.select(fromUserFilesSelectors.selectTotalCount);
+  userRecentUploads$: Observable<PhotoData[]> = this.store.select(fromUserFilesSelectors.getRecentUserUploads);
 
   constructor(private store: Store<AppState>, private ss: StorageService, private rs: RestService) {
   }

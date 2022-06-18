@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { OnInitEffects } from "@ngrx/effects";
 import { Actions, ofType, createEffect, concatLatestFrom } from '@ngrx/effects';
-import { map, switchMap, iif, of, mergeMap, EMPTY, distinctUntilChanged } from 'rxjs';
+import { map, switchMap, iif, of, mergeMap, EMPTY, distinctUntilChanged, catchError } from 'rxjs';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { FileUploadService } from '../upload.service';
 import { PhotoData } from './upload.state';
 import * as fromFilesActions from './files.actions';
 import { Action } from '@ngrx/store';
 import { IVerifiedUser } from 'src/app/shared/models/user.model';
+import { getFirebaseErrorMsg } from 'src/app/shared/services/firebase.utils';
 
 @Injectable()
 export class FilesEffects {
@@ -31,6 +32,9 @@ export class FilesEffects {
           this.us.getUserPhotos<PhotoData>(user?.email!).pipe(
             map((res) => {
               return fromFilesActions.getUserFilesSuccess({ files: res })
+            }),
+            catchError((err) => {
+              return of(fromFilesActions.getUserFilesFailed({ errMsg: getFirebaseErrorMsg(err) }))
             })
           ),
           of(fromFilesActions.noUserLoggedInFetchFiles())

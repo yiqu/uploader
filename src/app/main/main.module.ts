@@ -13,8 +13,9 @@ import { FilesEffects } from './store/files.effects';
 import { filesEntityReducerFunc } from './store/files.reducer';
 import { fileUploadEntityEffect } from './store/upload.effects';
 import { fileUploadEntityReducerFunc } from './store/upload.reducer';
-import { FILES_STORE_KEY, UPLOAD_FILE_STORE_KEY } from './store/upload.state';
+import { USER_FILES_STORE_KEY, UPLOAD_FILE_STORE_KEY } from './store/upload.state';
 import { UploadItemComponent } from './upload-item/upload-item.component';
+import { HomeWelcomeRecentUploadsComponent } from './welcome/recent-uploads/recent-uploads.component';
 import { HomeWelcomeBoxComponent } from './welcome/welcome.component';
 
 @NgModule({
@@ -23,7 +24,7 @@ import { HomeWelcomeBoxComponent } from './welcome/welcome.component';
     LoadingModule,
     PipeBundleModule,
     StoreModule.forFeature(UPLOAD_FILE_STORE_KEY, fileUploadEntityReducerFunc),
-    StoreModule.forFeature(FILES_STORE_KEY, filesEntityReducerFunc),
+    StoreModule.forFeature(USER_FILES_STORE_KEY, filesEntityReducerFunc),
     EffectsModule.forFeature(fileUploadEntityEffect),
     EffectsModule.forFeature([FilesEffects]),
     AngularFireStorageModule,
@@ -37,6 +38,7 @@ import { HomeWelcomeBoxComponent } from './welcome/welcome.component';
     MainComponent,
     HomeComponent,
     HomeWelcomeBoxComponent,
+    HomeWelcomeRecentUploadsComponent,
     UploadItemComponent,
     HomeHistoryComponent
   ],

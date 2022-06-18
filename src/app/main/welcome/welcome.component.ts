@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IVerifiedUser } from 'src/app/shared/models/user.model';
 import { PhotoData } from '../store/upload.state';
+import { FileUploadService } from '../upload.service';
 
 @Component({
   selector: 'app-main-welcome',
@@ -15,7 +16,7 @@ export class HomeWelcomeBoxComponent implements OnInit {
   @Input()
   fileList: PhotoData[] = [];
 
-  constructor() {
+  constructor(public us: FileUploadService) {
   }
 
   ngOnInit() {

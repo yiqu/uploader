@@ -1,0 +1,31 @@
+<div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+  <div class="poppins title gray-text">
+    Recent uploads:
+  </div>
+  <div class="w-100">
+    <hr class="w-100">
+  </div>
+  <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start stretch">
+    <ng-container *ngIf="(recentUploads && recentUploads.length > 0) else noRecentPhotos">
+      <ng-container *ngFor="let photo of recentUploads">
+        <div>
+          <app-shared-photo-record-display [photo]="photo"></app-shared-photo-record-display>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #noRecentPhotos>
+  <div class="poppins gray-text empty-text">
+    <ng-container *ngIf="apiWorking; else loaded">
+      Loading...
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #loaded>
+  <div>
+    You have not uplaoded anything yet. ¯\_(ツ)_/¯
+  </div>
+</ng-template>
