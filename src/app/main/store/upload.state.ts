@@ -29,6 +29,7 @@ export interface PhotoData {
   dateUploaded: number;
   fileSize: number;
   fileName: string;
+  fileId: string;
   id: string;
 }
 

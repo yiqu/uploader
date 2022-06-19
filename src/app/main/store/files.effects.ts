@@ -6,9 +6,11 @@ import { AuthService } from 'src/app/authentication/auth.service';
 import { FileUploadService } from '../upload.service';
 import { PhotoData } from './upload.state';
 import * as fromFilesActions from './files.actions';
+import * as fromUploadActions from './upload.actions';
 import { Action } from '@ngrx/store';
 import { IVerifiedUser } from 'src/app/shared/models/user.model';
 import { getFirebaseErrorMsg } from 'src/app/shared/services/firebase.utils';
+
 
 @Injectable()
 export class FilesEffects {
@@ -18,7 +20,7 @@ export class FilesEffects {
 
   getUserFiles$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(fromFilesActions.getUserFilesStart),
+      ofType(...[fromFilesActions.getUserFilesStart, fromUploadActions.updateUserDBWithPhotoSuccess]),
       concatLatestFrom(() => this.as.currentUser$),
       map((u) => {
         const currentUser: IVerifiedUser | null | undefined = u[1];

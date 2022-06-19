@@ -32,7 +32,7 @@ export const uploadFileStart = createAction(
 
 export const uploadFileSuccess = createAction(
   UPLOAD_FILE_SUCCESS,
-  props<{fileId: string, fileSize: number, uploadDate: number, downloadUrl: string}>()
+  props<{fileId: string, fileName: string, fileSize: number, uploadDate: number, downloadUrl: string}>()
 )
 
 export const uploadFileFailure = createAction(
@@ -42,8 +42,7 @@ export const uploadFileFailure = createAction(
 
 export const uploadFileUpdateProgress = createAction(
   UPLOAD_FILE_UPDATE_PROGRESS,
-  props<{ fileId: string, fileSize: number, uploadDate: number, progress?: number | undefined,
-    downloadUrl?: string }>()
+  props<{ fileId: string, fileName: string, fileSize: number, uploadDate: number, progress?: number | undefined, downloadUrl?: string }>()
 )
 
 export const updateUserDBWithPhotoStart = createAction(

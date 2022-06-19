@@ -11,7 +11,11 @@ export class StringSliceDisplayPipe implements PipeTransform {
   @memo()
   transform(value: string | undefined | null, cutOff: number): string {
     if (value) {
-      return (value.slice(0, cutOff) + '..');
+      let result: string = (value.slice(0, cutOff));
+      if (cutOff >= value.length) {
+        return value;
+      }
+      return result + '..';
     }
     return value + '';
   }

@@ -1,9 +1,9 @@
-<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px">
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px" class="quicksand fw-500">
   <div>
-    <img [src]="photo?.photoUrl" alt="Photo img" width="100" height="100">
+    <img [src]="photo?.photoUrl" alt="Photo img" width="50" height="50">
   </div>
   <div [title]="photo?.fileName">
-    {{ photo?.fileName | stringSliceCutoff:15 }}
+    {{ photo?.fileName | stringSliceCutoff:25 }}
   </div>
   <div>
     {{ photo?.fileSize | fileSizeDisplay }}

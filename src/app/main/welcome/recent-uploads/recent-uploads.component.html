@@ -1,9 +1,6 @@
-<div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
-  <div class="poppins title gray-text">
+<div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
+  <div class="poppins title bb-1">
     Recent uploads:
-  </div>
-  <div class="w-100">
-    <hr class="w-100">
   </div>
   <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start stretch">
     <ng-container *ngIf="(recentUploads && recentUploads.length > 0) else noRecentPhotos">
@@ -12,6 +9,20 @@
           <app-shared-photo-record-display [photo]="photo"></app-shared-photo-record-display>
         </div>
       </ng-container>
+      <div class="poppins mt-2" fxLayout="row" fxLayoutAlign="start center">
+        <a [routerLink]="['../', 'history']">
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <div>
+              Go to my files
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon>
+                arrow_right_alt
+              </mat-icon>
+            </div>
+          </div>
+        </a>
+      </div>
     </ng-container>
   </div>
 </div>

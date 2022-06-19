@@ -70,7 +70,7 @@ export class FileUploadEffects {
         return percentAndUrl.pipe(
           map((res) => {
             const percent = res.percent ?? (res.url ? 100 : res.percent);
-            return fromUploadActions.uploadFileUpdateProgress({ fileId, fileSize: fileData.file.size,
+            return fromUploadActions.uploadFileUpdateProgress({ fileId, fileName: fileName, fileSize: fileData.file.size,
               uploadDate: uploadDate, downloadUrl: res.url, progress: percent });
           }),
           catchError((err) => {
@@ -96,10 +96,11 @@ export class FileUploadEffects {
       }),
       map((res) => {
         const fileId: string = res.fileId;
+        const fileName: string = res.fileName;
         const downloadUrl: string = res.downloadUrl!;
         const fileSize: number = res.fileSize;
         const uploadDate: number = res.uploadDate;
-        return fromUploadActions.uploadFileSuccess({ fileId, fileSize, uploadDate, downloadUrl });
+        return fromUploadActions.uploadFileSuccess({ fileId, fileName, fileSize, uploadDate, downloadUrl });
       })
     );
   });
@@ -111,7 +112,8 @@ export class FileUploadEffects {
         const photoData: PhotoData = {
           id: data.fileId,
           dateUploaded: data.uploadDate,
-          fileName: data.fileId,
+          fileId: data.fileId,
+          fileName: data.fileName,
           fileSize: data.fileSize,
           photoUrl: data.downloadUrl
         };
