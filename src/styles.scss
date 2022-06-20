@@ -64,6 +64,10 @@ a {
   text-decoration: none;
 }
 
+a.stateful:visited {
+  color: #551a8b;
+}
+
 hr {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -350,4 +354,13 @@ Zorro
 
 div.ant-message-custom-content {
   display: flex;
+}
+
+snack-bar-container.mat-snack-bar-container.progress-snackbar {
+  background-color: #99c2ff;
+  color: #222;
+
+  .mat-icon {
+    color: #333;
+  }
 }

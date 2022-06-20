@@ -31,6 +31,8 @@ import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AuthModule } from './authentication/auth.module';
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
+import { SharedProgressSnackbarComponent } from './progress-snackbar/progress-snackbar.component';
+import { ProgressSnackbarModule } from './progress-snackbar/progress-snackbar.module';
 
 
 const icons: IconDefinition[] = [ AppstoreOutline, ProjectFill, ContainerFill,
@@ -87,6 +89,7 @@ const ngZorroConfig: NzConfig = {
     //provideStorage(() => getStorage()),
     AngularFireStorageModule,
     AuthModule,
+    ProgressSnackbarModule,
     AppRoutingModule
   ],
   providers: [
@@ -96,7 +99,7 @@ const ngZorroConfig: NzConfig = {
     },
     { provide: NZ_CONFIG,
       useValue: ngZorroConfig
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

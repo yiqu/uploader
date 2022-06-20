@@ -1,14 +1,20 @@
-<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px" class="quicksand fw-500">
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px" class="fw-500">
   <div>
     <img [src]="photo?.photoUrl" alt="Photo img" width="50" height="50">
   </div>
-  <div [title]="photo?.fileName">
-    {{ photo?.fileName | stringSliceCutoff:25 }}
-  </div>
-  <div>
-    {{ photo?.fileSize | fileSizeDisplay }}
-  </div>
-  <div [title]="(photo?.dateUploaded | dateDisplay:'FULLDATE')">
-    {{ photo?.dateUploaded | dateFromNow }}
+  <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="5px">
+    <div [title]="photo?.fileName">
+      <a target="_blank" rel="noopener noreferrer" [href]="photo?.photoUrl" class="stateful">
+        {{ photo?.fileName | stringSliceCutoff:25 }}
+      </a>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" class="meta">
+      <div>
+        {{ photo?.fileSize | fileSizeDisplay }} -
+      </div>
+      <div [title]="(photo?.dateUploaded | dateDisplay:'FULLDATE')" class="date">
+        {{ photo?.dateUploaded | dateFromNow }}
+      </div>
+    </div>
   </div>
 </div>

@@ -6,6 +6,7 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 import { PhotoData, UploadFile } from '../store/upload.state';
 import { FileUploadService } from '../upload.service';
 import { ZorroToasterService } from '../../shared/services/toaster-zorro.service';
+import { ProgressSnackbarService } from 'src/app/progress-snackbar/progress-snackbar.service';
 
 @Component({
   selector: 'app-main-all',
@@ -18,10 +19,11 @@ export class HomeComponent implements OnInit {
   uploadInput?: ElementRef;
 
   constructor(public fs: FileUploadService, private rs: StorageService, public as: AuthService,
-    private ts: ZorroToasterService) {
+    private ts: ZorroToasterService, public pss: ProgressSnackbarService) {
   }
 
   ngOnInit() {
+    this.pss.getProgressSnackbar({});
   }
 
   onFileUpload() {

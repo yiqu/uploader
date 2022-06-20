@@ -153,7 +153,7 @@ export class FileSizeDisplayPipe implements PipeTransform {
   @memo()
   transform(value: number | null | undefined): string {
     if (value) {
-      return humanFileSize(value);
+      return humanFileSize(value, true);
     }
     return 'N/A';
   }
