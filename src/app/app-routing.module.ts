@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './404/404.component';
+import { NetworkAwarePreloadStrategy } from './shared/preload-strategies/preload-network';
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -24,7 +25,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes,
+      {
+        preloadingStrategy: NetworkAwarePreloadStrategy,
+      }
+    )
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
