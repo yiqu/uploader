@@ -23,7 +23,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pss.getProgressSnackbar({});
+    this.pss.getProgressSnackbar({
+      fileStatus: this.fs.filesUploadingAll$,
+      isFilesUploadFinished: this.fs.isFilesUploadFinished$,
+      uploadingsAndTotalFiles: this.fs.uploadingsAndTotalFiles$
+    });
   }
 
   onFileUpload() {

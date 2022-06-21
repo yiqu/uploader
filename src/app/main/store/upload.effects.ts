@@ -51,7 +51,6 @@ export class FileUploadEffects {
               };
             }),
             finalize(() => {
-              console.log('Upload done');
             })
           ),
           taskRef.ref.getDownloadURL().pipe(
@@ -62,7 +61,6 @@ export class FileUploadEffects {
               };
             }),
             finalize(() => {
-              console.log('Fetch URL done');
             })
           )
         ];
@@ -78,7 +76,6 @@ export class FileUploadEffects {
             return of(fromUploadActions.uploadFileFailure({ errMsg: err }));
           }),
           finalize(() => {
-            console.log("Upload and URL done");
           })
         );
       })

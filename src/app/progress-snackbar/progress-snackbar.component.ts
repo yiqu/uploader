@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { ProgressDialogService } from '../progress-dialog/progress-dialog.service';
+import { ProgressData } from '../progress-dialog/progress-dialog.state';
 
 @Component({
   selector: 'app-shared-progress-snackbar',
@@ -8,10 +10,23 @@ import { MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar'
 })
 export class SharedProgressSnackbarComponent implements OnInit {
 
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any,
-    private progressRef: MatSnackBarRef<SharedProgressSnackbarComponent>) {
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: ProgressData,
+    private progressRef: MatSnackBarRef<SharedProgressSnackbarComponent>,
+    private pds: ProgressDialogService) {
   }
 
   ngOnInit() {
+  }
+
+  onMaximizeClick(): void {
+    this.pds.openDialog({
+      fileStatus: this.data.fileStatus,
+      isFilesUploadFinished: this.data.isFilesUploadFinished,
+      uploadingsAndTotalFiles: this.data.uploadingsAndTotalFiles
+    });
+  }
+
+  onCloseSnackbarClick(): void {
+
   }
 }

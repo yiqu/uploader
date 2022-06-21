@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarRef, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { ProgressData } from '../progress-dialog/progress-dialog.state';
 import { SharedProgressSnackbarComponent } from './progress-snackbar.component';
 
 @Injectable({
@@ -15,7 +16,7 @@ export class ProgressSnackbarService {
   constructor(private snackBar: MatSnackBar) {
   }
 
-  public getProgressSnackbar(progressData: any): MatSnackBarRef<SharedProgressSnackbarComponent> {
+  public getProgressSnackbar(progressData: ProgressData): MatSnackBarRef<SharedProgressSnackbarComponent> {
     this.currentSnackbarRef = this.snackBar.openFromComponent(SharedProgressSnackbarComponent,
       {
         horizontalPosition: this.defaultHorizontalPosition,
