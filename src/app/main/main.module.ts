@@ -9,14 +9,17 @@ import { HomeComponent } from './all/all.component';
 import { HomeHistoryComponent } from './history/history.component';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
-import { FilesEffects } from './store/files.effects';
-import { filesEntityReducerFunc } from './store/files.reducer';
-import { fileUploadEntityEffect } from './store/upload.effects';
-import { fileUploadEntityReducerFunc } from './store/upload.reducer';
-import { USER_FILES_STORE_KEY, UPLOAD_FILE_STORE_KEY } from './store/upload.state';
+import { FilesEffects } from './store/files/files.effects';
+import { filesEntityReducerFunc } from './store/files/files.reducer';
+import { fileUploadEntityEffect } from './store/upload/upload.effects';
+import { fileUploadEntityReducerFunc } from './store/upload/upload.reducer';
+import { USER_FILES_STORE_KEY, UPLOAD_FILE_STORE_KEY } from './store/upload/upload.state';
+import { UPLOAD_PROGRESS_DISPLAY_STORE_KEY } from './store/progress-display/progress-display.state';
+import { uploadProgressDisplayReducer } from './store/progress-display/progress-display.reducer';
 import { UploadItemComponent } from './upload-item/upload-item.component';
 import { HomeWelcomeRecentUploadsComponent } from './welcome/recent-uploads/recent-uploads.component';
 import { HomeWelcomeBoxComponent } from './welcome/welcome.component';
+import { uploadProgressDisplayEffects } from './store/progress-display/progress-display.effects';
 
 @NgModule({
   imports: [
@@ -25,8 +28,10 @@ import { HomeWelcomeBoxComponent } from './welcome/welcome.component';
     PipeBundleModule,
     StoreModule.forFeature(UPLOAD_FILE_STORE_KEY, fileUploadEntityReducerFunc),
     StoreModule.forFeature(USER_FILES_STORE_KEY, filesEntityReducerFunc),
+    StoreModule.forFeature(UPLOAD_PROGRESS_DISPLAY_STORE_KEY, uploadProgressDisplayReducer),
     EffectsModule.forFeature(fileUploadEntityEffect),
     EffectsModule.forFeature([FilesEffects]),
+    EffectsModule.forFeature(uploadProgressDisplayEffects),
     AngularFireStorageModule,
     MainRoutingModule
   ],

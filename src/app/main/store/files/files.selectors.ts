@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromFilesReducer from './files.reducer';
-import { PhotoData, USER_FILES_STORE_KEY } from './upload.state';
+import { PhotoData, USER_FILES_STORE_KEY } from '../upload/upload.state';
 import { FilesEntityState } from './files.reducer';
-import * as fromAuthSelectors from '../../authentication/store/auth.selectors';
+import * as fromAuthSelectors from '../../../authentication/store/auth.selectors';
 
 export const userFilesFeatureState = createFeatureSelector<FilesEntityState>(USER_FILES_STORE_KEY);
 

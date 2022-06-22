@@ -7,12 +7,12 @@ import { concat, merge, Observable, of, throwError, timer } from 'rxjs';
 import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
 import { Action } from '@ngrx/store';
 import * as fromUploadActions from './upload.actions';
-import { FileUploadService } from '../upload.service';
+import { FileUploadService } from '../../upload.service';
 import { AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { UploadTask } from 'src/app/shared/services/storage.service';
 import { PhotoData, UploadTaskResult } from './upload.state';
 import { FirebaseDocObsAndId } from 'src/app/shared/models/general.model';
-import { AuthService } from '../../authentication/auth.service';
+import { AuthService } from '../../../authentication/auth.service';
 
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PhotoData } from 'src/app/main/store/upload.state';
+import { PhotoData } from 'src/app/main/store/upload/upload.state';
 
 @Component({
   selector: 'app-shared-photo-record-display',

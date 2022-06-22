@@ -1,53 +1,84 @@
 <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="0px">
-  <div class="title quicksand fw-500 w-100">
-    Upload Progress
+  <div class="title quicksand fw-500 w-100" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      Upload Progress
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1px">
+      <div>
+        <button mat-icon-button (click)="onDialogClose(this.minimize)">
+          <mat-icon>minimize</mat-icon>
+        </button>
+      </div>
+      <div>
+        <button mat-icon-button (click)="onDialogClose(this.close)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
-  <div class="content w-100" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-    <ng-container *ngIf="(this.data.uploadingsAndTotalFiles | async) as fileUploadingStatus">
-      <ng-container *ngIf="((this.data.isFilesUploadFinished | async)); else uploading">
-        <div class="">
-          {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }} files uploaded
-        </div>
-        <div fxLayout="column" fxLayoutAlign="center center" class="">
-          <mat-icon class="text-success">task_alt</mat-icon>
-        </div>
-      </ng-container>
-      <ng-template #uploading>
-        <div class="">
-          Uploading: {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }}
-        </div>
-        <mat-icon class="text-primary">hourglass_bottom</mat-icon>
-      </ng-template>
-    </ng-container>
-  </div>
-  <div class="content w-100" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
-    <ng-container *ngIf="(this.data.fileStatus | async) as files">
-      <ng-container *ngFor="let photo of files">
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px" class="w-100">
-          <div>
-            <img [src]="photo?.downloadUrl" alt="Photo img" width="50" height="50">
-          </div>
-          <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="5px">
-            <div [title]="photo?.fileName" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
-              <a target="_blank" rel="noopener noreferrer" [href]="photo?.downloadUrl" class="stateful">
-                {{ photo?.fileName | stringSliceCutoff:25 }} -
-              </a>
-              <div class="fw-500 percent">
-                {{ photo.progress }}%
-              </div>
+  <ng-container *ngIf="(this.data.fileStatus | async) as files">
+    <ng-container *ngIf="(files.length > 0); else nothingUploading">
+      <div class="content w-100 bb-1" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <ng-container *ngIf="(this.data.uploadingsAndTotalFiles | async) as fileUploadingStatus">
+          <ng-container *ngIf="((this.data.isFilesUploadFinished | async)); else uploading">
+            <div class="">
+              {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }} files uploaded
             </div>
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" class="meta">
+            <div fxLayout="column" fxLayoutAlign="center center" class="">
+              <mat-icon class="text-success">task_alt</mat-icon>
+            </div>
+          </ng-container>
+          <ng-template #uploading>
+            <div class="">
+              Uploading: {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }}
+            </div>
+            <mat-icon class="text-primary">hourglass_bottom</mat-icon>
+          </ng-template>
+        </ng-container>
+      </div>
+      <div class="content w-100" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <ng-container *ngIf="(this.data.fileStatus | async) as files">
+          <ng-container *ngFor="let photo of files">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px" class="w-100">
               <div>
-                {{ photo?.fileSize | fileSizeDisplay }} -
+                <ng-container *ngIf="photo?.downloadUrl; else imgPlaceholder">
+                  <img [src]="photo?.downloadUrl" alt="Photo img" width="50" height="50">
+                </ng-container>
+                <ng-template #imgPlaceholder>
+                  <mat-icon class="pic-progress">
+                    cloud_upload
+                  </mat-icon>
+                </ng-template>
               </div>
-              <div [title]="(photo?.attachDate | dateDisplay:'FULLDATE')" class="date">
-                {{ photo?.attachDate | dateFromNow }}
+              <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="5px">
+                <div [title]="photo?.fileName" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+                  <a target="_blank" rel="noopener noreferrer" [href]="photo?.downloadUrl" class="stateful">
+                    {{ photo?.fileName | stringSliceCutoff:25 }} -
+                  </a>
+                  <div class="fw-500 percent">
+                    {{ photo.progress }}%
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" class="meta">
+                  <div>
+                    {{ photo?.fileSize | fileSizeDisplay }} -
+                  </div>
+                  <div [title]="(photo?.attachDate | dateDisplay:'FULLDATE')" class="date">
+                    {{ photo?.attachDate | dateFromNow }}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
     </ng-container>
-  </div>
+  </ng-container>
 
 </div>
+
+<ng-template #nothingUploading>
+  <div fxLayout="row" fxLayoutAlign="start center" class="content w-100">
+    Upload queue is empty.
+  </div>
+</ng-template>

@@ -6,11 +6,11 @@ import { FirebaseDocObsAndId } from '../shared/models/general.model';
 import { RestService } from '../shared/services/rest.service';
 import { StorageService, UploadTask } from '../shared/services/storage.service';
 import { AppState } from '../store/global/app.reducer';
-import * as fromUploadActions from './store/upload.actions';
-import * as fromUserFilesActions from './store/files.actions';
-import * as fromUploadSelectors from './store/upload.selectors';
-import * as fromUserFilesSelectors from './store/files.selectors';
-import { FilesUploadingStatus, PhotoData, UploadFile } from './store/upload.state';
+import * as fromUploadActions from './store/upload/upload.actions';
+import * as fromUserFilesActions from './store/files/files.actions';
+import * as fromUploadSelectors from './store/upload/upload.selectors';
+import * as fromUserFilesSelectors from './store/files/files.selectors';
+import { FilesUploadingStatus, PhotoData, UploadFile } from './store/upload/upload.state';
 
 @Injectable({
   providedIn: 'root'

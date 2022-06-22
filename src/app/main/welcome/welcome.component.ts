@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IVerifiedUser } from 'src/app/shared/models/user.model';
-import { PhotoData } from '../store/upload.state';
+import { PhotoData } from '../store/upload/upload.state';
 import { FileUploadService } from '../upload.service';
 
 @Component({

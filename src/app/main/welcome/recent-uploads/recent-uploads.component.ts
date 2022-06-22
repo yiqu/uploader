@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { PhotoData } from '../../store/upload.state';
+import { PhotoData } from '../../store/upload/upload.state';
 
 @Component({
   selector: 'app-main-welcome-recent-uploads',

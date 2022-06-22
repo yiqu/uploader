@@ -1,6 +1,6 @@
 import { EntityState, createEntityAdapter, Update } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
-import { PhotoData, UploadFile } from './upload.state';
+import { PhotoData, UploadFile } from '../upload/upload.state';
 import * as fromFilesActions from './files.actions';
 
 

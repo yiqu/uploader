@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IVerifiedUser } from "src/app/shared/models/user.model";
-import { PhotoData } from "./upload.state";
+import { PhotoData } from "../upload/upload.state";
 
 const GET_USER_FILES_START: string = '[Upload/API] Get user files start';
 const GET_USER_FILES_SUCCESS: string = '[Upload/API] Get user files successful';

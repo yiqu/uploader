@@ -3,7 +3,7 @@ import { take } from 'rxjs';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { RestService } from 'src/app/shared/services/rest.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
-import { PhotoData, UploadFile } from '../store/upload.state';
+import { PhotoData, UploadFile } from '../store/upload/upload.state';
 import { FileUploadService } from '../upload.service';
 import { ZorroToasterService } from '../../shared/services/toaster-zorro.service';
 import { ProgressSnackbarService } from 'src/app/progress-snackbar/progress-snackbar.service';

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { UploadFile } from '../store/upload.state';
+import { UploadFile } from '../store/upload/upload.state';
 
 const imgTypes = ["image/jpeg", "image/png", "image/gif"];
 

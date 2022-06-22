@@ -1,6 +1,26 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="0px" class="w-100">
-  <div>
-    Uploading: 1/5
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+    <ng-container *ngIf="(this.data.uploadingsAndTotalFiles | async) as fileUploadingStatus">
+      <ng-container *ngIf="(fileUploadingStatus.uploadings.length > 0); else emptyQueue">
+        <ng-container *ngIf="((this.data.isFilesUploadFinished | async)); else uploading">
+          <div class="">
+            {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }} files uploaded
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="">
+            <mat-icon class="text-success">task_alt</mat-icon>
+          </div>
+        </ng-container>
+        <ng-template #uploading>
+          <div class="">
+            Uploading: {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }}
+          </div>
+          <mat-icon class="text-primary">hourglass_bottom</mat-icon>
+        </ng-template>
+      </ng-container>
+      <ng-template #emptyQueue>
+        Upload queue is empty.
+      </ng-template>
+    </ng-container>
   </div>
   <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1px">
     <div>

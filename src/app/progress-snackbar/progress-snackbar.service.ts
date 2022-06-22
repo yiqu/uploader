@@ -8,7 +8,7 @@ import { SharedProgressSnackbarComponent } from './progress-snackbar.component';
 })
 export class ProgressSnackbarService {
 
-  private defaultHorizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  private defaultHorizontalPosition: MatSnackBarHorizontalPosition = 'center';
   private defaultVerticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   public currentSnackbarRef?: MatSnackBarRef<SharedProgressSnackbarComponent>;
@@ -17,6 +17,7 @@ export class ProgressSnackbarService {
   }
 
   public getProgressSnackbar(progressData: ProgressData): MatSnackBarRef<SharedProgressSnackbarComponent> {
+    this.currentSnackbarRef?.dismiss();
     this.currentSnackbarRef = this.snackBar.openFromComponent(SharedProgressSnackbarComponent,
       {
         horizontalPosition: this.defaultHorizontalPosition,
