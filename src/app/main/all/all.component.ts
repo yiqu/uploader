@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { take } from 'rxjs';
+import { filter, map, of, switchMap, take } from 'rxjs';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { RestService } from 'src/app/shared/services/rest.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
@@ -23,11 +23,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pss.getProgressSnackbar({
-      fileStatus: this.fs.filesUploadingAll$,
-      isFilesUploadFinished: this.fs.isFilesUploadFinished$,
-      uploadingsAndTotalFiles: this.fs.uploadingsAndTotalFiles$
-    });
   }
 
   onFileUpload() {

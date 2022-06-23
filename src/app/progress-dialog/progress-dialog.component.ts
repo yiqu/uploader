@@ -19,7 +19,7 @@ export class ProgressDisplayDialog implements OnInit {
   ngOnInit(): void {
   }
 
-  onDialogClose(dialogAction: DialogAction) {
+  onDialogClose(dialogAction: DialogAction): void {
     const closeData: DialogCloseData = {
       action: dialogAction
     };
