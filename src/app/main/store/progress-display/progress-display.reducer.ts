@@ -15,9 +15,14 @@ export const uploadProgressDisplayReducer = createReducer(
   inititalState,
 
   on(fromProgressDisplayActions.toggleUploadProgressSnackbar, (state, { status }) => {
+    let newDialogState = !!state.progressDialogDisplay;
+    if (status === false) {
+      newDialogState = false;
+    }
     return {
       ...state,
-      progressSnackbarDisplay: status
+      progressSnackbarDisplay: status,
+      progressDialogDisplay: newDialogState
     };
   }),
 
@@ -25,6 +30,13 @@ export const uploadProgressDisplayReducer = createReducer(
     return {
       ...state,
       progressDialogDisplay: status
+    };
+  }),
+
+  on(fromProgressDisplayActions.hideProgressDialogMinimizeOrClickout, (state) => {
+    return {
+      ...state,
+      progressDialogDisplay: false
     };
   }),
 )

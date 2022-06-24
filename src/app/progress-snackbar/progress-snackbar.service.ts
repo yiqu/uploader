@@ -38,8 +38,9 @@ export class ProgressSnackbarService {
     this.currentSnackbarRef?.dismiss();
   }
 
-  public dispatchCloseSnackbar() {
-    this.store.dispatch(fromProgressDisplayActions.toggleUploadProgressSnackbar({ status: false }));
+  public dispatchToggleSnackbar(status: boolean) {
+    this.store.dispatch(fromProgressDisplayActions.toggleUploadProgressSnackbar({ status: status }));
   }
+
 
 }

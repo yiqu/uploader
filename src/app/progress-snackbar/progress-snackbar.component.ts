@@ -13,21 +13,17 @@ export class SharedProgressSnackbarComponent implements OnInit {
 
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: ProgressData,
     private progressRef: MatSnackBarRef<SharedProgressSnackbarComponent>,
-    private ps: ProgressSnackbarService) {
+    private ps: ProgressSnackbarService, private ds: ProgressDialogService) {
   }
 
   ngOnInit() {
   }
 
   onMaximizeClick(): void {
-    // this.pds.openDialog({
-    //   fileStatus: this.data.fileStatus,
-    //   isFilesUploadFinished: this.data.isFilesUploadFinished,
-    //   uploadingsAndTotalFiles: this.data.uploadingsAndTotalFiles
-    // });
+    this.ds.dispatchToggleDialog(true);
   }
 
   onCloseSnackbarClick(): void {
-    this.ps.dispatchCloseSnackbar();
+    this.ps.dispatchToggleSnackbar(false);
   }
 }

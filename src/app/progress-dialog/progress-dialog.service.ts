@@ -34,7 +34,7 @@ export class ProgressDialogService {
     this.displayRef?.close();
   }
 
-  dispatchCloseDialog() {
-    this.store.dispatch(fromProgressDisplayActions.toggleUploadProgressDialog({ status: false }));
+  dispatchToggleDialog(status: boolean) {
+    this.store.dispatch(fromProgressDisplayActions.toggleUploadProgressDialog({ status: status }));
   }
 }
