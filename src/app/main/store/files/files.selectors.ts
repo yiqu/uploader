@@ -26,11 +26,19 @@ export const selectTotalCount = createSelector(
   fromFilesReducer.adapter.getSelectors().selectTotal
 );
 
+export const isFilesFirstTimeLoading = createSelector(
+  userFilesFeatureState,
+  (state): boolean => {
+    return state.firstTimeLoading;
+  }
+);
+
 export const isUserFilesApiLoading = createSelector(
   userFilesFeatureState,
   fromAuthSelectors.apiLoading,
-  (state, userLoading: boolean | undefined): boolean => {
-    return (state.apiWorking) || (!!userLoading);
+  isFilesFirstTimeLoading,
+  (state, userLoading: boolean | undefined, firstTimeLoading: boolean): boolean => {
+    return ((state.apiWorking) || (!!userLoading)) && firstTimeLoading;
   }
 );
 

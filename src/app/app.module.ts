@@ -60,7 +60,8 @@ const ngZorroConfig: NzConfig = {
   imports: [
     BrowserModule,
     HttpClientModule,
-    NoopAnimationsModule,
+    //NoopAnimationsModule,
+    BrowserAnimationsModule,
     SharedBudleModule,
     TopNavModule,
     SideNavModule,

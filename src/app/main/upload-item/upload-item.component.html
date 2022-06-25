@@ -60,7 +60,7 @@
           </div>
           <div>
             <ng-container *ngIf="file.downloadUrl; else noUrl">
-              <a [href]="file.downloadUrl" download="hi">Click here</a>
+              <a [href]="file.downloadUrl" target="_blank">Click here</a>
             </ng-container>
             <ng-template #noUrl>
               Creating URL...

@@ -1,3 +1,8 @@
 <div class="parent">
-  <mat-progress-bar [mode]="mode" [value]="progress" [color]="progress === 100 ? 'primary' : 'accent'"></mat-progress-bar>
+  <ng-container *ngIf="mode === 'indeterminate'; else nonIndeter">
+    <mat-progress-bar [mode]="mode" color="primary"></mat-progress-bar>
+  </ng-container>
+  <ng-template #nonIndeter>
+    <mat-progress-bar [mode]="mode" [value]="progress" [color]="progress === 100 ? 'primary' : 'accent'"></mat-progress-bar>
+  </ng-template>
 </div>

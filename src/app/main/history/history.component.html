@@ -9,9 +9,13 @@
           ({{ this.fs.userFilesCount$ | async }})
         </div>
       </div>
-      <hr class="w-100">
+      <hr class="w-100 part-loading">
+      <div class="w-100 api-loading mb-10">
+        <ng-container *ngIf="this.fs.userFileApiWorking$ | async">
+          <shared-loading-bar class="w-100"></shared-loading-bar>
+        </ng-container>
+      </div>
     </div>
-
   </div>
 </ng-container>
 

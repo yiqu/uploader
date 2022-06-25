@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
   onFileInputClick(event: any) {
     const files: FileList | undefined = event.target?.files;
     if (files) {
-      this.fs.cleanUpAttachedFiles();
+      //this.fs.cleanUpAttachedFiles();
       const fileIndexArr = Object.keys(files);
       fileIndexArr.forEach((index: any) => {
         this.fs.attachFile(files[index], new Date().getTime() + index + '');

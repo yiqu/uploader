@@ -1,4 +1,17 @@
 <ng-container *ngIf="((this.as.apiLoading$| async) === false); else loading">
+  <div class="w-100" fxLayout="column" fxLayoutAlign="start center">
+    <div class="title quicksand fw-500 w-100">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        Upload
+      </div>
+      <hr class="w-100 part-loading">
+      <div class="w-100 api-loading mb-10">
+        <ng-container *ngIf="this.fs.userFileApiWorking$ | async">
+          <shared-loading-bar class="w-100"></shared-loading-bar>
+        </ng-container>
+      </div>
+    </div>
+  </div>
   <div class="">
     <input type="file" multiple class="upload-input" #uploadInput (change)="onFileInputClick($event)">
   </div>

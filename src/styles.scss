@@ -357,10 +357,18 @@ div.ant-message-custom-content {
 }
 
 snack-bar-container.mat-snack-bar-container.progress-snackbar {
-  background-color: #bcd2f3e6;
+  background-color: #bcd2f3;
   color: #222;
 
   .mat-icon {
     color: #333;
   }
+}
+
+.api-loading {
+  height: 3px;
+}
+
+hr.part-loading {
+  margin-bottom: 0px;
 }

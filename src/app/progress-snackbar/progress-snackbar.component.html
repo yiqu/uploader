@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="0px" class="w-100">
-  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" (click)="onMaximizeClick()" class="sb-body">
     <ng-container *ngIf="(this.data.uploadingsAndTotalFiles | async) as fileUploadingStatus">
       <ng-container *ngIf="(fileUploadingStatus.total.length > 0); else emptyQueue">
         <ng-container *ngIf="((this.data.isFilesUploadFinished | async)); else uploading">

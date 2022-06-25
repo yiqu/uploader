@@ -17,5 +17,6 @@ export class LoadingBarComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 }

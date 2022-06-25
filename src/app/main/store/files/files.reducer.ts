@@ -6,6 +6,7 @@ import * as fromFilesActions from './files.actions';
 
 export interface FilesEntityState extends EntityState<PhotoData> {
   apiWorking: boolean;
+  firstTimeLoading: boolean;
   error: boolean;
   errMsg: string;
 }
@@ -28,6 +29,7 @@ export const adapter = createEntityAdapter<PhotoData>({
 
 export const inititalState = adapter.getInitialState<Partial<FilesEntityState>>({
   apiWorking: false,
+  firstTimeLoading: true,
   errMsg: undefined,
   error: false
 });
@@ -46,7 +48,8 @@ export const filesEntityReducer = createReducer(
   on(fromFilesActions.getUserFilesSuccess, (state, { files }) => {
     return adapter.setAll(files, {
       ...state,
-      apiWorking: false
+      apiWorking: false,
+      firstTimeLoading: false
     });
   }),
 
