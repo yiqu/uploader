@@ -3,6 +3,7 @@ import * as fromFilesReducer from './files.reducer';
 import { PhotoData, USER_FILES_STORE_KEY } from '../upload/upload.state';
 import { FilesEntityState } from './files.reducer';
 import * as fromAuthSelectors from '../../../authentication/store/auth.selectors';
+import { PhotoTableData } from './files.state';
 
 export const userFilesFeatureState = createFeatureSelector<FilesEntityState>(USER_FILES_STORE_KEY);
 
@@ -61,5 +62,21 @@ export const getRecentUserUploads = createSelector(
       return recentFiles;
     }
     return [];
+  }
+);
+
+
+export const getUserPhotoTableData = createSelector(
+  isUserFilesApiLoading,
+  userFilesFeatureState,
+  (apiLoading: boolean, state): PhotoTableData => {
+    let columnIds: string[] = ['photoUrl', 'fileName', 'fileSize', 'dateUploaded'];
+    let columnData: PhotoData[] = [];
+
+    return {
+      apiLoading: apiLoading,
+      columnData,
+      columnIds
+    };
   }
 );

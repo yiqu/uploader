@@ -20,10 +20,12 @@ import { UploadItemComponent } from './upload-item/upload-item.component';
 import { HomeWelcomeRecentUploadsComponent } from './welcome/recent-uploads/recent-uploads.component';
 import { HomeWelcomeBoxComponent } from './welcome/welcome.component';
 import { uploadProgressDisplayEffects } from './store/progress-display/progress-display.effects';
+import { SharedTableModule } from '../shared/table/table.module';
 
 @NgModule({
   imports: [
     SharedBudleModule,
+    SharedTableModule,
     LoadingModule,
     PipeBundleModule,
     StoreModule.forFeature(UPLOAD_FILE_STORE_KEY, fileUploadEntityReducerFunc),

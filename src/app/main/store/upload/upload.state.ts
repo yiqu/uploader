@@ -24,6 +24,9 @@ export interface UploadTaskResult {
   percent?: number;
 }
 
+/**
+ * Photo from Firebase display data
+ */
 export interface PhotoData {
   photoUrl: string;
   dateUploaded: number;

@@ -1,5 +1,5 @@
 <ng-container *ngIf="((this.fs.userFilesApiLoading$| async) === false); else loading">
-  <div class="w-100" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="45px">
+  <div class="w-100" fxLayout="column" fxLayoutAlign="start center">
     <div class="title quicksand fw-500 w-100">
       <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
         <div>
@@ -15,6 +15,10 @@
           <shared-loading-bar class="w-100"></shared-loading-bar>
         </ng-container>
       </div>
+    </div>
+
+    <div>
+      <app-shared-table-selectable></app-shared-table-selectable>
     </div>
   </div>
 </ng-container>

@@ -12,6 +12,7 @@ import { ZorroModuleBundle } from './zorro-bundle.module';
 import { SharedDropMenuComponent } from './components/drop-menu/drop-menu.component';
 import { LoadingBarCssComponent } from './components/loading-bar-css/loading-bar-css.component';
 import { PhotoRecordDisplayComponent } from './components/photo-record-display/photo-record-display.component';
+import { PrimengModuleBundle } from './primeng-bundle.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { PhotoRecordDisplayComponent } from './components/photo-record-display/p
     FormsModule,
     ReactiveFormsModule,
     MaterialModuleBundle,
+    PrimengModuleBundle,
     ZorroModuleBundle,
     PipeBundleModule,
     FlexLayoutModule,
@@ -40,6 +42,7 @@ import { PhotoRecordDisplayComponent } from './components/photo-record-display/p
     ReactiveFormsModule,
     FlexLayoutModule,
     MaterialModuleBundle,
+    PrimengModuleBundle,
     ZorroModuleBundle,
     PipeBundleModule,
     DialogConfirmComponent,
