@@ -17,9 +17,15 @@
       </div>
     </div>
 
-    <div>
-      <app-shared-table-selectable></app-shared-table-selectable>
-    </div>
+    <ng-container *ngIf="(this.ufds.getUserDisplayTabs$ | async) as userDisplayTabs">
+      <nav mat-tab-nav-bar class="w-100" [disableRipple]="true" mat-align-tabs="center">
+        <a mat-tab-link *ngFor="let tab of (userDisplayTabs.tabs)"
+          (click)="onTabClick(tab)" [active]="userDisplayTabs.selectedTabLabel === tab.label">
+            {{ tab.label }}
+        </a>
+      </nav>
+    </ng-container>
+
   </div>
 </ng-container>
 

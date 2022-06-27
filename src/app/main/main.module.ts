@@ -21,6 +21,9 @@ import { HomeWelcomeRecentUploadsComponent } from './welcome/recent-uploads/rece
 import { HomeWelcomeBoxComponent } from './welcome/welcome.component';
 import { uploadProgressDisplayEffects } from './store/progress-display/progress-display.effects';
 import { SharedTableModule } from '../shared/table/table.module';
+import { FILES_DISPLAY_STORE_KEY } from './store/files-display/files-display.state';
+import { filesDisplayReducer } from './store/files-display/files-display.reducer';
+
 
 @NgModule({
   imports: [
@@ -31,6 +34,7 @@ import { SharedTableModule } from '../shared/table/table.module';
     StoreModule.forFeature(UPLOAD_FILE_STORE_KEY, fileUploadEntityReducerFunc),
     StoreModule.forFeature(USER_FILES_STORE_KEY, filesEntityReducerFunc),
     StoreModule.forFeature(UPLOAD_PROGRESS_DISPLAY_STORE_KEY, uploadProgressDisplayReducer),
+    StoreModule.forFeature(FILES_DISPLAY_STORE_KEY, filesDisplayReducer),
     EffectsModule.forFeature(fileUploadEntityEffect),
     EffectsModule.forFeature([FilesEffects]),
     EffectsModule.forFeature(uploadProgressDisplayEffects),
