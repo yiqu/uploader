@@ -6,12 +6,13 @@ import * as fromFilesDisplayTabActions from './files-display.actions';
 const inititalState: FilesDisplayState = {
   tabs: [{
     label: 'Table',
-    url: 'table'
+    url: 'table',
+    icon: 'table_view'
   }, {
     label: 'Galleria',
-    url: 'galleria'
+    url: 'galleria',
+    icon: 'photo_library'
   }],
-  selectedTabId: 0,
   selectedTabLabel: 'Table'
 }
 
@@ -22,7 +23,7 @@ export const filesDisplayReducer = createReducer(
     const tabId = 0;
     return {
       ...state,
-      selectedTabLabel: tab.label
+      selectedTabLabel: tab?.label ?? state.selectedTabLabel
     };
   }),
 )

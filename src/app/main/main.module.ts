@@ -23,7 +23,9 @@ import { uploadProgressDisplayEffects } from './store/progress-display/progress-
 import { SharedTableModule } from '../shared/table/table.module';
 import { FILES_DISPLAY_STORE_KEY } from './store/files-display/files-display.state';
 import { filesDisplayReducer } from './store/files-display/files-display.reducer';
-
+import { FilesDisplayEffects } from './store/files-display/files-display.effects';
+import { HomeHistoryTableViewComponent } from './history/table/table.component';
+import { HomeHistoryGalleriaViewComponent } from './history/galleria/galleria.component';
 
 @NgModule({
   imports: [
@@ -38,6 +40,7 @@ import { filesDisplayReducer } from './store/files-display/files-display.reducer
     EffectsModule.forFeature(fileUploadEntityEffect),
     EffectsModule.forFeature([FilesEffects]),
     EffectsModule.forFeature(uploadProgressDisplayEffects),
+    EffectsModule.forFeature([FilesDisplayEffects]),
     AngularFireStorageModule,
     MainRoutingModule
   ],
@@ -51,7 +54,9 @@ import { filesDisplayReducer } from './store/files-display/files-display.reducer
     HomeWelcomeBoxComponent,
     HomeWelcomeRecentUploadsComponent,
     UploadItemComponent,
-    HomeHistoryComponent
+    HomeHistoryComponent,
+    HomeHistoryTableViewComponent,
+    HomeHistoryGalleriaViewComponent
   ],
 
   providers: [],

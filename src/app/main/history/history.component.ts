@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { ZorroToasterService } from 'src/app/shared/services/toaster-zorro.service';
@@ -13,7 +14,8 @@ import { FileUploadService } from '../upload.service';
 })
 export class HomeHistoryComponent implements OnInit {
   constructor(public fs: FileUploadService, private rs: StorageService, public as: AuthService,
-    private ts: ZorroToasterService, public ufds: FilesDisplayService) {
+    private ts: ZorroToasterService, public ufds: FilesDisplayService, private router: Router,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -21,6 +23,8 @@ export class HomeHistoryComponent implements OnInit {
   }
 
   onTabClick(tab: FilesDisplayTab): void {
-    this.ufds.setUserFilesDisplayTab(tab);
+    this.router.navigate(['./', tab.url], { relativeTo: this.route });
   }
+
+
 }

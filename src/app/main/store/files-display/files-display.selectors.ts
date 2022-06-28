@@ -13,3 +13,11 @@ export const getUserFilesDisplayTabs = createSelector(
     };
   }
 );
+
+export const getAllTabOptions = createSelector(
+  filesDisplayFeatureState,
+  (state): FilesDisplayTab[] => {
+    return state.tabs;
+  }
+);
+

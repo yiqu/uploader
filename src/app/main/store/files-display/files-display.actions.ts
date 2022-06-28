@@ -5,6 +5,6 @@ const SET_USER_FILES_DISPLAY_TAB_ID: string = '[User Files Display/UI] Set user 
 
 export const setUserFilesDisplayTabId = createAction(
   SET_USER_FILES_DISPLAY_TAB_ID,
-  props<{ tab: FilesDisplayTab }>()
+  props<{ tab?: FilesDisplayTab }>()
 )
 

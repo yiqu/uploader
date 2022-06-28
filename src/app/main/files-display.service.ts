@@ -13,12 +13,13 @@ import * as fromFilesDisplayTabActions from './store/files-display/files-display
 export class FilesDisplayService {
 
   getUserDisplayTabs$: Observable<FilesDisplayState> = this.store.select(fromFilesDisplaySelectors.getUserFilesDisplayTabs);
+  getAllTabOptions$: Observable<FilesDisplayTab[]> = this.store.select(fromFilesDisplaySelectors.getAllTabOptions);
 
 
   constructor(private store: Store<AppState>) {
   }
 
-  setUserFilesDisplayTab(tab: FilesDisplayTab) {
+  setUserFilesDisplayTab(tab?: FilesDisplayTab) {
     this.store.dispatch(fromFilesDisplayTabActions.setUserFilesDisplayTabId({ tab }))
   }
 }

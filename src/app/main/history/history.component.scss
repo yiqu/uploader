@@ -5,3 +5,12 @@
 .mb-10 {
   margin-bottom: 10px;
 }
+
+nav a:hover {
+  text-decoration: none;
+}
+
+nav a.mat-tab-label-active {
+  color: #403e3e;
+  opacity: 1;
+}
