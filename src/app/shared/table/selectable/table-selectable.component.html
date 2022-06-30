@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="start center" class="table-parent">
+<div fxLayout="column" fxLayoutAlign="start center" class="table-parent w-100">
   <div class="title">
     Table
   </div>
@@ -8,4 +8,39 @@
   <div class="actions">
 
   </div>
+
+  <ng-container *ngIf="dataSource">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container *ngFor="let col of this.columnIds">
+        <ng-container [matColumnDef]="col">
+          <th mat-header-cell *matHeaderCellDef> {{ col }} </th>
+          <td mat-cell *matCellDef="let element"> {{element[col]}} </td>
+        </ng-container>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnIdsWithSelect">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: columnIdsWithSelect;" (click)="selection.toggle(row)">
+      </tr>
+    </table>
+  </ng-container>
+
+
 </div>

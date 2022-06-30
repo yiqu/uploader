@@ -68,10 +68,10 @@ export const getRecentUserUploads = createSelector(
 
 export const getUserPhotoTableData = createSelector(
   isUserFilesApiLoading,
-  userFilesFeatureState,
-  (apiLoading: boolean, state): PhotoTableData => {
+  selectAll,
+  (apiLoading: boolean, allFilesData: PhotoData[]): PhotoTableData => {
     let columnIds: string[] = ['photoUrl', 'fileName', 'fileSize', 'dateUploaded'];
-    let columnData: PhotoData[] = [];
+    let columnData: PhotoData[] = [...allFilesData];
 
     return {
       apiLoading: apiLoading,

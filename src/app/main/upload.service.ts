@@ -11,6 +11,7 @@ import * as fromUserFilesActions from './store/files/files.actions';
 import * as fromUploadSelectors from './store/upload/upload.selectors';
 import * as fromUserFilesSelectors from './store/files/files.selectors';
 import { FilesUploadingStatus, PhotoData, UploadFile } from './store/upload/upload.state';
+import { PhotoTableData } from './store/files/files.state';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,7 @@ export class FileUploadService {
   userFileApiWorking$: Observable<boolean> = this.store.select(fromUserFilesSelectors.isUserFilesApiWorking);
   userFilesCount$: Observable<number> = this.store.select(fromUserFilesSelectors.selectTotalCount);
   userRecentUploads$: Observable<PhotoData[]> = this.store.select(fromUserFilesSelectors.getRecentUserUploads);
+  getFilesTableData$: Observable<PhotoTableData> = this.store.select(fromUserFilesSelectors.getUserPhotoTableData);
 
   constructor(private store: Store<AppState>, private ss: StorageService, private rs: RestService) {
   }

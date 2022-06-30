@@ -1,3 +1,16 @@
-<div>
-  Table
+<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px" class="w-100">
+  <ng-container *ngIf="(this.fus.getFilesTableData$ | async) as tableData">
+    <ng-container *ngIf="(tableData.apiLoading === false); else isLoading">
+      <div class="w-100">
+        <app-shared-table-selectable [columnIds]="tableData.columnIds" [columnData]="tableData.columnData">
+        </app-shared-table-selectable>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #isLoading>
+    <div class="w-100">
+      <app-shared-loading></app-shared-loading>
+    </div>
+  </ng-template>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FileUploadService } from '../../upload.service';
 
 @Component({
   selector: 'app-main-history-table-view',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table.component.scss']
 })
 export class HomeHistoryTableViewComponent implements OnInit {
-  constructor() {
 
+
+  constructor(public fus: FileUploadService) {
   }
 
   ngOnInit() {
