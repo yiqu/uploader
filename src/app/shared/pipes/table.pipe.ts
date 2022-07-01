@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import memo from 'memo-decorator';
+import { humanFileSize } from '../general.utils';
 import { DateDisplayPipe } from './time-utils.pipe';
 
 @Pipe({
@@ -13,32 +14,20 @@ export class TableColumnDisplayPipe implements PipeTransform {
     let res: string = value;
 
     switch(value) {
-      case "name": {
-        res = "Name";
+      case "photoUrl": {
+        res = "File URL";
         break;
       }
-      case "example": {
-        res = "Example";
+      case "fileName": {
+        res = "File Name";
         break;
       }
-      case "company": {
-        res = "Siling Institution";
+      case "fileSize": {
+        res = "Size";
         break;
       }
-      case "date": {
-        res = "Entry Date";
-        break;
-      }
-      case "gain": {
-        res = "Gain By";
-        break;
-      }
-      case "loss": {
-        res = "Loss By";
-        break;
-      }
-      case "balance": {
-        res = "Current Balance";
+      case "dateUploaded": {
+        res = "Date Uploaded";
         break;
       }
     }
@@ -57,11 +46,20 @@ export class TableDataDisplayPipe implements PipeTransform {
   }
 
   transform(value: any, colId: string): any {
-    let res: any = value;
+    let res: string = value;
 
     switch(colId) {
-      case "time": {
-        res = this.dp.transform(res, "HMS");
+      case "photoUrl": {
+        res = "" + value;
+        res = res.slice(0, 25) + "..." + res.slice(-15);
+        break;
+      }
+      case "dateUploaded": {
+        res = this.dp.transform(value, 'FROMNOW');
+        break;
+      }
+      case "fileSize": {
+        res = humanFileSize(value, true);
         break;
       }
     }

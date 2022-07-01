@@ -70,7 +70,7 @@ export const getUserPhotoTableData = createSelector(
   isUserFilesApiLoading,
   selectAll,
   (apiLoading: boolean, allFilesData: PhotoData[]): PhotoTableData => {
-    let columnIds: string[] = ['photoUrl', 'fileName', 'fileSize', 'dateUploaded'];
+    let columnIds: string[] = ['fileName', 'photoUrl', 'fileSize', 'dateUploaded'];
     let columnData: PhotoData[] = [...allFilesData];
 
     return {

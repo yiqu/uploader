@@ -372,3 +372,18 @@ snack-bar-container.mat-snack-bar-container.progress-snackbar {
 hr.part-loading {
   margin-bottom: 0px;
 }
+
+/** Custom **/
+td.mat-cell {
+  mat-checkbox {
+    label {
+      margin-bottom: 0px;
+    }
+  }
+}
+
+tr th mat-checkbox {
+  label {
+    margin-bottom: 2px;
+  }
+}

@@ -1,5 +1,39 @@
 .table-parent {
   table {
     width: 100%;
+
+    tr.mat-row, tr.mat-footer-row {
+      height: 36px;
+    }
+
+    tr.mat-header-row {
+      height: 37px;
+      background-color: #98b6d438;
+    }
+
+    tr.mat-row:hover {
+      background-color: #0f65bd0d;
+    }
+
+    .strip-bg {
+      background-color: #cccccc1a;
+    }
+
+    td.mat-cell {
+      padding-right: 16px;
+      padding-top: 2px;
+
+      mat-checkbox {
+        label {
+          margin-bottom: 0px;
+        }
+      }
+
+    }
+
+    th.mat-header-cell {
+      padding-right: 10px;
+      padding-top: 3px;
+    }
   }
 }
