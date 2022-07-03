@@ -10,6 +10,7 @@ import * as fromUploadActions from '../upload/upload.actions';
 import { Action } from '@ngrx/store';
 import { IVerifiedUser } from 'src/app/shared/models/user.model';
 import { getFirebaseErrorMsg } from 'src/app/shared/services/firebase.utils';
+import * as fromFilesDisplayTabActions from '../files-display/files-display.actions';
 
 
 @Injectable()
@@ -32,8 +33,11 @@ export class FilesEffects {
             return !!user;
           },
           this.us.getUserPhotos<PhotoData>(user?.email!).pipe(
-            map((res) => {
-              return fromFilesActions.getUserFilesSuccess({ files: res })
+            switchMap((res) => {
+              return [
+                fromFilesDisplayTabActions.setTotalCount({ total: res.length }),
+                fromFilesActions.getUserFilesSuccess({ files: res })
+              ];
             }),
             catchError((err) => {
               return of(fromFilesActions.getUserFilesFailed({ errMsg: getFirebaseErrorMsg(err) }))

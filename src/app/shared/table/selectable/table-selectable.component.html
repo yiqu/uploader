@@ -1,16 +1,31 @@
 <div fxLayout="column" fxLayoutAlign="start center" class="table-parent w-100">
-  <div class="title">
-    Table
+  <div class="actions w-100" fxLayout="row" fxLayoutAlign="start center">
+    <ng-container *ngFor="let action of tableActionBtns">
+      <button mat-button color="primary">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-icon>{{ action.icon }}</mat-icon>
+          </div>
+          <div>
+            {{ action.label }}
+          </div>
+        </div>
+      </button>
+    </ng-container>
   </div>
   <div class="filter">
 
   </div>
-  <div class="actions">
-
+  <div class="paginator w-100" fxLayout="row" fxLayoutAlign="end center">
+    <div>
+      <mat-paginator [showFirstLastButtons]="true" (page)="onPage($event)" [length]="pagination?.totalCount"
+        [hidePageSize]="true" [pageIndex]="pagination?.currentPage" [pageSize]="30">
+      </mat-paginator>
+    </div>
   </div>
 
   <ng-container *ngIf="dataSource">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
 
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
@@ -31,11 +46,26 @@
       <ng-container *ngFor="let col of this.columnIds">
         <ng-container [matColumnDef]="col">
           <th mat-header-cell *matHeaderCellDef> {{ col | tableColumnDisplay }} </th>
-          <td mat-cell *matCellDef="let element"> {{ element[col] | tableDataDisplay:col }} </td>
+          <td mat-cell *matCellDef="let element">
+
+            <ng-container [ngSwitch]="col">
+              <ng-container *ngSwitchCase="'photoUrl'">
+                <a [href]="element[col]" target="_blank">
+                  {{ element[col] | tableDataDisplay:col }}
+                </a>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <span>
+                  {{ element[col] | tableDataDisplay:col }}
+                </span>
+              </ng-container>
+            </ng-container>
+
+          </td>
         </ng-container>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="columnIdsWithSelect">
+      <tr mat-header-row *matHeaderRowDef="columnIdsWithSelect; sticky: true">
       </tr>
       <tr mat-row *matRowDef="let row; columns: columnIdsWithSelect; let isEven = even; let isFirst = first"
         [ngClass]="{'strip-bg' : isEven, 'custom-row' : true }">

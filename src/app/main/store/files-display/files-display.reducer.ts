@@ -2,9 +2,16 @@ import { createReducer, on } from '@ngrx/store';
 import { FilesDisplayState } from './files-display.state';
 import * as fromFilesDisplayTabActions from './files-display.actions';
 
+const DEFAULT_BUTTON_LIST = [
+  {
+    id: 'refresh',
+    label: 'Refresh',
+    icon: 'refresh'
+  }
+]
 
-const inititalState: FilesDisplayState = {
-  tabs: [{
+const DEFAULT_TAB_LIST = [
+  {
     label: 'Table',
     url: 'table',
     icon: 'table_view'
@@ -12,8 +19,19 @@ const inititalState: FilesDisplayState = {
     label: 'Galleria',
     url: 'galleria',
     icon: 'photo_library'
-  }],
-  selectedTabLabel: 'Table'
+  }
+]
+
+const inititalState: FilesDisplayState = {
+  tabs: DEFAULT_TAB_LIST,
+  selectedTabLabel: 'Table',
+  actionButtons: DEFAULT_BUTTON_LIST,
+  pagination: {
+    countPerPage: 30,
+    currentPage: 0,
+    totalCount: 0
+  },
+  queryParams: {}
 }
 
 export const filesDisplayReducer = createReducer(
@@ -24,6 +42,39 @@ export const filesDisplayReducer = createReducer(
     return {
       ...state,
       selectedTabLabel: tab?.label ?? state.selectedTabLabel
+    };
+  }),
+
+  on(fromFilesDisplayTabActions.setCurrentTablePage, (state, { currentPage }) => {
+    const tabId = 0;
+    return {
+      ...state,
+      pagination: {
+        ...state.pagination,
+        currentPage: currentPage
+      }
+    };
+  }),
+
+  on(fromFilesDisplayTabActions.setDisplayCountPerPage, (state, { count }) => {
+    const tabId = 0;
+    return {
+      ...state,
+      pagination: {
+        ...state.pagination,
+        countPerPage: count
+      }
+    };
+  }),
+
+  on(fromFilesDisplayTabActions.setTotalCount, (state, { total }) => {
+    const tabId = 0;
+    return {
+      ...state,
+      pagination: {
+        ...state.pagination,
+        totalCount: total
+      }
     };
   }),
 )

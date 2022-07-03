@@ -2,7 +2,9 @@
   <ng-container *ngIf="(this.fus.getFilesTableData$ | async) as tableData">
     <ng-container *ngIf="(tableData.apiLoading === false); else isLoading">
       <div class="w-100">
-        <app-shared-table-selectable [columnIds]="tableData.columnIds" [columnData]="tableData.columnData">
+        <app-shared-table-selectable [columnIds]="tableData.columnIds" [columnData]="tableData.columnData"
+          [tableActionBtns]="(this.fds.getFilesDisplayTableActionBtns$ | async)"
+          [pagination]="(this.fds.getTablePagination$ | async)" (pageEvent)="onPage($event)">
         </app-shared-table-selectable>
       </div>
     </ng-container>
