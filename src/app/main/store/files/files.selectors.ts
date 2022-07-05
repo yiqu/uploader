@@ -4,6 +4,9 @@ import { PhotoData, USER_FILES_STORE_KEY } from '../upload/upload.state';
 import { FilesEntityState } from './files.reducer';
 import * as fromAuthSelectors from '../../../authentication/store/auth.selectors';
 import { PhotoTableData } from './files.state';
+import * as fromFilesDisplaySelectors from '../files-display/files-display.selectors';
+import { Pagination } from '../files-display/files-display.state';
+
 
 export const userFilesFeatureState = createFeatureSelector<FilesEntityState>(USER_FILES_STORE_KEY);
 
@@ -69,9 +72,14 @@ export const getRecentUserUploads = createSelector(
 export const getUserPhotoTableData = createSelector(
   isUserFilesApiLoading,
   selectAll,
-  (apiLoading: boolean, allFilesData: PhotoData[]): PhotoTableData => {
+  fromFilesDisplaySelectors.getPagination,
+  (apiLoading: boolean, allFilesData: PhotoData[], pagination: Pagination): PhotoTableData => {
     let columnIds: string[] = ['fileName', 'photoUrl', 'fileSize', 'dateUploaded'];
     let columnData: PhotoData[] = [...allFilesData];
+    const startIndex = pagination.currentPage * 30;
+    const endIndex = startIndex + 30;
+
+    columnData = columnData.slice(startIndex, endIndex);
 
     return {
       apiLoading: apiLoading,

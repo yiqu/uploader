@@ -16,7 +16,10 @@
   <div class="filter">
 
   </div>
-  <div class="paginator w-100" fxLayout="row" fxLayoutAlign="end center">
+  <div class="paginator w-100" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="page-info" *ngIf="pagination">
+      Page {{ (pagination.currentPage) + 1 }} / {{ pagination.totalPages }}
+    </div>
     <div>
       <mat-paginator [showFirstLastButtons]="true" (page)="onPage($event)" [length]="pagination?.totalCount"
         [hidePageSize]="true" [pageIndex]="pagination?.currentPage" [pageSize]="30">

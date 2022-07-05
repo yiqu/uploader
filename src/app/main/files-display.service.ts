@@ -5,6 +5,7 @@ import { AppState } from '../store/global/app.reducer';
 import * as fromFilesDisplaySelectors from './store/files-display/files-display.selectors';
 import { ActionButton, FilesDisplayState, FilesDisplayTab, FilesDisplayTabsState, Pagination } from './store/files-display/files-display.state';
 import * as fromFilesDisplayTabActions from './store/files-display/files-display.actions';
+import { PhotoData } from './store/upload/upload.state';
 
 
 @Injectable({
@@ -16,6 +17,7 @@ export class FilesDisplayService {
   getAllTabOptions$: Observable<FilesDisplayTab[]> = this.store.select(fromFilesDisplaySelectors.getAllTabOptions);
   getFilesDisplayTableActionBtns$: Observable<ActionButton[]> = this.store.select(fromFilesDisplaySelectors.getFilesDisplayTableActionBtns);
   getTablePagination$: Observable<Pagination> = this.store.select(fromFilesDisplaySelectors.getPagination);
+
 
   constructor(private store: Store<AppState>) {
   }

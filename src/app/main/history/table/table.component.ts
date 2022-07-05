@@ -16,10 +16,9 @@ export class HomeHistoryTableViewComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   onPage(page: PageEvent) {
-    console.log(page)
+    this.fds.setCurrentPage(page.pageIndex);
   }
 }

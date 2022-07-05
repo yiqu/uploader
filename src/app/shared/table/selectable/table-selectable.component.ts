@@ -52,7 +52,7 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
     // if (this.dataSource && this.paginator) {
     //   this.dataSource.paginator = this.paginator;
     // }
-    console.log(this.columnData)
+    //console.log(this.columnData)
   }
 
   ngOnInit(): void {

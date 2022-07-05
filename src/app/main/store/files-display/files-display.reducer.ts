@@ -29,7 +29,8 @@ const inititalState: FilesDisplayState = {
   pagination: {
     countPerPage: 30,
     currentPage: 0,
-    totalCount: 0
+    totalCount: 0,
+    totalPages: 0
   },
   queryParams: {}
 }
@@ -38,7 +39,6 @@ export const filesDisplayReducer = createReducer(
   inititalState,
 
   on(fromFilesDisplayTabActions.setUserFilesDisplayTabId, (state, { tab }) => {
-    const tabId = 0;
     return {
       ...state,
       selectedTabLabel: tab?.label ?? state.selectedTabLabel
@@ -46,7 +46,6 @@ export const filesDisplayReducer = createReducer(
   }),
 
   on(fromFilesDisplayTabActions.setCurrentTablePage, (state, { currentPage }) => {
-    const tabId = 0;
     return {
       ...state,
       pagination: {
@@ -57,7 +56,6 @@ export const filesDisplayReducer = createReducer(
   }),
 
   on(fromFilesDisplayTabActions.setDisplayCountPerPage, (state, { count }) => {
-    const tabId = 0;
     return {
       ...state,
       pagination: {
@@ -68,12 +66,14 @@ export const filesDisplayReducer = createReducer(
   }),
 
   on(fromFilesDisplayTabActions.setTotalCount, (state, { total }) => {
-    const tabId = 0;
+    const totalPages: number = Math.ceil(total / 30);
+
     return {
       ...state,
       pagination: {
         ...state.pagination,
-        totalCount: total
+        totalCount: total,
+        totalPages
       }
     };
   }),

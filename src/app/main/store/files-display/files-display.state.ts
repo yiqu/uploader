@@ -33,4 +33,5 @@ export interface Pagination {
   currentPage: number;
   countPerPage: number;
   totalCount: number;
+  totalPages: number;
 }
