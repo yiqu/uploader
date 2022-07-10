@@ -1,5 +1,5 @@
 <ng-container *ngIf="((this.fs.userFilesApiLoading$| async) === false); else loading">
-  <div class="w-100" fxLayout="column" fxLayoutAlign="start center">
+  <div class="w-100" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="15px">
     <div class="title quicksand fw-500 w-100">
       <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
         <div>
@@ -10,7 +10,7 @@
         </div>
       </div>
       <hr class="w-100 part-loading">
-      <div class="w-100 api-loading mb-10">
+      <div class="w-100 api-loading">
         <ng-container *ngIf="this.fs.userFileApiWorking$ | async">
           <shared-loading-bar class="w-100"></shared-loading-bar>
         </ng-container>
@@ -27,10 +27,26 @@
       </nav>
     </ng-container>
 
+    <div class="actions w-100" fxLayout="row" fxLayoutAlign="start center">
+      <ng-container *ngIf="(this.ufds.getFilesDisplayTableActionBtns$ | async) as tableActionBtns">
+        <ng-container *ngFor="let action of tableActionBtns">
+          <button mat-button color="primary" (click)="onActionClick(action)">
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon>{{ action.icon }}</mat-icon>
+              </div>
+              <div>
+                {{ action.label }}
+              </div>
+            </div>
+          </button>
+        </ng-container>
+      </ng-container>
+    </div>
+
     <div class="w-100">
       <router-outlet></router-outlet>
     </div>
-
   </div>
 </ng-container>
 

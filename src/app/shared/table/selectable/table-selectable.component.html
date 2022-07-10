@@ -1,18 +1,4 @@
 <div fxLayout="column" fxLayoutAlign="start center" class="table-parent w-100">
-  <div class="actions w-100" fxLayout="row" fxLayoutAlign="start center">
-    <ng-container *ngFor="let action of tableActionBtns">
-      <button mat-button color="primary">
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
-          <div fxLayout="row" fxLayoutAlign="center center">
-            <mat-icon>{{ action.icon }}</mat-icon>
-          </div>
-          <div>
-            {{ action.label }}
-          </div>
-        </div>
-      </button>
-    </ng-container>
-  </div>
   <div class="filter">
 
   </div>
@@ -33,7 +19,7 @@
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox color="primary" (change)="$event ? masterToggle() : null"
+          <mat-checkbox color="primary" (change)="onMasterToggle($event)"
             [checked]="selection.hasValue() && isAllSelected()"
             [indeterminate]="selection.hasValue() && !isAllSelected()">
           </mat-checkbox>

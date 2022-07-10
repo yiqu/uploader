@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/authentication/auth.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { ZorroToasterService } from 'src/app/shared/services/toaster-zorro.service';
 import { FilesDisplayService } from '../files-display.service';
-import { FilesDisplayTab } from '../store/files-display/files-display.state';
+import { ActionButton, FilesDisplayTab } from '../store/files-display/files-display.state';
 import { FileUploadService } from '../upload.service';
 
 @Component({
@@ -24,6 +24,21 @@ export class HomeHistoryComponent implements OnInit {
 
   onTabClick(tab: FilesDisplayTab): void {
     this.router.navigate(['./', tab.url], { relativeTo: this.route });
+  }
+
+  onActionClick(btn: ActionButton) {
+    switch(btn.id) {
+      case 'refresh': {
+        this.fs.getUserFiles();
+        break;
+      }
+      case 'delete': {
+        break;
+      }
+      case 'delete-all': {
+        break;
+      }
+    }
   }
 
 
