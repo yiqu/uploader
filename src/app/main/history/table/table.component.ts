@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilesDisplayService } from '../../files-display.service';
 import { FileUploadService } from '../../upload.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { PhotoData, PhotoDataRowSelect } from '../../store/upload/upload.state';
 
 
 @Component({
@@ -20,5 +21,10 @@ export class HomeHistoryTableViewComponent implements OnInit {
 
   onPage(page: PageEvent) {
     this.fds.setCurrentPage(page.pageIndex);
+  }
+
+  onRowSelectChange(selection: PhotoDataRowSelect) {
+    console.log(selection)
+
   }
 }

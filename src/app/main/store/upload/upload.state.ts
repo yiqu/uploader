@@ -43,6 +43,11 @@ export interface FilesUploadingStatus {
 }
 
 export interface PhotoDataRowSelect {
-  photo: PhotoData;
-  checkToggle: MatCheckboxChange;
+  photo: PhotoData[];
+  action: TABLE_TOGGLE_ACTOON;
+}
+
+export enum TABLE_TOGGLE_ACTOON {
+  ADD = 'add',
+  REMOVE = 'remove'
 }

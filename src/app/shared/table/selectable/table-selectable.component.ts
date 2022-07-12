@@ -5,7 +5,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActionButton, Pagination } from 'src/app/main/store/files-display/files-display.state';
-import { PhotoData, PhotoDataRowSelect } from 'src/app/main/store/upload/upload.state';
+import { PhotoData, PhotoDataRowSelect, TABLE_TOGGLE_ACTOON } from 'src/app/main/store/upload/upload.state';
 
 
 @Component({
@@ -38,7 +38,7 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
   pageEvent: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   @Output()
-  selectedRowsChange: EventEmitter<PhotoData[]> = new EventEmitter<PhotoData[]>();
+  selectedRowsChange: EventEmitter<PhotoDataRowSelect> = new EventEmitter<PhotoDataRowSelect>();
 
 
   dataSource?: MatTableDataSource<PhotoData>;
@@ -84,19 +84,31 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   onMasterToggle(event: MatCheckboxChange) {
-    if (this.isAllSelected()) {
+    if (this.isAllSelected() && this.dataSource) {
       this.selection.clear();
+      this.emitSelection(TABLE_TOGGLE_ACTOON.REMOVE, this.dataSource.data);
       return;
     }
     if (this.dataSource) {
       this.selection.select(...this.dataSource.data);
+      this.emitSelection(TABLE_TOGGLE_ACTOON.ADD, this.dataSource.data);
     }
   }
 
-  onRowCheckboxToggle(row: PhotoData, checked: MatCheckboxChange): void {
+  onRowCheckboxToggle(row: PhotoData, checkBoxChange: MatCheckboxChange): void {
     this.selection.toggle(row)
-    this.selectedRowsChange.emit(this.selection.selected);
-    console.log(this.selection.selected)
+    if (checkBoxChange.checked) {
+      this.emitSelection(TABLE_TOGGLE_ACTOON.ADD, [row]);
+    } else {
+      this.emitSelection(TABLE_TOGGLE_ACTOON.REMOVE, [row]);
+    }
+  }
+
+  emitSelection(type: TABLE_TOGGLE_ACTOON, data: PhotoData[]) {
+    this.selectedRowsChange.emit({
+      action: type,
+      photo: data
+    });
   }
 
 }

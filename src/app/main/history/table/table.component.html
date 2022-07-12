@@ -4,7 +4,8 @@
       <div class="w-100">
         <app-shared-table-selectable [columnIds]="tableData.columnIds" [columnData]="tableData.columnData"
           [tableActionBtns]="(this.fds.getFilesDisplayTableActionBtns$ | async)"
-          [pagination]="(this.fds.getTablePagination$ | async)" (pageEvent)="onPage($event)">
+          [pagination]="(this.fds.getTablePagination$ | async)" (pageEvent)="onPage($event)"
+          (selectedRowsChange)="onRowSelectChange($event)">
         </app-shared-table-selectable>
       </div>
     </ng-container>
