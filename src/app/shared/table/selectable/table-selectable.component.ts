@@ -5,7 +5,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActionButton, Pagination } from 'src/app/main/store/files-display/files-display.state';
-import { PhotoData } from 'src/app/main/store/upload/upload.state';
+import { PhotoData, PhotoDataRowSelect } from 'src/app/main/store/upload/upload.state';
 
 
 @Component({
@@ -37,18 +37,23 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
   @Output()
   pageEvent: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
+  @Output()
+  selectedRowsChange: EventEmitter<PhotoData[]> = new EventEmitter<PhotoData[]>();
+
 
   dataSource?: MatTableDataSource<PhotoData>;
   selection = new SelectionModel<PhotoData>(true, []);
   columnIdsWithSelect: string[] = [];
 
   constructor() {
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.dataSource = new MatTableDataSource<PhotoData>(this.columnData);
     this.columnIdsWithSelect = ['select', ...this.columnIds];
+
+    // preselect the items on page change
+    this.selection = new SelectionModel<PhotoData>(true, []);
 
     // if (this.dataSource && this.paginator) {
     //   this.dataSource.paginator = this.paginator;
@@ -86,6 +91,12 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
     if (this.dataSource) {
       this.selection.select(...this.dataSource.data);
     }
+  }
+
+  onRowCheckboxToggle(row: PhotoData, checked: MatCheckboxChange): void {
+    this.selection.toggle(row)
+    this.selectedRowsChange.emit(this.selection.selected);
+    console.log(this.selection.selected)
   }
 
 }

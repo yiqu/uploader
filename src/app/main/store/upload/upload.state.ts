@@ -1,4 +1,5 @@
 import { AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/compat/storage";
+import { MatCheckboxChange } from "@angular/material/checkbox";
 
 export const UPLOAD_FILE_STORE_KEY: string = 'uploadFiles';
 export const USER_FILES_STORE_KEY: string = 'userFiles';
@@ -39,4 +40,9 @@ export interface PhotoData {
 export interface FilesUploadingStatus {
   total: UploadFile[];
   uploadings: PhotoData[];
+}
+
+export interface PhotoDataRowSelect {
+  photo: PhotoData;
+  checkToggle: MatCheckboxChange;
 }
