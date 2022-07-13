@@ -44,10 +44,10 @@ export interface FilesUploadingStatus {
 
 export interface PhotoDataRowSelect {
   photo: PhotoData[];
-  action: TABLE_TOGGLE_ACTOON;
+  action: TABLE_TOGGLE_ACTION;
 }
 
-export enum TABLE_TOGGLE_ACTOON {
+export enum TABLE_TOGGLE_ACTION {
   ADD = 'add',
   REMOVE = 'remove'
 }

@@ -25,6 +25,6 @@ export class HomeHistoryTableViewComponent implements OnInit {
 
   onRowSelectChange(selection: PhotoDataRowSelect) {
     console.log(selection)
-
+    this.fds.toggleFilesTableSelections(selection);
   }
 }

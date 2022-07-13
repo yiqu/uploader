@@ -5,7 +5,9 @@ import { AppState } from '../store/global/app.reducer';
 import * as fromFilesDisplaySelectors from './store/files-display/files-display.selectors';
 import { ActionButton, FilesDisplayState, FilesDisplayTab, FilesDisplayTabsState, Pagination } from './store/files-display/files-display.state';
 import * as fromFilesDisplayTabActions from './store/files-display/files-display.actions';
-import { PhotoData } from './store/upload/upload.state';
+import { PhotoData, PhotoDataRowSelect } from './store/upload/upload.state';
+import * as fromFilesSelectionActions from './store/selection/selection.actions';
+
 
 
 @Injectable({
@@ -37,4 +39,14 @@ export class FilesDisplayService {
   setTotalCount(total: number): void {
     this.store.dispatch(fromFilesDisplayTabActions.setTotalCount({ total }));
   }
+
+  toggleFilesTableSelections(selectionData: PhotoDataRowSelect): void {
+    this.store.dispatch(fromFilesSelectionActions.filesTableSelectionToggle(selectionData));
+  }
+
+  resetFilesTableSelections(): void {
+    this.store.dispatch(fromFilesSelectionActions.resetTableSelections());
+  }
+
+
 }

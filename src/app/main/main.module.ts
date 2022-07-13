@@ -26,6 +26,8 @@ import { filesDisplayReducer } from './store/files-display/files-display.reducer
 import { FilesDisplayEffects } from './store/files-display/files-display.effects';
 import { HomeHistoryTableViewComponent } from './history/table/table.component';
 import { HomeHistoryGalleriaViewComponent } from './history/galleria/galleria.component';
+import { TABLE_SELECTION_STORE_KEY } from './store/selection/selection.state';
+import { filesTableSelectionReducer } from './store/selection/selection.reducer';
 
 @NgModule({
   imports: [
@@ -37,6 +39,7 @@ import { HomeHistoryGalleriaViewComponent } from './history/galleria/galleria.co
     StoreModule.forFeature(USER_FILES_STORE_KEY, filesEntityReducerFunc),
     StoreModule.forFeature(UPLOAD_PROGRESS_DISPLAY_STORE_KEY, uploadProgressDisplayReducer),
     StoreModule.forFeature(FILES_DISPLAY_STORE_KEY, filesDisplayReducer),
+    StoreModule.forFeature(TABLE_SELECTION_STORE_KEY, filesTableSelectionReducer),
     EffectsModule.forFeature(fileUploadEntityEffect),
     EffectsModule.forFeature([FilesEffects]),
     EffectsModule.forFeature(uploadProgressDisplayEffects),
