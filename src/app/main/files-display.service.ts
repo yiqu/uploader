@@ -7,7 +7,7 @@ import { ActionButton, FilesDisplayState, FilesDisplayTab, FilesDisplayTabsState
 import * as fromFilesDisplayTabActions from './store/files-display/files-display.actions';
 import { PhotoData, PhotoDataRowSelect } from './store/upload/upload.state';
 import * as fromFilesSelectionActions from './store/selection/selection.actions';
-
+import * as fromFileSelectionSelectors from './store/selection/selection.selectors';
 
 
 @Injectable({
@@ -19,6 +19,7 @@ export class FilesDisplayService {
   getAllTabOptions$: Observable<FilesDisplayTab[]> = this.store.select(fromFilesDisplaySelectors.getAllTabOptions);
   getFilesDisplayTableActionBtns$: Observable<ActionButton[]> = this.store.select(fromFilesDisplaySelectors.getFilesDisplayTableActionBtns);
   getTablePagination$: Observable<Pagination> = this.store.select(fromFilesDisplaySelectors.getPagination);
+  getTableSelected$: Observable<PhotoData[]> = this.store.select(fromFileSelectionSelectors.selectAll);
 
 
   constructor(private store: Store<AppState>) {

@@ -27,21 +27,28 @@
       </nav>
     </ng-container>
 
-    <div class="actions w-100" fxLayout="row" fxLayoutAlign="start center">
-      <ng-container *ngIf="(this.ufds.getFilesDisplayTableActionBtns$ | async) as tableActionBtns">
-        <ng-container *ngFor="let action of tableActionBtns">
-          <button mat-button color="primary" (click)="onActionClick(action)">
-            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
-              <div fxLayout="row" fxLayoutAlign="center center">
-                <mat-icon>{{ action.icon }}</mat-icon>
+    <div class="actions w-100" fxLayout="row" fxLayoutAlign="space-between center">
+      <div>
+        <ng-container *ngIf="(this.ufds.getFilesDisplayTableActionBtns$ | async) as tableActionBtns">
+          <ng-container *ngFor="let action of tableActionBtns">
+            <button mat-button color="primary" (click)="onActionClick(action)">
+              <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                  <mat-icon>{{ action.icon }}</mat-icon>
+                </div>
+                <div>
+                  {{ action.label }}
+                </div>
               </div>
-              <div>
-                {{ action.label }}
-              </div>
-            </div>
-          </button>
+            </button>
+          </ng-container>
         </ng-container>
-      </ng-container>
+      </div>
+      <div class="selection">
+        <ng-container *ngIf="(this.ufds.getTableSelected$ | async) as selectedRows">
+          {{ selectedRows.length }} selected
+        </ng-container>
+      </div>
     </div>
 
     <div class="w-100">

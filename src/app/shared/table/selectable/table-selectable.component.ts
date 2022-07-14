@@ -34,6 +34,9 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
   @Input()
   pagination?: Pagination | null;
 
+  @Input()
+  selectedRows: PhotoData[] | null = [];
+
   @Output()
   pageEvent: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
@@ -49,16 +52,26 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dataSource = new MatTableDataSource<PhotoData>(this.columnData);
-    this.columnIdsWithSelect = ['select', ...this.columnIds];
+    console.log(changes)
+    if (changes['columnData'] || changes['columnIds'] || changes['pagination']) {
+      this.dataSource = new MatTableDataSource<PhotoData>(this.columnData);
+      this.columnIdsWithSelect = ['select', ...this.columnIds];
 
-    // preselect the items on page change
-    this.selection = new SelectionModel<PhotoData>(true, []);
-
-    // if (this.dataSource && this.paginator) {
-    //   this.dataSource.paginator = this.paginator;
-    // }
-    //console.log(this.columnData)
+      if (this.selectedRows && ((this.selectedRows.length ?? 0) > 0)) {
+        // preselect the items on page change
+        const selected: PhotoData[] = [];
+        this.selectedRows?.forEach((select: PhotoData) => {
+          const ind = this.columnData.findIndex((d) => {
+            return d.id === select.id;
+          });
+          if (ind > -1) {
+            selected.push(this.columnData[ind]);
+          }
+        });
+        this.selection = new SelectionModel<PhotoData>(true, selected);
+        console.log(this.selection)
+      }
+    }
   }
 
   ngOnInit(): void {
