@@ -69,7 +69,6 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
           }
         });
         this.selection = new SelectionModel<PhotoData>(true, selected);
-        console.log(this.selection)
       }
     }
   }
@@ -79,9 +78,6 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
   }
 
   ngAfterViewInit(): void {
-    // if (this.dataSource && this.paginator) {
-    //   this.dataSource.paginator = this.paginator;
-    // }
   }
 
   onPage(page: PageEvent) {
