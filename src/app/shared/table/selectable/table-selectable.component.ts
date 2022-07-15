@@ -53,11 +53,13 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes)
+    const changeParamsCount = Object.keys(changes).length;
     if (changes['columnData'] || changes['columnIds'] || changes['pagination']) {
       this.dataSource = new MatTableDataSource<PhotoData>(this.columnData);
       this.columnIdsWithSelect = ['select', ...this.columnIds];
 
-      if (this.selectedRows && ((this.selectedRows.length ?? 0) > 0)) {
+      if (this.selectedRows && ((this.selectedRows.length ?? 0) > 0) && (changeParamsCount < 5)) {
+        console.log("calc")
         // preselect the items on page change
         const selected: PhotoData[] = [];
         this.selectedRows?.forEach((select: PhotoData) => {

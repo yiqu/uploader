@@ -46,7 +46,9 @@
       </div>
       <div class="selection">
         <ng-container *ngIf="(this.ufds.getTableSelected$ | async) as selectedRows">
-          {{ selectedRows.length }} selected
+          <ng-container *ngIf="selectedRows.length > 0">
+            {{ selectedRows.length }} selected
+          </ng-container>
         </ng-container>
       </div>
     </div>
