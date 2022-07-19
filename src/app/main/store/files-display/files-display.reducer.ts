@@ -2,11 +2,19 @@ import { createReducer, on } from '@ngrx/store';
 import { FilesDisplayState } from './files-display.state';
 import * as fromFilesDisplayTabActions from './files-display.actions';
 
-const DEFAULT_BUTTON_LIST = [
+export const DEFAULT_BUTTON_LIST = [
   {
     id: 'refresh',
     label: 'Refresh',
     icon: 'refresh'
+  }
+]
+
+export const WHEN_HAS_SELECTED_BUTTON_LIST = [
+  {
+    id: 'delete',
+    label: 'Delete',
+    icon: 'delete'
   }
 ]
 

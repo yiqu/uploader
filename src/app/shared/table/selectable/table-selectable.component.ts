@@ -58,7 +58,7 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
       this.dataSource = new MatTableDataSource<PhotoData>(this.columnData);
       this.columnIdsWithSelect = ['select', ...this.columnIds];
 
-      if (this.selectedRows && ((this.selectedRows.length ?? 0) > 0) && (changeParamsCount < 5)) {
+      if (this.selectedRows && ((this.selectedRows.length ?? 0) > 0)) {
         console.log("calc")
         // preselect the items on page change
         const selected: PhotoData[] = [];

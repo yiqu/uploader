@@ -1,5 +1,5 @@
 <ng-container *ngIf="((this.fs.userFilesApiLoading$| async) === false); else loading">
-  <div class="w-100" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="15px">
+  <div class="w-100" fxLayout="column" fxLayoutAlign="start center">
     <div class="title quicksand fw-500 w-100">
       <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
         <div>
@@ -18,7 +18,7 @@
     </div>
 
     <ng-container *ngIf="(this.ufds.getUserDisplayTabs$ | async) as userDisplayTabs">
-      <nav mat-tab-nav-bar class="w-100" [disableRipple]="true" mat-align-tabs="start">
+      <nav mat-tab-nav-bar class="w-100 tab-nav" [disableRipple]="true" mat-align-tabs="start">
         <a mat-tab-link *ngFor="let tab of (userDisplayTabs.tabs)"
           (click)="onTabClick(tab)" [active]="userDisplayTabs.selectedTabLabel === tab.label">
             <mat-icon class="tab-icon mr-1">{{ tab.icon }}</mat-icon>
@@ -51,6 +51,10 @@
           </ng-container>
         </ng-container>
       </div>
+    </div>
+
+    <div class="w-100">
+      <hr class="w-100 part-loading no-top">
     </div>
 
     <div class="w-100">
