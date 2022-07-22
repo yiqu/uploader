@@ -17,10 +17,10 @@ export class FilesDisplayService {
 
   getUserDisplayTabs$: Observable<FilesDisplayTabsState> = this.store.select(fromFilesDisplaySelectors.getUserFilesDisplayTabs);
   getAllTabOptions$: Observable<FilesDisplayTab[]> = this.store.select(fromFilesDisplaySelectors.getAllTabOptions);
-  getFilesDisplayTableActionBtns$: Observable<ActionButton[]> = this.store.select(fromFilesDisplaySelectors.getFilesDisplayTableActionBtns);
+  getFilesDisplayTableActionBtns$: Observable<ActionButton[]> = this.store.select(fromFileSelectionSelectors.getFilesDisplayTableActionBtns);
   getTablePagination$: Observable<Pagination> = this.store.select(fromFilesDisplaySelectors.getPagination);
   getTableSelected$: Observable<PhotoData[]> = this.store.select(fromFileSelectionSelectors.selectAll);
-
+  hasAnySelectedOnCurrentTablePage$: Observable<boolean> = this.store.select(fromFileSelectionSelectors.hasSelectedOnCurrentPage);
 
   constructor(private store: Store<AppState>) {
   }

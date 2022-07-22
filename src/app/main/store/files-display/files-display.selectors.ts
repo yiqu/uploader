@@ -5,6 +5,7 @@ import { ActionButton, FilesDisplayState, FilesDisplayTab, FilesDisplayTabsState
 import * as fromFilesSelectors from '../files/files.selectors';
 import * as fromSelectionSelectors from '../selection/selection.selectors';
 import * as fromFileDisplayReducer from './files-display.reducer';
+import { PhotoTableData } from '../files/files.state';
 
 export const filesDisplayFeatureState = createFeatureSelector<FilesDisplayState>(FILES_DISPLAY_STORE_KEY);
 
@@ -22,19 +23,6 @@ export const getAllTabOptions = createSelector(
   filesDisplayFeatureState,
   (state): FilesDisplayTab[] => {
     return state.tabs;
-  }
-);
-
-export const getFilesDisplayTableActionBtns = createSelector(
-  filesDisplayFeatureState,
-  fromSelectionSelectors.selectTotalCount,
-  (state, totalSelected: number): ActionButton[] => {
-    const btnList: ActionButton[] = [];
-    btnList.push(...fromFileDisplayReducer.DEFAULT_BUTTON_LIST);
-    if (totalSelected) {
-      btnList.unshift(...fromFileDisplayReducer.WHEN_HAS_SELECTED_BUTTON_LIST);
-    }
-    return btnList;
   }
 );
 
