@@ -6,6 +6,7 @@
           [tableActionBtns]="(this.fds.getFilesDisplayTableActionBtns$ | async)"
           [pagination]="(this.fds.getTablePagination$ | async)"
           [selectedRows]="(this.fds.getTableSelected$ | async)"
+          [clearCurrentSelectionTime]="(this.fds.getLastClearSelectionsTime$ | async)"
           (pageEvent)="onPage($event)"
           (selectedRowsChange)="onRowSelectChange($event)">
         </app-shared-table-selectable>

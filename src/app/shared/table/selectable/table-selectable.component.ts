@@ -37,6 +37,9 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
   @Input()
   selectedRows: PhotoData[] | null = [];
 
+  @Input()
+  clearCurrentSelectionTime: number | null = 0;
+
   @Output()
   pageEvent: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
@@ -55,11 +58,14 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
     console.log(changes)
     const changeParamsCount = Object.keys(changes).length;
     if (changes['columnData'] || changes['columnIds'] || changes['pagination']) {
+
       this.dataSource = new MatTableDataSource<PhotoData>(this.columnData);
       this.columnIdsWithSelect = ['select', ...this.columnIds];
+      this.selection = new SelectionModel<PhotoData>(true, []);
 
       if (this.selectedRows && ((this.selectedRows.length ?? 0) > 0)) {
         console.log("calc")
+
         // preselect the items on page change
         const selected: PhotoData[] = [];
         this.selectedRows?.forEach((select: PhotoData) => {
@@ -72,6 +78,10 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
         });
         this.selection = new SelectionModel<PhotoData>(true, selected);
       }
+    }
+
+    if (changes['clearCurrentSelectionTime']) {
+      this.selection = new SelectionModel<PhotoData>(true, []);
     }
   }
 

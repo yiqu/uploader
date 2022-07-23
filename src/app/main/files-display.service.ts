@@ -21,6 +21,7 @@ export class FilesDisplayService {
   getTablePagination$: Observable<Pagination> = this.store.select(fromFilesDisplaySelectors.getPagination);
   getTableSelected$: Observable<PhotoData[]> = this.store.select(fromFileSelectionSelectors.selectAll);
   hasAnySelectedOnCurrentTablePage$: Observable<boolean> = this.store.select(fromFileSelectionSelectors.hasSelectedOnCurrentPage);
+  getLastClearSelectionsTime$: Observable<number> = this.store.select(fromFileSelectionSelectors.getLastClearSelectionsTime);
 
   constructor(private store: Store<AppState>) {
   }

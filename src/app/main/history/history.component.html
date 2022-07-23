@@ -47,7 +47,16 @@
       <div class="selection">
         <ng-container *ngIf="(this.ufds.getTableSelected$ | async) as selectedRows">
           <ng-container *ngIf="selectedRows.length > 0">
-            {{ selectedRows.length }} selected
+            <div fxLayout="row" fxLayoutGap="3px" fxLayoutAlign="end center">
+              <div>
+                {{ selectedRows.length }} selected
+              </div>
+              <div class="clear">
+                <button mat-icon-button title="Clear selection" color="primary" (click)="onClearSelection()">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </div>
           </ng-container>
         </ng-container>
       </div>

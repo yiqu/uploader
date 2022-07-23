@@ -8,6 +8,7 @@ export interface FilesTableSelectionEntityState extends EntityState<PhotoData> {
   apiWorking: boolean;
   error: boolean;
   errMsg: string;
+  lastClearSelectionsTime: number;
 }
 
 export function selectId(file: PhotoData) {
@@ -59,6 +60,7 @@ export const filesTableSelectionReducer = createReducer(
     return adapter.removeAll({
       ...state,
       apiWorking: false,
+      lastClearSelectionsTime: new Date().getTime()
     });
   }),
 

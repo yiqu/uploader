@@ -23,6 +23,13 @@ nav a.mat-tab-label-active {
   .selection {
     font-size: 14px;
     font-weight: 300;
+
+    .clear {
+      .mat-icon-button {
+        height: 36px;
+        line-height: 36px;
+      }
+    }
   }
 }
 

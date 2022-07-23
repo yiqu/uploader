@@ -59,3 +59,10 @@ export const getFilesDisplayTableActionBtns = createSelector(
     return btnList;
   }
 );
+
+export const getLastClearSelectionsTime = createSelector(
+  filesTableSelectionFeatureState,
+  (state): number => {
+    return state.lastClearSelectionsTime;
+  }
+);

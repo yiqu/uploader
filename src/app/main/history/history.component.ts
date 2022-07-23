@@ -41,5 +41,9 @@ export class HomeHistoryComponent implements OnInit {
     }
   }
 
+  onClearSelection() {
+    this.ufds.resetFilesTableSelections();
+  }
+
 
 }
