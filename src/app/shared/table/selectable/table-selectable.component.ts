@@ -64,7 +64,6 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
       this.selection = new SelectionModel<PhotoData>(true, []);
 
       if (this.selectedRows && ((this.selectedRows.length ?? 0) > 0)) {
-        console.log("calc")
 
         // preselect the items on page change
         const selected: PhotoData[] = [];

@@ -369,10 +369,6 @@ snack-bar-container.mat-snack-bar-container.progress-snackbar {
   height: 3px;
 }
 
-hr.part-loading {
-  // margin-bottom: 0px;
-}
-
 /** Custom **/
 td.mat-cell {
   mat-checkbox {
@@ -386,4 +382,8 @@ tr th mat-checkbox {
   label {
     margin-bottom: 2px;
   }
+}
+
+.p-galleria-item {
+  background: rgba(0, 0, 0, 0.9);
 }

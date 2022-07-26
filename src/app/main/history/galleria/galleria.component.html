@@ -1,3 +1,36 @@
-<div>
-  Gal
+<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px" class="w-100">
+  <ng-container *ngIf="(this.fus.getFilesTableData$ | async) as tableData">
+    <ng-container *ngIf="(tableData.apiLoading === false); else isLoading">
+      <div class="w-100" class="galleria">
+        <p-galleria  [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '100%'}"
+          [numVisible]="8" [value]="tableData.columnData" [(activeIndex)]="activeIndex"
+          [circular]="true" [showItemNavigators]="true" >
+          <ng-template pTemplate="item" let-item>
+            <div class="body-img" fxLayout="column" fxLayoutAlign="space-between center">
+              <div class="index">
+                # {{ activeIndex + 1 }}
+              </div>
+              <div>
+                <img [src]="item.photoUrl" style="width: 100%; display: block;" />
+              </div>
+              <div></div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="thumbnail" let-item>
+            <div class="grid grid-nogutter justify-content-center">
+              <img [src]="item.photoUrl" class="preview" />
+            </div>
+          </ng-template>
+        </p-galleria>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #isLoading>
+    <div class="w-100">
+      <app-shared-loading></app-shared-loading>
+    </div>
+  </ng-template>
 </div>
+
+
