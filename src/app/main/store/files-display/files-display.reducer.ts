@@ -40,7 +40,8 @@ const inititalState: FilesDisplayState = {
     totalCount: 0,
     totalPages: 0
   },
-  queryParams: {}
+  queryParams: {},
+  galleriaIndex: 0
 }
 
 export const filesDisplayReducer = createReducer(
@@ -83,6 +84,13 @@ export const filesDisplayReducer = createReducer(
         totalCount: total,
         totalPages
       }
+    };
+  }),
+
+  on(fromFilesDisplayTabActions.setCurrentGalleriaItemIndex, (state, { index }) => {
+    return {
+      ...state,
+      galleriaIndex: index
     };
   }),
 )

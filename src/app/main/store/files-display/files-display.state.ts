@@ -6,6 +6,7 @@ export interface FilesDisplayState {
   actionButtons: ActionButton[];
   queryParams?: QueryParam;
   pagination: Pagination;
+  galleriaIndex: number;
 }
 
 export interface FilesDisplayTab {

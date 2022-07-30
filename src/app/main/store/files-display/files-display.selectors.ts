@@ -32,3 +32,11 @@ export const getPagination = createSelector(
     return state.pagination;
   }
 );
+
+export const getGalleriaCurrentItemIndex = createSelector(
+  filesDisplayFeatureState,
+  (state): number => {
+    return state.galleriaIndex;
+  }
+);
+

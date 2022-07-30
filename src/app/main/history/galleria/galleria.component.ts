@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { FilesDisplayService } from '../../files-display.service';
 import { FileUploadService } from '../../upload.service';
 
@@ -7,10 +8,10 @@ import { FileUploadService } from '../../upload.service';
   templateUrl: 'galleria.component.html',
   styleUrls: ['./galleria.component.scss']
 })
-export class HomeHistoryGalleriaViewComponent implements OnInit {
+export class HomeHistoryGalleriaViewComponent implements OnInit, OnDestroy {
 
-  photos: any[] = [];
   activeIndex: number = 0;
+  compDest$: Subject<void> = new Subject<void>();
 
   responsiveOptions: any[] = [
     {
@@ -28,10 +29,22 @@ export class HomeHistoryGalleriaViewComponent implements OnInit {
   ];
 
   constructor(public fus: FileUploadService, public fds: FilesDisplayService) {
-
   }
 
   ngOnInit() {
+    this.fds.getGalleriaCurrentItemIndex$.pipe(
+      takeUntil(this.compDest$)
+    ).subscribe((res) => {
+      this.activeIndex = res;
+    })
+  }
 
+  onItemChange(index: number) {
+    this.fds.setGalleriaItemIndex(+index);
+  }
+
+  ngOnDestroy(): void {
+    this.compDest$.next();
+    this.compDest$.complete();
   }
 }

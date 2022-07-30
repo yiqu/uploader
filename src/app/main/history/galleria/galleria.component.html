@@ -1,17 +1,17 @@
 <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px" class="w-100">
-  <ng-container *ngIf="(this.fus.getFilesTableData$ | async) as tableData">
-    <ng-container *ngIf="(tableData.apiLoading === false); else isLoading">
+  <ng-container *ngIf="(this.fus.getFilesAll$ | async) as allPhotos">
+    <ng-container *ngIf="((this.fus.userFilesApiLoading$ | async) === false); else isLoading">
       <div class="w-100" class="galleria">
         <p-galleria  [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '100%'}"
-          [numVisible]="8" [value]="tableData.columnData" [(activeIndex)]="activeIndex"
-          [circular]="true" [showItemNavigators]="true" >
+          [numVisible]="8" [value]="allPhotos" [(activeIndex)]="activeIndex"
+          [circular]="true" [showItemNavigators]="true" (activeIndexChange)="onItemChange($event)">
           <ng-template pTemplate="item" let-item>
             <div class="body-img" fxLayout="column" fxLayoutAlign="space-between center">
-              <div class="index">
+              <div class="index roboto mt-1">
                 # {{ activeIndex + 1 }}
               </div>
               <div>
-                <img [src]="item.photoUrl" style="width: 100%; display: block;" />
+                <img [src]="item.photoUrl" style="width: 100%; display: block;" [title]="item.fileName" />
               </div>
               <div></div>
             </div>

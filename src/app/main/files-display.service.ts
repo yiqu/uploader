@@ -22,6 +22,7 @@ export class FilesDisplayService {
   getTableSelected$: Observable<PhotoData[]> = this.store.select(fromFileSelectionSelectors.selectAll);
   hasAnySelectedOnCurrentTablePage$: Observable<boolean> = this.store.select(fromFileSelectionSelectors.hasSelectedOnCurrentPage);
   getLastClearSelectionsTime$: Observable<number> = this.store.select(fromFileSelectionSelectors.getLastClearSelectionsTime);
+  getGalleriaCurrentItemIndex$: Observable<number> = this.store.select(fromFilesDisplaySelectors.getGalleriaCurrentItemIndex);
 
   constructor(private store: Store<AppState>) {
   }
@@ -48,6 +49,10 @@ export class FilesDisplayService {
 
   resetFilesTableSelections(): void {
     this.store.dispatch(fromFilesSelectionActions.resetTableSelections());
+  }
+
+  setGalleriaItemIndex(index: number): void {
+    this.store.dispatch(fromFilesDisplayTabActions.setCurrentGalleriaItemIndex({ index }));
   }
 
 

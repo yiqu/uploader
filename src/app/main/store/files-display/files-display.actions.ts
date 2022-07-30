@@ -5,7 +5,7 @@ const SET_USER_FILES_DISPLAY_TAB_ID: string = '[User Files Display/UI] Set user 
 const SET_PAGE: string = '[User Files Display/Table] Set page';
 const SET_COUNT_PER_PAGE: string = '[User Files Display/Table] Set display count per page';
 const SET_TOTAL_COUNT: string = '[User Files Display/Table] Set total count';
-
+const SET_GALLERIA_ITEM_INDEX: string = '[User Files Display/Galleria] Set current galleria item index';
 
 export const setUserFilesDisplayTabId = createAction(
   SET_USER_FILES_DISPLAY_TAB_ID,
@@ -25,4 +25,9 @@ export const setDisplayCountPerPage = createAction(
 export const setTotalCount = createAction(
   SET_TOTAL_COUNT,
   props<{ total: number }>()
+)
+
+export const setCurrentGalleriaItemIndex = createAction(
+  SET_GALLERIA_ITEM_INDEX,
+  props<{ index: number }>()
 )
