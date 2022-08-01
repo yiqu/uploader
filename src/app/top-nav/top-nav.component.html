@@ -17,7 +17,9 @@
 
   <div class="">
     <button mat-icon-button [matMenuTriggerFor]="menu" class="user-dropdown">
-      <mat-icon>account_circle</mat-icon>
+      <mat-icon>
+        {{ (this.as.currentUser$ | async) ? 'face' : 'account_circle' }}
+      </mat-icon>
     </button>
 
     <mat-menu #menu="matMenu" class="">

@@ -32,6 +32,7 @@ export class AuthService {
 
   constructor(private afs: AngularFirestore, public store: Store<AppState>) {
     this.setFirebaseAuthWorking();
+
     firebase.auth().onAuthStateChanged(
       (user: firebase.User | null) => {
         console.log("AUTH:", user ? user.toJSON() : user);

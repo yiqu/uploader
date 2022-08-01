@@ -1,4 +1,4 @@
-export enum EntryMode {
+export enum CRUDMode {
   CREATE = 'create',
   UPDATE = 'update',
   DELETE = 'delete',

@@ -45,9 +45,11 @@
                   <img [src]="photo?.downloadUrl" alt="Photo img" width="50" height="50">
                 </ng-container>
                 <ng-template #imgPlaceholder>
-                  <mat-icon class="pic-progress">
-                    cloud_upload
-                  </mat-icon>
+                  <div class="pic-progress-parent" fxLayout="column" fxLayoutAlign="center center">
+                    <mat-icon class="pic-progress">
+                      cloud_upload
+                    </mat-icon>
+                  </div>
                 </ng-template>
               </div>
               <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="5px">
