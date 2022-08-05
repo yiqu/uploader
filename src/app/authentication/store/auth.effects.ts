@@ -39,6 +39,7 @@ export class AuthEffects {
                 displayName: u.user?.displayName ?? '<display>',
                 email: u.user?.email ?? '<email>'
               };
+              console.log("user has logged in.")
               return fromAuthActions.authLoginSuccess({ user: currentUser, redirect: ['/'] });
             },
             (rej) => {

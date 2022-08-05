@@ -7,5 +7,5 @@ const UPDATE_SIDE_NAV_OPTIONS: string = '[Side Nav/UI] Update side navigation op
 
 export const updateSideNavOptions = createAction(
   UPDATE_SIDE_NAV_OPTIONS,
-  props<{crud: CRUDMode, options: NavHeaderList[]}>()
+  props<{crud: CRUDMode, options: NavHeaderList}>()
 )

@@ -1,9 +1,10 @@
 import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { NavHeaderList, NavHeader, NavHeaderLink, NestNavHeaderList } from '../shared/models/nav-item.model';
+import { NavHeaderList, NavHeader, NavHeaderLink } from '../shared/models/nav-item.model';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ChangeDetectorRef } from '@angular/core';
+import { SideNavigationService } from './side-nav.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -15,13 +16,12 @@ export class SideNavComponent implements OnInit, OnDestroy {
   headerList: NavHeaderList[] = [];
   navTitle: string = "Home";
   compDest$: Subject<any> = new Subject<any>();
-  nestedMenu: NestNavHeaderList[] = [];
   openStatus: boolean = true;
 
   @Output()
   navClose: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(public router: Router, private cdr: ChangeDetectorRef) {
+  constructor(public router: Router, private cdr: ChangeDetectorRef, public sns: SideNavigationService) {
     this.createAllOptions();
   }
 
@@ -41,6 +41,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.sns.sideNavOptions$.subscribe((res) => {
+      console.log(res)
+    })
   }
 
   onNavClose() {
@@ -48,12 +51,10 @@ export class SideNavComponent implements OnInit, OnDestroy {
   }
 
   onNavItemClick() {
-    //this.navClose.emit(true);
   }
 
   onTitleClick() {
     this.router.navigate(['/']);
-    //this.navClose.emit(true);
   }
 
   ngOnDestroy() {

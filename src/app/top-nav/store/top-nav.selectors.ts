@@ -23,7 +23,7 @@ export const getUserMenuOptionsDisplay = createSelector(
 
       if (currentUser) {
         menuOptions.push(
-          new MenuItem("logout", "Sign Out", MENU_OPTION_SIGN_OUT_ID, false)
+          new MenuItem("logout", "Log out", MENU_OPTION_SIGN_OUT_ID, false)
         );
       } else {
         menuOptions.push(
