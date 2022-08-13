@@ -5,6 +5,8 @@ import { authReducer } from 'src/app/authentication/store/auth.reducer';
 import { USER_AUTH_STATE } from 'src/app/authentication/store/auth.state';
 import { topNavReducer } from 'src/app/top-nav/store/top-nav.reducer';
 import { TopNavState, TOP_NAV_STATE } from 'src/app/top-nav/store/top-nav.state';
+import { appVersionCheckReducer } from '../check-version/check-version.reducer';
+import { AppVersionCheckState, APP_VERSION_CHECK_STATE } from '../check-version/check-version.state';
 import { appMetaDataReducer } from '../meta/meta.reducer';
 import { AppMetaDataState, APP_META_DATA_STATE } from '../meta/meta.state';
 import { pageTitleReducer } from '../page-title/page-title.reducer';
@@ -22,6 +24,7 @@ export interface AppState {
   [PAGE_TITLE_STATE_ID]: PageTitleState;
   [USER_AUTH_STATE]: AuthState;
   [TOP_NAV_STATE]: TopNavState;
+  [APP_VERSION_CHECK_STATE]: AppVersionCheckState;
 }
 
 
@@ -31,5 +34,6 @@ export const appReducers: ActionReducerMap<AppState> = {
   [APP_META_DATA_STATE]: appMetaDataReducer,
   [PAGE_TITLE_STATE_ID]: pageTitleReducer,
   [USER_AUTH_STATE]: authReducer,
-  [TOP_NAV_STATE]: topNavReducer
+  [TOP_NAV_STATE]: topNavReducer,
+  [APP_VERSION_CHECK_STATE]: appVersionCheckReducer
 }

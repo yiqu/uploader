@@ -44,6 +44,12 @@ export class ZorroToasterService {
     });
   }
 
+  openSingletonToastPersist(type: ZorroToastType, message: string): void {
+    this.currentRef = this.zs.create(type, message, {
+      nzDuration: 0
+    });
+  }
+
   closeAllToast() {
   }
 
