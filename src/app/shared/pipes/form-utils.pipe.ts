@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import memo from 'memo-decorator';
-import { AllValidationErrors, FormValidationErrorDisplay } from '../general.utils';
+import { AllValidationErrors, FormValidationErrorDisplay } from '../form.utils';
 
 
 @Pipe({

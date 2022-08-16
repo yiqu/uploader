@@ -1,22 +1,5 @@
 import { FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
-export function createFormControl(value: any, disabled: boolean, validators: any[] = [], asyncValids: any[] = []): FormControl {
-  let fc = new FormControl({
-    value: value ? value : null,
-    disabled: disabled
-  }, validators, asyncValids);
-  return fc;
-}
-
-export function createFormControl2(value: any, disabled: boolean, validators: any[] = [], asyncValids: any[] = []): FormControl {
-  let fc = new FormControl({
-    value: value,
-    disabled: disabled
-  }, validators, asyncValids);
-  return fc;
-}
-
-
 export function scrollToElementById(id: string): void {
   let top = document.getElementById(id);
   if (top) {
@@ -27,6 +10,21 @@ export function scrollToElementById(id: string): void {
   }
 }
 
+
+export function scrollToTop() {
+  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+};
+
+
+export function scrollToBottom() {
+  window.scrollTo({
+    top: document.documentElement.offsetHeight,
+    left: 0,
+    behavior: "smooth",
+  });
+};
+
+
 export function convertCommaDecimalNumberToNumber(num: string): number {
   if (num) {
     const stripped = num.trim();
@@ -35,11 +33,13 @@ export function convertCommaDecimalNumberToNumber(num: string): number {
   return NaN;
 }
 
+
 export function insertIntoArrayAtIndex<T>(arr: T[], index: number, item: T): T[] {
   const arrCopy: T[] = JSON.parse(JSON.stringify(arr));
   arrCopy.splice(index, 0, item);
   return arrCopy;
 }
+
 
 export function isNumeric(val: any): boolean {
   if (typeof val === 'number') {
@@ -48,6 +48,13 @@ export function isNumeric(val: any): boolean {
   return !isNaN(+val) && !isNaN(parseFloat(val + ''));
 }
 
+
+export function getThingType(value: any) {
+  const match = Object.prototype.toString.call(value).match(/ (\w+)]/)
+  return match ? match[1].toLocaleLowerCase() : 'N/A';
+}
+
+
 export function capitalizeFirstLetter(str: string): string | undefined {
   if (str) {
     return (str.charAt(0).toUpperCase()) + str.slice(1);
@@ -55,9 +62,11 @@ export function capitalizeFirstLetter(str: string): string | undefined {
   return undefined;
 }
 
+
 export function getLocaleNumber(num: any): string {
   return (+num).toLocaleString(undefined);
 }
+
 
 export function objectsEqual(o1: any, o2: any): boolean {
   return typeof o1 === 'object' && Object.keys(o1).length > 0
@@ -66,6 +75,7 @@ export function objectsEqual(o1: any, o2: any): boolean {
   : o1 === o2;
 }
 
+
 export function arraysEqual(a1: any[], a2: any[]): boolean {
   if (a1 && a2) {
     return a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
@@ -73,50 +83,6 @@ export function arraysEqual(a1: any[], a2: any[]): boolean {
   return false;
 }
 
-/**
- * Calculates all form errors recursively
- * @param form
- * @returns
- */
-export function calculateNestedFormErrors(form: FormGroup | FormArray, removeDuplicate: boolean = true) {
-  let errors: AllValidationErrors[] = [];
-  Object.keys(form.controls).forEach(field => {
-    const control = form.get(field);
-    if (control instanceof FormGroup || control instanceof FormArray) {
-      errors = errors.concat(calculateNestedFormErrors(control));
-      return;
-    }
-
-    const controlErrors: ValidationErrors | undefined | null = control?.errors;
-    if (controlErrors) {
-      Object.keys(controlErrors).forEach(keyError => {
-        errors.push({
-          controlName: field,
-          errorName: keyError,
-          errorValue: controlErrors[keyError]
-        });
-      });
-    }
-  });
-  // This removes duplicates
-  if (removeDuplicate) {
-    errors = errors.filter((error, index, self) => self.findIndex(t => {
-      return t.controlName === error.controlName && t.errorName === error.errorName;
-    }) === index);
-  }
-  return errors;
-}
-
-export interface AllValidationErrors {
-  controlName: string;
-  errorName: string;
-  errorValue: any;
-};
-
-export interface FormValidationErrorDisplay {
-  summary: string;
-  errors: AllValidationErrors[];
-}
 
 export function removeEmptyFromObject(obj: any): any {
   if (!obj) {
@@ -131,6 +97,7 @@ export function removeEmptyFromObject(obj: any): any {
   return result;
 }
 
+
 export function isObjectEmpty(obj: any): boolean {
   if (obj) {
     const keys = Object.keys(obj);
@@ -138,6 +105,7 @@ export function isObjectEmpty(obj: any): boolean {
   }
   return false;
 }
+
 
 // Remove objects in an array if the object has the same value by key provided
 export function deduplicateObjectArrayByKey<T>(arr: T[], key: string): T[] {
@@ -183,3 +151,5 @@ export function deduplicateObjectArrayByKey<T>(arr: T[], key: string): T[] {
 
   return bytes.toFixed(dp) + ' ' + units[u];
 }
+
+

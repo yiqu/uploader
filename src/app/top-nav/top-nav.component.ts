@@ -5,7 +5,6 @@ import { takeUntil, take } from 'rxjs/operators';
 import { MenuItem } from '../shared/models/nav-item.model';
 import { environment } from '../../environments/environment';
 import { FormControl } from '@angular/forms';
-import { createFormControl2 } from '../shared/general.utils';
 import { IsMobileService } from '../shared/services/is-mobile.service';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { AuthService } from '../authentication/auth.service';
