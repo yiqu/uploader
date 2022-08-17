@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -34,6 +34,7 @@ import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 import { SharedProgressSnackbarComponent } from './progress-snackbar/progress-snackbar.component';
 import { ProgressSnackbarModule } from './progress-snackbar/progress-snackbar.module';
 import { ProgressDialogModule } from './progress-dialog/progress-dialog.module';
+import { GlobalErrorHandler } from './error-handler/global-error-handler.service';
 
 
 const icons: IconDefinition[] = [ AppstoreOutline, ProjectFill, ContainerFill,
@@ -103,6 +104,9 @@ const ngZorroConfig: NzConfig = {
     { provide: NZ_CONFIG,
       useValue: ngZorroConfig
     },
+    {
+      provide: ErrorHandler, useClass: GlobalErrorHandler
+    }
   ],
   bootstrap: [AppComponent]
 })

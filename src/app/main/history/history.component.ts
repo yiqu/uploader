@@ -20,6 +20,7 @@ export class HomeHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.fs.getUserFiles();
+    const g: any = {};
   }
 
   onTabClick(tab: FilesDisplayTab): void {
