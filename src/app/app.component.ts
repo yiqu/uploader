@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Subject } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +21,10 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      throwError({message: 'BLAHHH'}).subscribe();
+    }, 3000);
+
   }
 
 

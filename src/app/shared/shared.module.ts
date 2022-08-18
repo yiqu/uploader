@@ -13,6 +13,7 @@ import { SharedDropMenuComponent } from './components/drop-menu/drop-menu.compon
 import { LoadingBarCssComponent } from './components/loading-bar-css/loading-bar-css.component';
 import { PhotoRecordDisplayComponent } from './components/photo-record-display/photo-record-display.component';
 import { PrimengModuleBundle } from './primeng-bundle.module';
+import { SnackbarNotificationComponent } from './snack-bar/snack-bar.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PrimengModuleBundle } from './primeng-bundle.module';
     EnterEscapeKeyEventDirective,
     SharedDropMenuComponent,
     LoadingBarCssComponent,
+    SnackbarNotificationComponent,
     PhotoRecordDisplayComponent
   ],
 
@@ -50,6 +52,7 @@ import { PrimengModuleBundle } from './primeng-bundle.module';
     NgxKeyeventModule,
     SharedDropMenuComponent,
     LoadingBarCssComponent,
+    SnackbarNotificationComponent,
     PhotoRecordDisplayComponent
   ],
 

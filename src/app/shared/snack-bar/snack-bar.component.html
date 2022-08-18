@@ -1,0 +1,18 @@
+<div class="sb-notification-parent w-100" fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="sb-message" fxLayout="row" fxLayoutAlign="start center">
+    <div>
+      {{ snackMessage}}
+    </div>
+  </div>
+  <ng-container *ngIf="this.hasAction">
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1px">
+      <ng-container *ngFor="let btn of this.actionButtons">
+        <div>
+           <button mat-icon-button (click)="actionBtnClick(btn.id)">
+             <mat-icon>{{ btn.id }}</mat-icon>
+           </button>
+         </div>
+       </ng-container>
+    </div>
+  </ng-container>
+</div>
