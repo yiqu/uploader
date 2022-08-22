@@ -11,27 +11,28 @@ export class GlobalErrorHandler extends ErrorHandler {
   }
 
   override handleError(error: any): void {
-    console.log("Error occured:");
     if (error) {
       // if lazy load chunk error
       if ((error?.message + '').includes(chunkFailedPreText)) {
-        if (confirm("New version available. Load New Version?")) {
-          window.location.reload();
-        }
-      } else {
         this.sbs.openSnackbar({
           snackData: {
-            message: 'New version available. Load New Version?',
+            message: 'New version available. Load new version?',
             hasAction: true,
-            actionBtns: [{
-              display: 'Yes', id: 'close'
-            }]
+            actionBtns: [
+              {
+                display: 'Version Refresh', id: 'refresh'
+              },
+              {
+                display: 'Close', id: 'close'
+              }
+            ]
           },
           configData: {
             verticalPosition: 'top',
-            duration: 0
+            duration: 0,
+            horizontalPosition: 'start'
           }
-        });
+        })
       }
     }
     super.handleError(error);

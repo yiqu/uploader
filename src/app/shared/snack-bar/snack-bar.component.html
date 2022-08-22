@@ -1,4 +1,4 @@
-<div class="sb-notification-parent w-100" fxLayout="row" fxLayoutAlign="space-between center">
+<div class="sb-notification-parent w-100" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
   <div class="sb-message" fxLayout="row" fxLayoutAlign="start center">
     <div>
       {{ snackMessage}}
@@ -8,7 +8,7 @@
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1px">
       <ng-container *ngFor="let btn of this.actionButtons">
         <div>
-           <button mat-icon-button (click)="actionBtnClick(btn.id)">
+           <button mat-icon-button (click)="actionBtnClick(btn.display)" [title]="btn.display">
              <mat-icon>{{ btn.id }}</mat-icon>
            </button>
          </div>

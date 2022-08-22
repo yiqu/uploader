@@ -21,10 +21,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      throwError({message: 'BLAHHH'}).subscribe();
-    }, 3000);
-
   }
 
 

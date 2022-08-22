@@ -24,6 +24,16 @@ export class SnackbarNotificationComponent implements OnInit {
   }
 
   actionBtnClick(btnId: string) {
-    this.progressRef.dismiss();
+    switch (btnId) {
+      case "Version Refresh": {
+        this.progressRef.dismiss();
+        window.location.reload();
+        break;
+      }
+      case "Close": {
+        this.progressRef.dismiss();
+        break;
+      }
+    }
   }
 }

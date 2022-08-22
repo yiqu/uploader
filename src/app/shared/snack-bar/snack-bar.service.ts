@@ -19,6 +19,7 @@ export class SnackbarNotificationService {
   }
 
   openSnackbar(sbData: SharedSnackbarServiceData): MatSnackBarRef<SnackbarNotificationComponent> {
+    this.closeAll();
     this.snackRef = this.snackBar.openFromComponent(SnackbarNotificationComponent, {
       duration: sbData.configData?.duration,
       data: sbData.snackData,
