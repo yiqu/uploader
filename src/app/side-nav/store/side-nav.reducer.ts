@@ -1,16 +1,18 @@
 import { createAction, Action, on, createReducer } from "@ngrx/store"
 import { NavHeader, NavHeaderLink, NavHeaderList } from "src/app/shared/models/nav-item.model"
-import { SideNavState } from "./side-nav.state"
+import { LEFT_NAV_KEYS, SideNavState } from "./side-nav.state"
+import * as fromSideNavActions from './side-nav.actions';
+import { CRUDMode } from "src/app/shared/models/general.model";
+
 
 const initialState: SideNavState = {
   navOptions: [
-    new NavHeaderList(new NavHeader("Upload"), [
-      new NavHeaderLink("Upload", "upload", ["/", "home", "upload"]),
-      new NavHeaderLink("My Files", "history", ["/", "home", "history"]),
+    new NavHeaderList(new NavHeader(LEFT_NAV_KEYS.UPLOAD_PARENT), [
+      new NavHeaderLink(LEFT_NAV_KEYS.UPLOAD, "upload", ["/", "home", "upload"])
     ]),
-    new NavHeaderList(new NavHeader("Account"), [
-      new NavHeaderLink("My Account", "account_circle", ["/", "my-account"]),
-      new NavHeaderLink("Sign in", "account_circle", ["/", "auth", 'signin']),
+    new NavHeaderList(new NavHeader(LEFT_NAV_KEYS.HELP_AND_SETTINGS_PARENT), [
+      new NavHeaderLink(LEFT_NAV_KEYS.MY_ACCOUNT, "account_circle", ["/", "my-account"]),
+      new NavHeaderLink(LEFT_NAV_KEYS.SIGN_IN, "login", ["/", "auth", 'signin']),
     ])
   ]
 }
@@ -18,4 +20,17 @@ const initialState: SideNavState = {
 export const sideNavReducer = createReducer(
   initialState,
 
+  on(fromSideNavActions.updateSideNavOptions, (state, { crud, options }) => {
+    const currentOptions: NavHeaderList[] = state.navOptions;
+    if (crud === CRUDMode.CREATE) {
+
+    } else if (crud === CRUDMode.DELETE) {
+
+    }
+
+
+    return {
+      ...state,
+    }
+  })
 )

@@ -9,10 +9,6 @@ import { Subject, throwError } from 'rxjs';
 })
 export class AppComponent {
 
-  footerTitle: string = "@KQ 2021";
-  myUrl: string = "https://yiqu.github.io/";
-  compDest$: Subject<any> = new Subject<any>();
-
   @ViewChild("snav")
   sideNav!: MatSidenav;
 
