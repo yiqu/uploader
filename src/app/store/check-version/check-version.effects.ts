@@ -10,7 +10,7 @@ import { AppVersionCheckeService } from "./check-version.service";
 import { HttpParams } from "@angular/common/http";
 import { ZorroToasterService } from "src/app/shared/services/toaster-zorro.service";
 
-const DURATION_CHECK: number = 60_000;
+const DURATION_CHECK: number = 180_000;
 
 @Injectable()
 export class AppVersionCheckEffects implements OnInitEffects {

@@ -12,7 +12,7 @@ export enum LEFT_NAV_KEYS {
   MY_ACCOUNT = "My account",
   SIGN_IN = "Sign in",
   SIGN_UP = "Sign up",
-  LOG_OUT = "Log out"
+  LOG_OUT = "Sign out"
 }
 
 

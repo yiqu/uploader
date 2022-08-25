@@ -21,16 +21,25 @@ export const sideNavReducer = createReducer(
   initialState,
 
   on(fromSideNavActions.updateSideNavOptions, (state, { crud, options }) => {
-    const currentOptions: NavHeaderList[] = state.navOptions;
+    const currentOptions: NavHeaderList[] = JSON.parse(JSON.stringify(state.navOptions));
+    const resultOptions: NavHeaderList[] = JSON.parse(JSON.stringify(state.navOptions));
     if (crud === CRUDMode.CREATE) {
-
+      const incomingOptionParent: number = state.navOptions.findIndex((res: NavHeaderList) => {
+        return options.header.display === res.header.display;
+      });
+      const hasIncomingOption: NavHeaderLink | undefined = state.navOptions[incomingOptionParent].links.find((res) => {
+        return options.links[0].display ===  res.display;
+      });
+      if (!hasIncomingOption) {
+        currentOptions[incomingOptionParent].links.push(...options.links);
+      }
     } else if (crud === CRUDMode.DELETE) {
 
     }
 
-
     return {
       ...state,
+      navOptions: currentOptions
     }
   })
 )
