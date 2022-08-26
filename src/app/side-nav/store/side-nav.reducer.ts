@@ -23,18 +23,24 @@ export const sideNavReducer = createReducer(
   on(fromSideNavActions.updateSideNavOptions, (state, { crud, options }) => {
     const currentOptions: NavHeaderList[] = JSON.parse(JSON.stringify(state.navOptions));
     const resultOptions: NavHeaderList[] = JSON.parse(JSON.stringify(state.navOptions));
-    if (crud === CRUDMode.CREATE) {
-      const incomingOptionParent: number = state.navOptions.findIndex((res: NavHeaderList) => {
-        return options.header.display === res.header.display;
-      });
-      const hasIncomingOption: NavHeaderLink | undefined = state.navOptions[incomingOptionParent].links.find((res) => {
+    const incomingOptionParent: number = state.navOptions.findIndex((res: NavHeaderList) => {
+      return options.header.display === res.header.display;
+    });
+
+    if (incomingOptionParent > -1) {
+      const incomingOptionIndex: number = state.navOptions[incomingOptionParent].links.findIndex((res) => {
         return options.links[0].display ===  res.display;
       });
-      if (!hasIncomingOption) {
-        currentOptions[incomingOptionParent].links.push(...options.links);
-      }
-    } else if (crud === CRUDMode.DELETE) {
 
+      if (crud === CRUDMode.CREATE) {
+        if (incomingOptionIndex < 0) {
+          currentOptions[incomingOptionParent].links.push(...options.links);
+        }
+      } else if (crud === CRUDMode.DELETE) {
+        if (incomingOptionIndex > -1) {
+          currentOptions[incomingOptionParent].links.splice(incomingOptionIndex, 1);
+        }
+      }
     }
 
     return {
