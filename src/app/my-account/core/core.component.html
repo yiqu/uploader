@@ -1,33 +1,26 @@
-<ng-container *ngIf="((this.as.apiLoading$| async) === false); else loading">
-  <div class="w-100" fxLayout="column" fxLayoutAlign="start center">
-    <div class="title quicksand fw-500 w-100">
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-        <div>
-          My Account
-        </div>
+<div class="w-100" fxLayout="column" fxLayoutAlign="start center">
+  <div class="title quicksand fw-500 w-100">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <div>
+        My Account
       </div>
-      <hr class="w-100">
     </div>
+    <hr class="w-100">
+  </div>
 
-    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-      <div fxLayout="row" fxLayoutAlign="center center">
-        <mat-icon class="welcome-icon">face</mat-icon>
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <mat-icon class="welcome-icon">face</mat-icon>
+    </div>
+    <div class="welcome-title quicksand" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+      <div>
+        Welcome,
       </div>
-      <div class="welcome-title quicksand" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+      <ng-container *ngIf="(this.as.currentUser$ | async) as user">
         <div>
-          Welcome,
+          {{ user.email }}
         </div>
-        <ng-container *ngIf="(this.as.currentUser$ | async) as user">
-          <div>
-            {{ user.email }}
-          </div>
-        </ng-container>
-      </div>
+      </ng-container>
     </div>
   </div>
-</ng-container>
-<ng-template #loading>
-  <div class="w-100">
-    <app-shared-loading></app-shared-loading>
-  </div>
-</ng-template>
+</div>

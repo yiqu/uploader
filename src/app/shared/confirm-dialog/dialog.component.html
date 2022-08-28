@@ -1,11 +1,14 @@
 <div class="dialog-parent">
-  <h1 mat-dialog-title>Confirmation</h1>
+  <h1 mat-dialog-title>{{ data.title }}</h1>
   <div mat-dialog-content>
     <p>Are you sure you want to {{data.actionName}}</p>
   </div>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No</button>
-    <button mat-button (click)="onYesClick()">Yes</button>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <div mat-dialog-actions>
+      <button mat-stroked-button color="warn" (click)="onNoClick()">No</button>
+      <button mat-stroked-button color="primary" (click)="onYesClick()">Yes</button>
+    </div>
   </div>
+
 </div>
 

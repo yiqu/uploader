@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Subject, throwError } from 'rxjs';
+import { AuthService } from './authentication/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
   sideNav!: MatSidenav;
 
 
-  constructor(public changeDetectorRef: ChangeDetectorRef) {
+  constructor(public changeDetectorRef: ChangeDetectorRef, public as: AuthService) {
   }
 
   ngOnInit() {

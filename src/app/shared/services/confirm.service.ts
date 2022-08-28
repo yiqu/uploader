@@ -30,12 +30,14 @@ export class WindoConfirmService {
     );
   }
 
-  getDialogConfirm(confirmMessage?: string): Observable<any> {
+  getDialogConfirm(title?: string, confirmMessage?: string): Observable<any> {
     const data: ConfirmDialogData = {
-      actionName: confirmMessage ?? 'proceed?'
+      actionName: confirmMessage ?? 'proceed?',
+      title: title ?? 'Confirmation'
     };
     this.dialogRefSingleton = this.dialog.open(DialogConfirmComponent, {
       data: data,
+      autoFocus: false
     });
     return this.dialogRefSingleton.afterClosed();
   }
@@ -43,4 +45,5 @@ export class WindoConfirmService {
 
 export interface ConfirmDialogData {
   actionName?: string;
+  title?: string;
 }

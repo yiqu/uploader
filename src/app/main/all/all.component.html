@@ -1,78 +1,71 @@
-<ng-container *ngIf="((this.as.apiLoading$| async) === false); else loading">
-  <div class="w-100" fxLayout="column" fxLayoutAlign="start center">
-    <div class="title quicksand fw-500 w-100">
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-        Upload
-      </div>
-      <hr class="w-100 part-loading">
-      <div class="w-100 api-loading mb-10">
-        <ng-container *ngIf="this.fs.userFileApiWorking$ | async">
-          <shared-loading-bar class="w-100"></shared-loading-bar>
-        </ng-container>
-      </div>
+<div class="w-100" fxLayout="column" fxLayoutAlign="start center">
+  <div class="title quicksand fw-500 w-100">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      Upload
     </div>
-  </div>
-  <div class="">
-    <input type="file" multiple class="upload-input" #uploadInput (change)="onFileInputClick($event)">
-  </div>
-  <div class="w-100" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="30px">
-    <div class="quicksand upload-action" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
-      (click)="onFileUpload()">
-      <div class="text">
-        Select items to upload
-      </div>
-
-      <div>
-        <button mat-fab color="primary" aria-label="Upload files"
-          [disabled]="!(this.as.currentUser$ | async)">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
-    </div>
-
-    <ng-container *ngIf="(this.fs.filesUploadingAll$ | async) as files">
-      <ng-container *ngIf="(files.length > 0)">
-        <div class="w-100">
-          <div class="uploading-title quicksand fw-500">
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" class="">
-              <ng-container *ngIf="(this.fs.uploadingsAndTotalFiles$ | async) as fileUploadingStatus">
-                <ng-container *ngIf="((this.fs.isFilesUploadFinished$ | async)); else uploading">
-                  <div class="bb-1">
-                    {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }} files uploaded
-                  </div>
-                  <div fxLayout="column" fxLayoutAlign="center center" class="">
-                    <mat-icon class="text-success">task_alt</mat-icon>
-                  </div>
-                </ng-container>
-                <ng-template #uploading>
-                  <div class="bb-1">
-                    Uploading: {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }}
-                  </div>
-                  <mat-icon class="text-primary">hourglass_bottom</mat-icon>
-                </ng-template>
-              </ng-container>
-            </div>
-          </div>
-          <section class="w-100" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
-            <ng-container *ngFor="let file of files; trackBy:trackById">
-              <div fxFlex.gt-sm="23" fxFlex="100">
-                <app-upload-item [file]="file"></app-upload-item>
-              </div>
-            </ng-container>
-          </section>
-        </div>
+    <hr class="w-100 part-loading">
+    <div class="w-100 api-loading mb-10">
+      <ng-container *ngIf="this.fs.userFileApiWorking$ | async">
+        <shared-loading-bar class="w-100"></shared-loading-bar>
       </ng-container>
-    </ng-container>
-
-    <div class="w-100">
-      <app-main-welcome [currentUser]="(this.as.currentUser$ | async)"></app-main-welcome>
+    </div>
+  </div>
+</div>
+<div class="">
+  <input type="file" multiple class="upload-input" #uploadInput (change)="onFileInputClick($event)">
+</div>
+<div class="w-100" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="30px">
+  <div class="quicksand upload-action" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
+    (click)="onFileUpload()">
+    <div class="text">
+      Select items to upload
     </div>
 
+    <div>
+      <button mat-fab color="primary" aria-label="Upload files"
+        [disabled]="!(this.as.currentUser$ | async)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
-</ng-container>
 
-<ng-template #loading>
+  <ng-container *ngIf="(this.fs.filesUploadingAll$ | async) as files">
+    <ng-container *ngIf="(files.length > 0)">
+      <div class="w-100">
+        <div class="uploading-title quicksand fw-500">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" class="">
+            <ng-container *ngIf="(this.fs.uploadingsAndTotalFiles$ | async) as fileUploadingStatus">
+              <ng-container *ngIf="((this.fs.isFilesUploadFinished$ | async)); else uploading">
+                <div class="bb-1">
+                  {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }} files uploaded
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center" class="">
+                  <mat-icon class="text-success">task_alt</mat-icon>
+                </div>
+              </ng-container>
+              <ng-template #uploading>
+                <div class="bb-1">
+                  Uploading: {{ fileUploadingStatus.uploadings.length }} / {{ fileUploadingStatus.total.length }}
+                </div>
+                <mat-icon class="text-primary">hourglass_bottom</mat-icon>
+              </ng-template>
+            </ng-container>
+          </div>
+        </div>
+        <section class="w-100" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
+          <ng-container *ngFor="let file of files; trackBy:trackById">
+            <div fxFlex.gt-sm="23" fxFlex="100">
+              <app-upload-item [file]="file"></app-upload-item>
+            </div>
+          </ng-container>
+        </section>
+      </div>
+    </ng-container>
+  </ng-container>
+
   <div class="w-100">
-    <app-shared-loading></app-shared-loading>
+    <app-main-welcome [currentUser]="(this.as.currentUser$ | async)"></app-main-welcome>
   </div>
-</ng-template>
+
+</div>
+

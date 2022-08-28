@@ -35,6 +35,7 @@ import { SharedProgressSnackbarComponent } from './progress-snackbar/progress-sn
 import { ProgressSnackbarModule } from './progress-snackbar/progress-snackbar.module';
 import { ProgressDialogModule } from './progress-dialog/progress-dialog.module';
 import { GlobalErrorHandler } from './error-handler/global-error-handler.service';
+import { LoadingModule } from './shared/loading/loading.module';
 
 
 const icons: IconDefinition[] = [ AppstoreOutline, ProjectFill, ContainerFill,
@@ -61,6 +62,7 @@ const ngZorroConfig: NzConfig = {
   imports: [
     BrowserModule,
     HttpClientModule,
+    LoadingModule,
     //NoopAnimationsModule,
     BrowserAnimationsModule,
     SharedBudleModule,
