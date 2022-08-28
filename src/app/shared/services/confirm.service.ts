@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Observable, of, take } from 'rxjs';
+import { DialogConfirmComponent } from '../confirm-dialog/dialog.component';
 
 /**
  * Async modal dialog service
@@ -10,6 +12,12 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class WindoConfirmService {
+
+  public dialogRefSingleton: MatDialogRef<DialogConfirmComponent, any> | undefined;
+
+  constructor(public dialog: MatDialog) {
+  }
+
   /**
    * Ask user to confirm an action. `message` explains the action and choices.
    * Returns observable resolving to `true`=confirm or `false`=cancel
@@ -17,6 +25,22 @@ export class WindoConfirmService {
   confirm(message?: string): Observable<boolean> {
     const confirmation = window.confirm(message || 'Is it OK?');
 
-    return of(confirmation);
+    return of(confirmation).pipe(
+      take(1)
+    );
   }
+
+  getDialogConfirm(confirmMessage?: string): Observable<any> {
+    const data: ConfirmDialogData = {
+      actionName: confirmMessage ?? 'proceed?'
+    };
+    this.dialogRefSingleton = this.dialog.open(DialogConfirmComponent, {
+      data: data,
+    });
+    return this.dialogRefSingleton.afterClosed();
+  }
+}
+
+export interface ConfirmDialogData {
+  actionName?: string;
 }

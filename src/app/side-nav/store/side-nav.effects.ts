@@ -23,7 +23,7 @@ export class SideNavEffects {
         return fromSideNavActions.updateSideNavOptions({ crud: CRUDMode.CREATE, options: {
           header: new NavHeader(LEFT_NAV_KEYS.HELP_AND_SETTINGS_PARENT),
           links: [
-            new NavHeaderLink(LEFT_NAV_KEYS.LOG_OUT, "logout", ["/", "auth", 'logout'])
+            new NavHeaderLink(LEFT_NAV_KEYS.LOG_OUT, "logout", ["/", "logout"])
           ]
         }});
       })

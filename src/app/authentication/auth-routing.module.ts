@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CanNavigateToLogoutGuard } from '../shared/guards/logout/can-logout.guard';
 import { AuthUserAlreadyLoggedInChildrenGuard,
   AuthUserAlreadyLoggedInGuard } from '../shared/guards/route-guards/verified-user.guard';
 import { AuthComponent } from './auth.component';
 import { AuthSigninComponent } from './signin/signin.component';
+import { AuthSignoutComponent } from './signout/signout.component';
 import { AuthSignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
@@ -12,7 +14,11 @@ const routes: Routes = [
       { path: '', redirectTo: 'signin', pathMatch: 'full' },
       { path: 'signin', component: AuthSigninComponent },
       { path: 'signup', component: AuthSignupComponent },
-  ]}
+    ]
+  },
+  {
+    path: 'logout', component: AuthSignoutComponent, canActivate: [CanNavigateToLogoutGuard]
+  }
 ]
 
 @NgModule({

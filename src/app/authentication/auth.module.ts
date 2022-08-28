@@ -5,6 +5,7 @@ import { AuthSignupComponent } from './signup/signup.component';
 import { AuthSigninComponent } from './signin/signin.component';
 import { LoadingModule } from '../shared/loading/loading.module';
 import { SharedBudleModule } from '../shared/shared.module';
+import { AuthSignoutComponent } from './signout/signout.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SharedBudleModule } from '../shared/shared.module';
   declarations: [
     AuthComponent,
     AuthSigninComponent,
-    AuthSignupComponent
+    AuthSignupComponent,
+    AuthSignoutComponent
   ],
 
   providers: [
