@@ -12,7 +12,7 @@ const initialState: SideNavState = {
     ]),
     new NavHeaderList(new NavHeader(LEFT_NAV_KEYS.HELP_AND_SETTINGS_PARENT), [
       new NavHeaderLink(LEFT_NAV_KEYS.MY_ACCOUNT, "account_circle", ["/", "my-account"]),
-      new NavHeaderLink(LEFT_NAV_KEYS.SIGN_IN, "login", ["/", "auth", 'signin']),
+      new NavHeaderLink(LEFT_NAV_KEYS.SIGN_IN, "login", ["/", "auth"]),
     ])
   ]
 }

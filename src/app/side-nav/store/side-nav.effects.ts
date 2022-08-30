@@ -93,7 +93,7 @@ export class SideNavEffects {
         return fromSideNavActions.updateSideNavOptions({ crud: CRUDMode.CREATE, options: {
           header: new NavHeader(LEFT_NAV_KEYS.HELP_AND_SETTINGS_PARENT),
           links: [
-            new NavHeaderLink(LEFT_NAV_KEYS.SIGN_IN, "login", ["/", "auth", 'signin']),
+            new NavHeaderLink(LEFT_NAV_KEYS.SIGN_IN, "login", ["/", "auth"]),
           ]
         }});
       })

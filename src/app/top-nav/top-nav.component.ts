@@ -71,7 +71,7 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSignoutClick() {
-    this.as.userLogout();
+    this.router.navigate(['/', 'logout']);
   }
 
 

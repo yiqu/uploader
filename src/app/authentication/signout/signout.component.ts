@@ -10,7 +10,7 @@ import { AuthService } from '../auth.service';
 export class AuthSignoutComponent implements OnInit {
 
   timer?: number;
-  countDown: number = 3;
+  countDown: number = 4;
 
   constructor(public as: AuthService) {
   }
@@ -22,10 +22,10 @@ export class AuthSignoutComponent implements OnInit {
         return Math.abs(res - this.countDown);
       }),
       tap((count) => {
-        this.timer = count;
+        this.timer = count - 1;
       }),
       finalize(() => {
-        console.log("Logging out.")
+        this.as.userLogout();
       })
     ).subscribe();
   }

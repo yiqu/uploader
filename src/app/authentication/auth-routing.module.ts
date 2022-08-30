@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CanNavigateToLogoutGuard } from '../shared/guards/logout/can-logout.guard';
-import { UserHasToExistChildrenGuard, UserHasToExistGuard } from '../shared/guards/route-guards/no-user.guard';
+import { UserHasToExistChildrenGuard, UserHasToExistGuard, UserHasToExistNoNullishGuard } from '../shared/guards/route-guards/no-user.guard';
 import { AuthUserAlreadyLoggedInChildrenGuard,
   AuthUserAlreadyLoggedInGuard } from '../shared/guards/route-guards/verified-user.guard';
 import { AuthComponent } from './auth.component';
@@ -13,12 +13,12 @@ const routes: Routes = [
   { path: 'auth', component: AuthComponent, canActivateChild: [AuthUserAlreadyLoggedInChildrenGuard],
     children: [
       { path: '', redirectTo: 'signin', pathMatch: 'full' },
-      { path: 'signin', component: AuthSigninComponent },
-      { path: 'signup', component: AuthSignupComponent },
+      { path: 'signin', component: AuthSigninComponent, data: { pageTitle: 'Sign in' } },
+      { path: 'signup', component: AuthSignupComponent, data: { pageTitle: 'Sign out' } },
     ]
   },
   {
-    path: 'logout', component: AuthSignoutComponent, canActivate: [UserHasToExistGuard, CanNavigateToLogoutGuard]
+    path: 'logout', component: AuthSignoutComponent, canActivate: [UserHasToExistNoNullishGuard, CanNavigateToLogoutGuard]
   }
 ]
 

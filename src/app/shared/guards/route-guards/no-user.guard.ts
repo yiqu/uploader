@@ -53,3 +53,27 @@ export class UserHasToExistChildrenGuard implements CanActivateChild {
   }
 
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserHasToExistNoNullishGuard implements CanActivate {
+  constructor(public router: Router, public route: ActivatedRoute,
+    public as: AuthService) {
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+    Observable<boolean | UrlTree> | Promise<boolean> | boolean | UrlTree {
+
+    return this.as.currentUserRaw$.pipe(
+      take(1),
+      map((user: IVerifiedUser | null | undefined) => {
+        if (user) {
+          return true;
+        }
+        return this.router.createUrlTree(['/', 'auth']);
+      })
+    );
+  }
+
+}

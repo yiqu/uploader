@@ -1,3 +1,10 @@
 <div class="container-fluid mb-5 mt-3">
-  <router-outlet></router-outlet>
+  <ng-container *ngIf="(this.as.apiLoading$ | async) === false; else loading">
+    <router-outlet></router-outlet>
+  </ng-container>
 </div>
+<ng-template #loading>
+  <div class="w-100 mt-5">
+    <app-shared-loading></app-shared-loading>
+  </div>
+</ng-template>

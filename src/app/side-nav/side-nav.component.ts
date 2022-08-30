@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { NavHeaderList, NavHeader, NavHeaderLink } from '../shared/models/nav-item.model';
-import { Router } from '@angular/router';
+import { IsActiveMatchOptions, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ChangeDetectorRef } from '@angular/core';
@@ -16,6 +16,12 @@ export class SideNavComponent implements OnInit, OnDestroy {
   navTitle: string = "Home";
   compDest$: Subject<any> = new Subject<any>();
   openStatus: boolean = true;
+  routerLinkActiveOpt: IsActiveMatchOptions = {
+    matrixParams:'subset',
+    queryParams:'exact',
+    paths:'subset',
+    fragment:'ignored'
+  };
 
   @Output()
   navClose: EventEmitter<any> = new EventEmitter<any>();

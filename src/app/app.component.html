@@ -13,9 +13,7 @@
       <div class="content-parent" #parentDiv>
         <nz-back-top [nzTarget]="parentDiv" [nzDuration]="50"></nz-back-top>
         <div class="app-core">
-          <ng-container *ngIf="(this.as.apiLoading$ | async) === false; else loading">
-            <router-outlet></router-outlet>
-          </ng-container>
+          <router-outlet></router-outlet>
         </div>
         <app-footer></app-footer>
       </div>
@@ -23,8 +21,3 @@
   </mat-sidenav-container>
 
 </div>
-<ng-template #loading>
-  <div class="w-100 mt-5">
-    <app-shared-loading></app-shared-loading>
-  </div>
-</ng-template>

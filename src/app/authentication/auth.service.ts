@@ -28,6 +28,8 @@ export class AuthService {
       return true;
     })
   );
+  currentUserRaw$: Observable<IVerifiedUser | null | undefined> = this.store.select(fromAuthSelectors.getUser);
+
   shouldRedirectBeforeAttemptLogin: boolean = false;
 
   constructor(private afs: AngularFirestore, public store: Store<AppState>) {
