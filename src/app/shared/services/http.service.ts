@@ -19,7 +19,9 @@ export class HttpService {
     }).pipe(
       catchError((err) => {
         console.error(err);
-        return throwError(err);
+        return throwError(() => {
+          return Error(err);
+        });
       })
     );
   }

@@ -4,6 +4,7 @@ import { SharedBudleModule } from '../shared/shared.module';
 import { MyAccountRoutingModule } from './account-routing.module';
 import { MyAccountComponent } from './account.component';
 import { MyAccountCoreComponent } from './core/core.component';
+import { MyAccountVersionTestComponent } from './version-test/version-test.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { MyAccountCoreComponent } from './core/core.component';
 
   declarations: [
     MyAccountComponent,
-    MyAccountCoreComponent
+    MyAccountCoreComponent,
+    MyAccountVersionTestComponent
   ],
 
   providers: [],

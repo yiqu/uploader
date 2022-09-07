@@ -1,0 +1,31 @@
+<div class="w-100" fxLayout="column" fxLayoutAlign="start center">
+  <div class="title quicksand fw-500 w-100">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <div>
+        Test Available Version
+      </div>
+    </div>
+    <hr class="w-100">
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <form class="input-form">
+      <mat-form-field *ngIf="versionFc" class="example-full-width" appearance="standard">
+        <mat-label>Version</mat-label>
+        <input type="text" matInput [formControl]="versionFc" placeholder="Ex. 1.1.2">
+        <mat-hint *ngIf="versionFc.pending">
+          Checking...
+        </mat-hint>
+        <mat-error *ngIf="versionFc?.hasError('required')">
+          Field is required
+        </mat-error>
+        <mat-error *ngIf="versionFc?.hasError('versionAlreadyExist')">
+          Version already exists
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <div>
+      {{ versionFc?.valid }}
+    </div>
+  </div>
+</div>

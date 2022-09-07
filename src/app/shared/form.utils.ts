@@ -1,5 +1,5 @@
 
-import { FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { AsyncValidatorFn, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function createFormControl(value: any, disabled: boolean, validators: any[] = [], asyncValids: any[] = []): FormControl {
   let fc = new FormControl({
@@ -10,7 +10,7 @@ export function createFormControl(value: any, disabled: boolean, validators: any
 }
 
 
-export function createFormControl2(value: any, disabled: boolean, validators: any[] = [], asyncValids: any[] = []): FormControl {
+export function createFormControl2(value: any, disabled: boolean, validators: ValidatorFn[] = [], asyncValids: AsyncValidatorFn[] = []): FormControl {
   let fc = new FormControl({
     value: value,
     disabled: disabled
