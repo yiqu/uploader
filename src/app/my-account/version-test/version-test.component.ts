@@ -17,7 +17,7 @@ export class MyAccountVersionTestComponent implements OnInit {
   versionFc?: FormControl;
 
   constructor(http: HttpService) {
-    this.versionFc = createFormControl2(null, false, [Validators.required],
+    this.versionFc = createFormControl2(null, false, [Validators.required, Validators.minLength(2)],
       [githubVersionValidator(http, versionUrl)]);
   }
 

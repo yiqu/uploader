@@ -3,23 +3,24 @@ import { Observable, of, switchMap, take, map, catchError, timer, tap, distinctU
 import { PackageJson } from "src/app/store/meta/meta.state";
 import { HttpService } from "../services/http.service";
 
+export const VERSION_ERROR_EXISTS: ValidationErrors = { versionAlreadyExist: true };
+export const VERSION_ERROR_MISSING: ValidationErrors = { versionMissing: true };
+export const VERSION_ERROR_API: ValidationErrors = { versionApiError: true };
+
 export function githubVersionValidator(httpService: HttpService, apiUrl: string): AsyncValidatorFn {
   let previousControlValue: string | undefined;
   let previousControlError: boolean = false;
 
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
-    if (!control.value || !control.valueChanges) {
-      return of(null).pipe(
-        take(1)
-      );
+    if (!control.value || !control.valueChanges || (control.value as string).trim() === '') {
+      return of(VERSION_ERROR_MISSING).pipe(take(1));
     }
+
     if (control.value === previousControlValue) {
       return iif(
         () => previousControlError,
-        of({ versionAlreadyExist: true }),
-        of(null).pipe(
-          take(1)
-        )
+        of(VERSION_ERROR_EXISTS).pipe(take(1)),
+        of(null).pipe(take(1))
       );
     }
 
@@ -35,22 +36,20 @@ export function githubVersionValidator(httpService: HttpService, apiUrl: string)
       switchMap((val) => {
         return httpService.get<PackageJson>(apiUrl).pipe(
           catchError((err) => {
-            return of(null);
+            previousControlError = false;
+            return of(null).pipe(take(1));
           }),
           map((version: PackageJson | null) => {
-            console.log(version?.version, control.value)
             if (version) {
               if (version.version === control.value) {
                 previousControlError = true;
-                return {
-                  versionAlreadyExist: true
-                };
+                return VERSION_ERROR_EXISTS;
               } else {
                 previousControlError = false;
                 return null;
               }
             }
-            return { httpError: true };
+            return VERSION_ERROR_API;
           })
         );
       })

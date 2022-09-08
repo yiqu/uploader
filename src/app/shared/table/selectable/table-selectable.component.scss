@@ -1,4 +1,11 @@
 .table-parent {
+
+  .img-table {
+    .mat-table-sticky {
+      top: -1px !important;
+    }
+  }
+
   table {
     width: 100%;
 

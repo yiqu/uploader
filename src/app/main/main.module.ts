@@ -28,6 +28,7 @@ import { HomeHistoryTableViewComponent } from './history/table/table.component';
 import { HomeHistoryGalleriaViewComponent } from './history/galleria/galleria.component';
 import { TABLE_SELECTION_STORE_KEY } from './store/selection/selection.state';
 import { filesTableSelectionReducer } from './store/selection/selection.reducer';
+import { HomeHistoryTableFilterComponent } from './history/filter-area/filter-area.component';
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import { filesTableSelectionReducer } from './store/selection/selection.reducer'
     UploadItemComponent,
     HomeHistoryComponent,
     HomeHistoryTableViewComponent,
-    HomeHistoryGalleriaViewComponent
+    HomeHistoryGalleriaViewComponent,
+    HomeHistoryTableFilterComponent
   ],
 
   providers: [],

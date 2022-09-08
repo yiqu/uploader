@@ -14,6 +14,7 @@ import { LoadingBarCssComponent } from './components/loading-bar-css/loading-bar
 import { PhotoRecordDisplayComponent } from './components/photo-record-display/photo-record-display.component';
 import { PrimengModuleBundle } from './primeng-bundle.module';
 import { SnackbarNotificationComponent } from './snack-bar/snack-bar.component';
+import { FormErrorDisplayComponent } from './components/form-error/form-error.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SnackbarNotificationComponent } from './snack-bar/snack-bar.component';
     SharedDropMenuComponent,
     LoadingBarCssComponent,
     SnackbarNotificationComponent,
-    PhotoRecordDisplayComponent
+    PhotoRecordDisplayComponent,
+    FormErrorDisplayComponent
   ],
 
   imports: [
@@ -53,7 +55,8 @@ import { SnackbarNotificationComponent } from './snack-bar/snack-bar.component';
     SharedDropMenuComponent,
     LoadingBarCssComponent,
     SnackbarNotificationComponent,
-    PhotoRecordDisplayComponent
+    PhotoRecordDisplayComponent,
+    FormErrorDisplayComponent
   ],
 
   providers: [

@@ -1,5 +1,5 @@
 <div class="w-100" fxLayout="column" fxLayoutAlign="start center">
-  <div class="title quicksand fw-500 w-100">
+  <div class="title quicksand fw-500 w-100 mb-3">
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
       <div>
         Test Available Version
@@ -8,24 +8,29 @@
     <hr class="w-100">
   </div>
 
-  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-    <form class="input-form">
+  <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="0px" class="w-100">
+    <div>
+      Enter a version to commit.
+    </div>
+    <form class="input-form" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
       <mat-form-field *ngIf="versionFc" class="example-full-width" appearance="standard">
-        <mat-label>Version</mat-label>
+        <mat-label>Enter version</mat-label>
         <input type="text" matInput [formControl]="versionFc" placeholder="Ex. 1.1.2">
         <mat-hint *ngIf="versionFc.pending">
           Checking...
         </mat-hint>
-        <mat-error *ngIf="versionFc?.hasError('required')">
-          Field is required
-        </mat-error>
-        <mat-error *ngIf="versionFc?.hasError('versionAlreadyExist')">
-          Version already exists
+        <mat-hint *ngIf="versionFc.valid">
+          Ready to commit.
+        </mat-hint>
+        <mat-error *ngIf="versionFc?.errors">
+          <shared-form-error-display [formControlError]="versionFc.errors"></shared-form-error-display>
         </mat-error>
       </mat-form-field>
+      <div>
+        <button mat-stroked-button [disabled]="versionFc?.pending || versionFc?.invalid">
+          {{ versionFc?.pending ? 'Checking...' : (versionFc?.touched ? (versionFc?.valid ? 'Commit' : 'Conflict') : 'Commit') }}
+        </button>
+      </div>
     </form>
-    <div>
-      {{ versionFc?.valid }}
-    </div>
   </div>
 </div>
