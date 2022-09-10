@@ -7,6 +7,8 @@ export interface FilesDisplayState {
   queryParams?: QueryParam;
   pagination: Pagination;
   galleriaIndex: number;
+
+  tableSearchTerm: string | null;
 }
 
 export interface FilesDisplayTab {

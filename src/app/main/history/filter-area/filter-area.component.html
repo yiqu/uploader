@@ -2,8 +2,8 @@
   <form class="example-form">
     <mat-form-field class="form-field" appearance="standard">
       <mat-label>Filter results</mat-label>
-      <input matInput placeholder="Ex. cool.png">
-      <button *ngIf="true" matSuffix mat-icon-button aria-label="Clear">
+      <input *ngIf="inputCtrl" matInput placeholder="Ex. cool.png" [formControl]="inputCtrl">
+      <button *ngIf="true" matSuffix mat-icon-button aria-label="Clear" (click)="clearInput()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>

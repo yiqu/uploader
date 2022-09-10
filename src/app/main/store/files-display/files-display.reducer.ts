@@ -41,7 +41,8 @@ const inititalState: FilesDisplayState = {
     totalPages: 0
   },
   queryParams: {},
-  galleriaIndex: 0
+  galleriaIndex: 0,
+  tableSearchTerm: null
 }
 
 export const filesDisplayReducer = createReducer(
@@ -91,6 +92,13 @@ export const filesDisplayReducer = createReducer(
     return {
       ...state,
       galleriaIndex: index
+    };
+  }),
+
+  on(fromFilesDisplayTabActions.setDisplaySearchTerm, (state, { searchTerm }) => {
+    return {
+      ...state,
+      tableSearchTerm: searchTerm
     };
   }),
 )

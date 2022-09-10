@@ -55,5 +55,9 @@ export class FilesDisplayService {
     this.store.dispatch(fromFilesDisplayTabActions.setCurrentGalleriaItemIndex({ index }));
   }
 
+  onUserSearchFilter(searchTerm: string | null) {
+    this.store.dispatch(fromFilesDisplayTabActions.setDisplaySearchTerm({ searchTerm }))
+  }
+
 
 }
