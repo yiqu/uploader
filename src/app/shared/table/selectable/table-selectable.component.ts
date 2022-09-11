@@ -55,7 +55,6 @@ export class TableSelectableComponent implements OnInit, AfterViewInit, OnChange
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
     const changeParamsCount = Object.keys(changes).length;
     if (changes['columnData'] || changes['columnIds'] || changes['pagination']) {
 

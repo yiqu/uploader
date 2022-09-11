@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../store/global/app.reducer';
 import * as fromFilesDisplaySelectors from './store/files-display/files-display.selectors';
+import * as fromFilesSelectors from './store/files/files.selectors';
 import { ActionButton, FilesDisplayState, FilesDisplayTab, FilesDisplayTabsState, Pagination } from './store/files-display/files-display.state';
 import * as fromFilesDisplayTabActions from './store/files-display/files-display.actions';
 import { PhotoData, PhotoDataRowSelect } from './store/upload/upload.state';
@@ -18,7 +19,7 @@ export class FilesDisplayService {
   getUserDisplayTabs$: Observable<FilesDisplayTabsState> = this.store.select(fromFilesDisplaySelectors.getUserFilesDisplayTabs);
   getAllTabOptions$: Observable<FilesDisplayTab[]> = this.store.select(fromFilesDisplaySelectors.getAllTabOptions);
   getFilesDisplayTableActionBtns$: Observable<ActionButton[]> = this.store.select(fromFileSelectionSelectors.getFilesDisplayTableActionBtns);
-  getTablePagination$: Observable<Pagination> = this.store.select(fromFilesDisplaySelectors.getPagination);
+  getTablePagination$: Observable<Pagination> = this.store.select(fromFilesSelectors.getPagination);
   getTableSelected$: Observable<PhotoData[]> = this.store.select(fromFileSelectionSelectors.selectAll);
   hasAnySelectedOnCurrentTablePage$: Observable<boolean> = this.store.select(fromFileSelectionSelectors.hasSelectedOnCurrentPage);
   getLastClearSelectionsTime$: Observable<number> = this.store.select(fromFileSelectionSelectors.getLastClearSelectionsTime);

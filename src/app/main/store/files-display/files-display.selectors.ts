@@ -1,11 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { FilesEntityState } from '../files/files.reducer';
-import { PhotoData, USER_FILES_STORE_KEY } from '../upload/upload.state';
 import { ActionButton, FilesDisplayState, FilesDisplayTab, FilesDisplayTabsState, FILES_DISPLAY_STORE_KEY, Pagination } from './files-display.state';
-import * as fromFilesSelectors from '../files/files.selectors';
-import * as fromSelectionSelectors from '../selection/selection.selectors';
-import * as fromFileDisplayReducer from './files-display.reducer';
-import { PhotoTableData } from '../files/files.state';
 
 export const filesDisplayFeatureState = createFeatureSelector<FilesDisplayState>(FILES_DISPLAY_STORE_KEY);
 
@@ -32,6 +26,14 @@ export const getPagination = createSelector(
     return state.pagination;
   }
 );
+
+export const getSearchTerm = createSelector(
+  filesDisplayFeatureState,
+  (state): string | null => {
+    return state.tableSearchTerm;
+  }
+);
+
 
 export const getGalleriaCurrentItemIndex = createSelector(
   filesDisplayFeatureState,

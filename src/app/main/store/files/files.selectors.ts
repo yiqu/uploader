@@ -6,7 +6,7 @@ import * as fromAuthSelectors from '../../../authentication/store/auth.selectors
 import { PhotoTableData } from './files.state';
 import * as fromFilesDisplaySelectors from '../files-display/files-display.selectors';
 import { Pagination } from '../files-display/files-display.state';
-
+import * as fromFileDisplaySelectors from '../files-display/files-display.selectors';
 
 export const userFilesFeatureState = createFeatureSelector<FilesEntityState>(USER_FILES_STORE_KEY);
 
@@ -69,16 +69,49 @@ export const getRecentUserUploads = createSelector(
 );
 
 
+export const getUserFilesWithFilterTerm = createSelector(
+  selectAll,
+  fromFileDisplaySelectors.getSearchTerm,
+  (allFilesData: PhotoData[], searchTerm: string | null): PhotoData[] => {
+    if (searchTerm) {
+      let columnData: PhotoData[] = [...allFilesData];
+      columnData = columnData.filter((data: PhotoData) => {
+        const concatData: string = data.fileName + data.id + data.dateUploaded + '';
+        return concatData.includes(searchTerm);
+      });
+      return columnData;
+    }
+    return allFilesData;
+  }
+);
+
+export const getPagination = createSelector(
+  fromFileDisplaySelectors.getPagination,
+  getUserFilesWithFilterTerm,
+  (state: Pagination, photos: PhotoData[]): Pagination => {
+    const totalPages: number = Math.ceil(photos.length / 30);
+
+    const page: Pagination = {
+      ...state,
+      totalPages: totalPages,
+      totalCount: photos.length
+    };
+
+    return page;
+  }
+);
+
 export const getUserPhotoTableData = createSelector(
   isUserFilesApiLoading,
-  selectAll,
   fromFilesDisplaySelectors.getPagination,
-  (apiLoading: boolean, allFilesData: PhotoData[], pagination: Pagination): PhotoTableData => {
+  getUserFilesWithFilterTerm,
+  (apiLoading: boolean, pagination: Pagination, photos: PhotoData[]): PhotoTableData => {
     let columnIds: string[] = ['fileName', 'photoUrl', 'fileSize', 'dateUploaded'];
-    let columnData: PhotoData[] = [...allFilesData];
+    let columnData: PhotoData[] = [...photos];
+
+    // Filter by pagination
     const startIndex = pagination.currentPage * 30;
     const endIndex = startIndex + 30;
-
     columnData = columnData.slice(startIndex, endIndex);
 
     return {

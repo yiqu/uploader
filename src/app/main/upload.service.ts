@@ -29,7 +29,7 @@ export class FileUploadService {
   userFileApiWorking$: Observable<boolean> = this.store.select(fromUserFilesSelectors.isUserFilesApiWorking);
   userFilesCount$: Observable<number> = this.store.select(fromUserFilesSelectors.selectTotalCount);
   userRecentUploads$: Observable<PhotoData[]> = this.store.select(fromUserFilesSelectors.getRecentUserUploads);
-  getFilesAll$: Observable<PhotoData[]> = this.store.select(fromUserFilesSelectors.selectAll);
+  getFilesAll$: Observable<PhotoData[]> = this.store.select(fromUserFilesSelectors.getUserFilesWithFilterTerm);
   getFilesTableData$: Observable<PhotoTableData> = this.store.select(fromUserFilesSelectors.getUserPhotoTableData);
 
   constructor(private store: Store<AppState>, private ss: StorageService, private rs: RestService) {

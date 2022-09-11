@@ -5,7 +5,7 @@
         My Files
       </div>
       <div>
-        ({{ this.fs.userFilesCount$ | async }})
+        ({{ (this.fs.getFilesAll$ | async)?.length }})
       </div>
     </div>
     <hr class="w-100 part-loading">
