@@ -44,7 +44,7 @@
                 </a>
               </ng-container>
               <ng-container *ngSwitchDefault>
-                <span>
+                <span [title]="element[col]">
                   {{ element[col] | tableDataDisplay:col }}
                 </span>
               </ng-container>

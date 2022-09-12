@@ -44,6 +44,10 @@ export class HomeHistoryTableFilterComponent implements OnInit, OnDestroy {
     this.inputCtrl?.reset();
   }
 
+  onFilterClick() {
+
+  }
+
   ngOnDestroy(): void {
     this.onDest$.next();
     this.onDest$.complete();

@@ -138,7 +138,7 @@ export function deduplicateObjectArrayByKey<T>(arr: T[], key: string): T[] {
   }
 
   const units = si
-    ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+    ? ['kb', 'mb', 'gb', 'tb', 'pb', 'eb', 'zb', 'yb']
     : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
   let u = -1;
   const r = 10**dp;

@@ -55,11 +55,11 @@ export class TableDataDisplayPipe implements PipeTransform {
         break;
       }
       case "dateUploaded": {
-        res = this.dp.transform(value, 'FROMNOW');
+        res = this.dp.transform(value, 'MDYANDFROMNOW');
         break;
       }
       case "fileSize": {
-        res = humanFileSize(value, true);
+        res = humanFileSize(value, true, 0);
         break;
       }
     }
