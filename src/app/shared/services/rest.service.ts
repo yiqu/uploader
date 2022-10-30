@@ -19,9 +19,8 @@ export class RestService {
   constructor(private firestore: Firestore, private storage: AngularFireStorage) {
   }
 
-  createDocument<T>(data: T, url: string): Promise<void> {
+  createDocument<T>(data: T, url: string) {
     const dataDoc = doc(this.firestore, 'uploader/' + url);
-    return setDoc(dataDoc, data);
   }
 
   updateDocument(data: any): Promise<void> {
